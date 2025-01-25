@@ -1,0 +1,62 @@
+@forward './../shared/styles/index';
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+button,
+select,
+textarea,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+}
+
+body {
+  padding: 0;
+  font-family: var(--font-family-primary), sans-serif;
+  line-height: var(--line-height-m);
+  color: var(--Light-100);
+  background-color: var(--Dark-700);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--Dark-100);
+  border-radius: 0.1875rem;
+
+  &:hover {
+    background: var(--Light-900);
+    transition: background 0.5s ease;
+  }
+}
+
+button {
+  all: unset;
+
+  &:disabled {
+    cursor: default;
+  }
+}
