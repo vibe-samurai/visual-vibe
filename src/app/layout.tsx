@@ -1,6 +1,9 @@
 import React from 'react'
 
+import ClientProvider from '@/app/store/ClientProvider'
+
 import type { Metadata } from 'next'
+
 import './globals.scss'
 
 export const metadata: Metadata = {
@@ -18,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body>{children}</body>
+      <body>
+        <ClientProvider>{children}</ClientProvider>
+      </body>
     </html>
   )
 }

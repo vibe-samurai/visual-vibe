@@ -1,14 +1,5 @@
-'use client'
-
-import { Button } from '@vibe-samurai/visual-ui-kit'
+import s from './page.module.scss'
 
 export default function Home() {
-  return (
-    <>
-      <div style={{ marginBottom: '250px' }}>Home Page</div>
-      <Button variant={'primary'} onClick={() => alert('button works')}>
-        button
-      </Button>
-    </>
-  )
+  return <div className={s.card}>Home</div>
 }
