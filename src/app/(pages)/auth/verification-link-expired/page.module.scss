@@ -1,0 +1,14 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+
+  width: 230px;
+}
+
+.formInput,
+.resentButtton {
+  width: 100%;
+}
