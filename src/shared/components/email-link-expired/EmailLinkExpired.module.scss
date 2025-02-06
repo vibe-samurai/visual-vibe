@@ -14,14 +14,6 @@
   justify-content: center;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 36px;
-  color: var(--White-100);
-  text-align: center;
-}
-
 .text {
   width: 290px;
   margin: 20px 0 30px;
@@ -76,6 +68,7 @@
 
   .image {
     width: 330px;
+    height: auto;
     margin-bottom: 40px;
   }
 }

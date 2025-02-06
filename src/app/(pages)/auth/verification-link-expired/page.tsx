@@ -18,7 +18,7 @@ export default function EmailExpired() {
             placeholder={'epam@epam.com'}
             title={'Email'}
           />
-          <Button className={s.resentButtton} variant={'primary'} type={'submit'}>
+          <Button className={s.resentButtton} variant={'primary'} type={'submit'} fullWidth>
             Resend verification link
           </Button>
         </form>

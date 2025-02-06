@@ -12,7 +12,7 @@ export default function EmailExpired() {
     <>
       <EmailLinkExpired>
         <form className={s.formWrapper}>
-          <Button className={s.resentButtton} variant={'primary'} type={'submit'}>
+          <Button className={s.resentButtton} variant={'primary'} type={'submit'} fullWidth>
             Resend link
           </Button>
         </form>
