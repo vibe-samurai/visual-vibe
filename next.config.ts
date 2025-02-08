@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
+        pathname: '/trainee-instagram-api/Image/**',
+        protocol: 'https',
+      },
+    ],
+  },
+  reactStrictMode: true,
+}
 
-export default nextConfig;
+export default nextConfig

@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 1280px;
+  height: 100vh;
+
+  .content {
+    display: flex;
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+
+      /*
+      max-width: 1060px;
+      */
+
+      /* margin: 85px 0 0 220px; */
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.back-to-signup {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  color: var(--Light-100);
+
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--Primary-300);
+  }
+}
