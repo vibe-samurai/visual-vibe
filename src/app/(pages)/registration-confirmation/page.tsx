@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { EmailConfirmedContent } from '@/entities/email-confirmed/EmailConfirmed'
+import { EmailConfirmedContent } from '@/entities'
 import { metaDataTitleCreator } from '@/shared/utils/metadataTitleCreator'
 
 export const metadata: Metadata = {

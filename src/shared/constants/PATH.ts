@@ -11,7 +11,6 @@ export const PATH = {
     TERMS_OF_SERVICE: '/auth/terms-of-service',
     UPDATE_TOKENS: '/auth/update-tokens',
     ME: '/auth/me',
-    EMAIL_CONFIRMED: '/auth/email-confirmed',
   },
   PROFILE: {
     PROFILE: '/profile',
