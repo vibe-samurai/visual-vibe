@@ -1,0 +1,34 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .link {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--Primary-300);
+  }
+
+  .form {
+    margin-bottom: var(--Gap-12);
+    display: flex;
+    flex-direction: column;
+
+    & > *:nth-child(-n + 3) {
+      margin-bottom: var(--Gap-24);
+    }
+
+    & > *:nth-child(4),
+    & > *:nth-child(5) {
+      margin-bottom: var(--Gap-12);
+    }
+
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .loginBtn {
+    color: var(--Primary-500);
+  }
+}

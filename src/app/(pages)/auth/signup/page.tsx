@@ -1,3 +1,7 @@
-export default function SignUp() {
-  return <div>SignUp Page</div>
+'use client'
+
+import { SignUpForm } from '@/entities'
+
+export default function Page() {
+  return <SignUpForm />
 }
