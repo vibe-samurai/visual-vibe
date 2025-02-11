@@ -8,20 +8,12 @@
 
   .content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      width: 100%;
-
-      /*
-      max-width: 1060px;
-      */
-
-      /* margin: 85px 0 0 220px; */
-    }
+    width: 100%;
+    max-width: 972px;
+    margin: 84px 154px 36px;
   }
 }
