@@ -1,4 +1,4 @@
-.forgotPasswordWrapper {
+.passwordWrapper {
     padding-top: 72px;
 }
 
@@ -29,11 +29,19 @@
     align-items: stretch;
 }
 
-.forgotPasswordText {
+.passwordText {
     padding: 7px 0 17px;
     color: var(--Light-900);
 }
 
-// .forgotPasswordTitle {
-   
-// }
+.passwordDialog {
+    p {
+         display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    button {
+        min-width: 96px;
+    }
+    }
+}
