@@ -13,9 +13,7 @@ export default function ClientProvider({ children }: { children: React.ReactNode
     <Provider store={store}>
       <div className={s.container}>
         <MainHeader />
-        <div className={s.content}>
-          <div className={s['main-content']}>{children}</div>
-        </div>
+        <div className={s.content}>{children}</div>
       </div>
     </Provider>
   )

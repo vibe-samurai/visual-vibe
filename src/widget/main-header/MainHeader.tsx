@@ -1,7 +1,13 @@
-//import { Header } from '@vibe-samurai/visual-ui-kit'
+'use client'
+
+import { Header } from '@vibe-samurai/visual-ui-kit'
+
+import s from './MainHeader.module.scss'
 
 export const MainHeader = () => {
   return (
-    <div style={{ width: '1280px', height: '100px', borderBottom: '1px solid grey' }}>Header</div>
+    <div className={s.wrapper}>
+      <Header />
+    </div>
   )
 }
