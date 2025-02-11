@@ -5,7 +5,7 @@ import { ContentWrapper } from '@/shared/components/content-wrapper/ContentWrapp
 export const Terms = () => {
   const content = (
     <>
-      Welcome to Pictorial Site! These Terms of Service (Terms) govern your use of our application
+      Welcome to Visual Vibe Site! These Terms of Service (Terms) govern your use of our application
       and services (Services). By accessing or using our Services, you agree to these Terms. If you
       do not agree to these Terms, please do not use our Services. <br />
       1. Acceptance of Terms By creating an account or using our Services, you confirm that you are
@@ -31,13 +31,13 @@ export const Terms = () => {
       Services are protected by copyright, trademark, and other laws of both the United States and
       foreign countries. <br />
       6. Third-Party Links Our Services may contain links to third-party websites or services that
-      are not owned or controlled by Pictorial Site. We have no control over, and assume no
+      are not owned or controlled by Visual Vibe Site. We have no control over, and assume no
       responsibility for, the content, privacy policies, or practices of any third-party websites or
       services. <br />
       7. Disclaimer of Warranties Our Services are provided on an &#34;as is&#34; and &#34;as
-      available&#34; basis. Pictorial Site makes no warranties, whether express or implied,
+      available&#34; basis. Visual Vibe Site makes no warranties, whether express or implied,
       regarding the Services, including but not limited to their reliability, availability, or
-      suitability for your needs. 8. Limitation of Liability In no event shall Pictorial Site, its
+      suitability for your needs. 8. Limitation of Liability In no event shall Visual Vibe Site, its
       directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect,
       incidental, special, special, consequential, or punitive damages, including without limitation
       loss of profits, data, use, goodwill, or other intangible losses, resulting from: Your access
