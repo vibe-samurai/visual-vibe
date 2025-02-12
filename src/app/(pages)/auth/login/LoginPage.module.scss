@@ -4,11 +4,12 @@
   align-items: center;
   justify-content: center;
 
-  min-width: 380px;
-margin-top: 12px;
+  width: 380px;
+  margin-top: 12px;
   padding: 24px;
+
+  .account-text {
+    margin: 24px 0 6px;
+  }
 }
 
-.account-text {
-  margin: 24px 0 6px;
-}

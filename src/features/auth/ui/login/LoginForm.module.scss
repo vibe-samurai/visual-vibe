@@ -1,12 +1,12 @@
 .form {
   display: flex;
   flex-direction: column;
-gap: 24px;
+  gap: 24px;
   align-items: center;
   justify-content: center;
 
   width: 100%;
-border: 1px solid red;
+  border: 1px solid red;
 
   .forgot-password-wrapper {
     align-self: flex-end;
