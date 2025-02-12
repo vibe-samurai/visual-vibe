@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Alertpopup, Button, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler } from 'react-hook-form'
 
@@ -24,33 +24,34 @@ export default function Login() {
       const data = await login({ email: email!, password: password! }).unwrap()
       const userId = getDecodedToken(data.accessToken)
 
-      replace(`${PATH.PROFILE}/${userId}`)
+      replace(`/profile/${userId}`)
     } catch (error) {
-      return <div> message={`${error}`} </div>
+      return <Alertpopup alertType={'error'} message={`${error}`} />
     }
   }
 
   // TODO loading выводить в кастомном loader
   if (isLoading) return <div>loading...</div>
-  // TODO ошибку выводить в алертпоп
-  if (errorMessage) return <div>{errorMessage}</div>
 
   return (
-    <Card className={s.card}>
-      <Typography as={'h1'} variant={'h1'}>
-        Sign In
-      </Typography>
+    <>
+      {errorMessage && <Alertpopup alertType={'error'} message={errorMessage} />}
+      <Card className={s.card}>
+        <Typography as={'h1'} variant={'h1'}>
+          Sign In
+        </Typography>
 
-      <OAuthBlock />
+        <OAuthBlock />
 
-      <LoginForm disabled={isLoading} onSubmit={onSubmit} isError={isError} />
+        <LoginForm disabled={isLoading} onSubmit={onSubmit} isError={isError} />
 
-      <Typography variant={'regular-text-16'} className={s['account-text']}>
-        Don’t have an account?
-      </Typography>
-      <Button as={'a'} variant={'link'} href={PATH.AUTH.SIGNUP}>
-        Sign Up
-      </Button>
-    </Card>
+        <Typography variant={'regular-text-16'} className={s['account-text']}>
+          Don’t have an account?
+        </Typography>
+        <Button as={'a'} variant={'link'} href={PATH.AUTH.SIGNUP}>
+          Sign Up
+        </Button>
+      </Card>
+    </>
   )
 }

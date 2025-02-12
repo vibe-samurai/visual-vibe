@@ -20,7 +20,7 @@ export default function GithubPage() {
         const userId = getDecodedToken(String(accessToken))
 
         if (userId) {
-          push(`${PATH.PROFILE}/${userId}`)
+          push(`/profile/${userId}`)
         } else {
           console.error('Ошибка: userId не найден')
           push(PATH.AUTH.LOGIN)

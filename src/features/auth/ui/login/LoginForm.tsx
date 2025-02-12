@@ -34,6 +34,7 @@ export const LoginForm = ({ disabled, onSubmit, isError }: LoginFormProps) => {
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
       {/* Input for email */}
       <Input
+        className={s.fullWidth}
         type={'email'}
         label={'Email'}
         placeholder={'Email'}
@@ -47,6 +48,7 @@ export const LoginForm = ({ disabled, onSubmit, isError }: LoginFormProps) => {
 
       {/* Input for password */}
       <Input
+        className={s.fullWidth}
         type={'password'}
         label={'Password'}
         placeholder={'********'}

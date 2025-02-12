@@ -12,7 +12,7 @@ export const useGoogleAuth = () => {
   const login = useGoogleLogin({
     flow: 'auth-code',
     onError: error => {
-      console.log('Login Failed:', error)
+      console.error('Login Failed:', error)
     },
     onSuccess: async (credentialResponse: CodeResponse) => {
       try {
@@ -32,7 +32,7 @@ export const useGoogleAuth = () => {
           }
         }
       } catch (error) {
-        console.log('auth me Error', error)
+        console.error('auth me Error', error)
       }
     },
   })
