@@ -3,7 +3,7 @@ import { z } from 'zod'
 const passwordRegex =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
 
-const errorMessages = {
+export const errorMessages = {
   email: {
     required: 'Email is required',
     invalid: 'Invalid email format',
@@ -52,3 +52,4 @@ export const loginScheme = (messages: { email: EmailValidation; password: Passwo
     password: password(messages.password),
   })
 }
+export type LoginFormValues = z.infer<ReturnType<typeof loginScheme>>

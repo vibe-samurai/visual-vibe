@@ -6,3 +6,13 @@ export type LoginRequest = {
 export type LoginResponse = {
   accessToken: string
 }
+
+export type GoogleOAuthRequest = {
+  baseUrl?: string
+  code: string | string[] | undefined
+}
+
+export type GoogleOAuthResponse = {
+  accessToken: string
+  email: string
+}
