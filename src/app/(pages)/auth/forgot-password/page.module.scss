@@ -1,25 +1,10 @@
-.passwordWrapper {
-    padding-top: 72px;
-}
-
 .cardWrapper {
    display:flex;
    flex-direction: column;
    align-items: stretch;
 
-
    width: 100%;
    max-width: 378px;
-   padding: 24px;
-   border: 1px solid var(--Dark-300);
-   border-radius: 2px;
-
-   background-color: var(--Dark-500);
-
-   h1 {
- margin-bottom: 37px;
-    text-align: center;
-   }
 }
 
 .buttonsColumn {
@@ -34,14 +19,15 @@
     color: var(--Light-900);
 }
 
-.passwordDialog {
-    p {
-         display: flex;
-    flex-direction: column;
-    gap: 18px;
+.errorText {
+    color: var(--Danger-500);
+}
 
-    button {
+.passwordDialog {
+    div {
+         button {
         min-width: 96px;
+        margin-top: 18px;
     }
     }
 }

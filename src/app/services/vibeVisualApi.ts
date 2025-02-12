@@ -4,7 +4,17 @@ import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-quer
 
 export const vibeVisualApi = createApi({
   baseQuery: baseQueryWithReauth,
-  endpoints: () => ({}),
+  endpoints: build => ({
+    recoveryPassword: build.mutation<{ email: string }, { email: string; recaptcha: string }>({
+      query: body => ({
+        url: 'v1/auth/password-recovery',
+        method: 'POST',
+        body,
+      }),
+    }),
+  }),
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
 })
+
+export const { useRecoveryPasswordMutation } = vibeVisualApi
