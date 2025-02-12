@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation'
 import { SubmitHandler } from 'react-hook-form'
 
 import { useLoginMutation } from '@/features/auth/api/authApi'
-import { useRequestError } from '@/features/auth/hooks/useRequestError'
 import { LoginFormValues } from '@/features/auth/model/validationScheme'
 import { LoginForm } from '@/features/auth/ui/login/LoginForm'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { OAuthBlock } from '@/shared/components'
 import { PATH } from '@/shared/constants/PATH'
+import { useRequestError } from '@/shared/hooks/useRequestError'
 
 import s from './LoginPage.module.scss'
 
