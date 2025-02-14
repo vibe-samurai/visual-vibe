@@ -2,7 +2,7 @@
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Button, Dialog, Input, Card, Typography } from '@vibe-samurai/visual-ui-kit'
-import { ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -34,7 +34,7 @@ export default function ForgotPassword() {
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
-      await recoveryPassword({ ...data }).unwrap()
+      await recoveryPassword({ ...data, baseUrl: 'http://localhost:3000' }).unwrap()
       setServerError(null)
       setEmail(watch('email'))
       setDialogMode(true)
