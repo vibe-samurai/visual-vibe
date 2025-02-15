@@ -1,0 +1,33 @@
+.cardWrapper {
+   display:flex;
+   flex-direction: column;
+   align-items: stretch;
+
+   width: 100%;
+   max-width: 378px;
+}
+
+.buttonsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.passwordText {
+    padding: 7px 0 17px;
+    color: var(--Light-900);
+}
+
+.errorText {
+    color: var(--Danger-500);
+}
+
+.passwordDialog {
+    div {
+         button {
+        min-width: 96px;
+        margin-top: 18px;
+    }
+    }
+}
