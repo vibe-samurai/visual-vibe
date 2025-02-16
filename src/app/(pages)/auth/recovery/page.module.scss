@@ -1,9 +1,19 @@
-.formWrapper {
+.wrapper {
+  display: flex;
+}
+
+.buttonsColumn {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  align-items: center;
-  justify-content: center;
+  gap: 24px;
+  margin-bottom: 8px;
+}
 
-  width: 290px;
+.passwordText {
+  margin-bottom: 40px;
+  color: var(--Light-900);
+}
+
+.errorText {
+  color: var(--Danger-500);
 }
