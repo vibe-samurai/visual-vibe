@@ -21,8 +21,8 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9
       '@vibe-samurai/visual-ui-kit':
-        specifier: 0.0.10
-        version: 0.0.10(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)
+        specifier: 0.0.9
+        version: 0.0.9(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)
       async-mutex:
         specifier: ^0.5.0
         version: 0.5.0
@@ -41,9 +41,6 @@ importers:
       react-google-recaptcha:
         specifier: ^3.1.0
         version: 3.1.0(react@19.0.0)
-      react-google-recaptcha-v3:
-        specifier: ^1.10.1
-        version: 1.10.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-hook-form:
         specifier: ^7.54.2
         version: 7.54.2(react@19.0.0)
@@ -1005,8 +1002,8 @@ packages:
     resolution: {integrity: sha512-kArLq83QxGLbuHrTMoOEWO+l2MwsNS2TGISEdx8xgqpkbytB07XmlQyQdNDrCc1ecSqx0cnmhGvpX+VBwqqSkg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@vibe-samurai/visual-ui-kit@0.0.10':
-    resolution: {integrity: sha512-VXVzhMp7UcMpy0+O/wICuyNYciMZEgziOsCNPO+tDDyet7XjWonPnYHYb9HbTimhsuny3kd3FC0F6S1mgb2R9w==}
+  '@vibe-samurai/visual-ui-kit@0.0.9':
+    resolution: {integrity: sha512-74MztrSTQrP5dgDrgnHFQTrXastmFTmM3bxxrp9CBb7pSDzhAaz1G7AYjdvwolxK28eNELGNHC9K9J/XyoIerw==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2147,12 +2144,6 @@ packages:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
       react: ^19.0.0
-
-  react-google-recaptcha-v3@1.10.1:
-    resolution: {integrity: sha512-K3AYzSE0SasTn+XvV2tq+6YaxM+zQypk9rbCgG4OVUt7Rh4ze9basIKefoBz9sC0CNslJj9N1uwTTgRMJQbQJQ==}
-    peerDependencies:
-      react: ^16.3 || ^17.0 || ^18.0
-      react-dom: ^17.0 || ^18.0
 
   react-google-recaptcha@3.1.0:
     resolution: {integrity: sha512-cYW2/DWas8nEKZGD7SCu9BSuVz8iOcOLHChHyi7upUuVhkpkhYG/6N3KDiTQ3XAiZ2UAZkfvYKMfAHOzBOcGEg==}
@@ -3456,7 +3447,7 @@ snapshots:
       '@typescript-eslint/types': 8.24.0
       eslint-visitor-keys: 4.2.0
 
-  '@vibe-samurai/visual-ui-kit@0.0.10(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)':
+  '@vibe-samurai/visual-ui-kit@0.0.9(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)':
     dependencies:
       '@fontsource/inter': 5.1.1
       '@fontsource/roboto': 5.1.1
@@ -4755,12 +4746,6 @@ snapshots:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
-
-  react-google-recaptcha-v3@1.10.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      hoist-non-react-statics: 3.3.2
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
 
   react-google-recaptcha@3.1.0(react@19.0.0):
     dependencies:

@@ -1,11 +1,13 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Button, Dialog, Input, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm, Controller } from 'react-hook-form'
+import { z } from 'zod'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
 import { PATH } from '@/shared/constants/PATH'
@@ -18,6 +20,16 @@ type ForgotPasswordFormData = {
 }
 
 export default function ForgotPassword() {
+  const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [serverError, setServerError] = useState<string | null>(null)
+  const [email, setEmail] = useState<string>('')
+
+  const passwordSchema = z.object({
+    email: z.string().min(1, 'Email is required').email('Invalid email'),
+    recaptcha: z.string().nonempty('Please complete the reCAPTCHA'),
+  })
   const {
     control,
     handleSubmit,
@@ -26,17 +38,15 @@ export default function ForgotPassword() {
     formState: { errors },
   } = useForm({
     defaultValues: { email: '', recaptcha: '' },
+    resolver: zodResolver(passwordSchema),
   })
-
-  const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
-  const [isOpen, setIsOpen] = useState(false)
-  const [serverError, setServerError] = useState<string | null>(null)
-  const [email, setEmail] = useState<string>('')
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
-      await recoveryPassword({ ...data, baseUrl: 'http://localhost:3000' }).unwrap()
+      await recoveryPassword({
+        ...data,
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL as string,
+      }).unwrap()
       setServerError(null)
       setEmail(watch('email'))
       setIsOpen(true)
@@ -66,10 +76,6 @@ export default function ForgotPassword() {
         <Controller
           name={'email'}
           control={control}
-          rules={{
-            required: 'Email is required',
-            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email' },
-          }}
           render={({ field }) => (
             <Input
               {...field}
@@ -112,7 +118,6 @@ export default function ForgotPassword() {
           <Controller
             name={'recaptcha'}
             control={control}
-            rules={{ required: 'Please complete the reCAPTCHA' }}
             render={({ field }) => (
               <ReCAPTCHA
                 ref={recaptchaRef}
