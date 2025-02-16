@@ -98,7 +98,7 @@ export default function ForgotPassword() {
           </div>
         )}
         <div className={s.inputsColumn}>
-          <Button type={'submit'} disabled={isLoading}>
+          <Button disabled={isLoading}>
             <Typography variant={'h3'}>{isSuccess ? 'Send Link Again' : 'Send Link'}</Typography>
           </Button>
           <Button as={Link} href={PATH.AUTH.LOGIN} variant={'link'}>
