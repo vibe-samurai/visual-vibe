@@ -13,10 +13,13 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.0.0",
+    "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.5.1",
     "@types/react-google-recaptcha": "^2.1.9",
     "@vibe-samurai/visual-ui-kit": "0.0.9",
     "async-mutex": "^0.5.0",
+    "jwt-decode": "^4.0.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

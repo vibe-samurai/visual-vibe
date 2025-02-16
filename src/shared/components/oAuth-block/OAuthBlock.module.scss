@@ -1,0 +1,21 @@
+.auth-providers {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+
+  margin: 13px 0 24px;
+
+  .icon {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgb(76 141 255 / 50%), 0 0 20px rgb(57 125 246 / 60%), 0 0 30px rgb(47 104 204 / 50%);
+    }
+  }
+}
