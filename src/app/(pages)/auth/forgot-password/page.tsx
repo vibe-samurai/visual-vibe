@@ -28,7 +28,7 @@ export default function ForgotPassword() {
 
   const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
   const recaptchaRef = useRef<ReCAPTCHA>(null)
-  const [dialogMode, setDialogMode] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const [email, setEmail] = useState<string>('')
 
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
       await recoveryPassword({ ...data, baseUrl: 'http://localhost:3000' }).unwrap()
       setServerError(null)
       setEmail(watch('email'))
-      setDialogMode(true)
+      setIsOpen(true)
       recaptchaRef.current?.reset()
       reset()
     } catch (error: FetchBaseQueryError | unknown) {
@@ -128,9 +128,9 @@ export default function ForgotPassword() {
         className={s.passwordDialog}
         title={'Email sent'}
         size={'sm'}
-        open={dialogMode}
-        onConfirmButtonClick={() => setDialogMode(false)}
-        onClose={() => setDialogMode(false)}
+        open={isOpen}
+        onConfirmButtonClick={() => setIsOpen(false)}
+        onClose={() => setIsOpen(false)}
         confirmButtonText={'OK'}
       >
         We have sent a link to confirm your email to {email}.
