@@ -10,6 +10,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
+import { errorMessages, email } from '@/features/auth/model/validationScheme'
+import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
@@ -24,11 +26,11 @@ export default function ForgotPassword() {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
-  const [email, setEmail] = useState<string>('')
+  const [currentEmail, setCurrentEmail] = useState<string>('')
 
   const passwordSchema = z.object({
-    email: z.string().min(1, 'Email is required').email('Invalid email'),
-    recaptcha: z.string().nonempty('Please complete the reCAPTCHA'),
+    email: email(errorMessages.email),
+    recaptcha: z.string().min(1, { message: 'Please complete the reCAPTCHA' }),
   })
   const {
     control,
@@ -48,7 +50,7 @@ export default function ForgotPassword() {
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL as string,
       }).unwrap()
       setServerError(null)
-      setEmail(watch('email'))
+      setCurrentEmail(watch('email'))
       setIsOpen(true)
       recaptchaRef.current?.reset()
       reset()
@@ -73,18 +75,12 @@ export default function ForgotPassword() {
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)} className={s.cardWrapper}>
-        <Controller
+        <FormInput
           name={'email'}
           control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              type={'email'}
-              errorMessage={errors.email?.message}
-              label={'Email'}
-              placeholder={'Epam@epam.com'}
-            />
-          )}
+          label={'Email'}
+          type={'email'}
+          placeholder={'Epam@epam.com'}
         />
         {serverError && (
           <Typography variant={'regular-text-14'} className={s.errorText}>
@@ -110,11 +106,13 @@ export default function ForgotPassword() {
           <Button as={Link} href={PATH.AUTH.LOGIN} variant={'link'}>
             <Typography variant={'h3'}>Back to Sign In</Typography>
           </Button>
+
           {errors.recaptcha && (
-            <Typography variant={'regular-text-14'} className={s.errorText}>
-              {errors.recaptcha.message}
+            <Typography className={s.errorText} variant={'regular-text-14'}>
+              {errors.recaptcha?.message}
             </Typography>
           )}
+
           <Controller
             name={'recaptcha'}
             control={control}
@@ -140,7 +138,7 @@ export default function ForgotPassword() {
         onClose={() => setIsOpen(false)}
         confirmButtonText={'OK'}
       >
-        We have sent a link to confirm your email to {email}.
+        We have sent a link to confirm your email to {currentEmail}.
       </Dialog>
     </Card>
   )
