@@ -2,11 +2,13 @@
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Button, Dialog, Input, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm, Controller } from 'react-hook-form'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
+import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
 
@@ -99,7 +101,7 @@ export default function ForgotPassword() {
           <Button type={'submit'} disabled={isLoading}>
             <Typography variant={'h3'}>{isSuccess ? 'Send Link Again' : 'Send Link'}</Typography>
           </Button>
-          <Button as={'a'} href={'/login'} variant={'link'}>
+          <Button as={Link} href={PATH.AUTH.LOGIN} variant={'link'}>
             <Typography variant={'h3'}>Back to Sign In</Typography>
           </Button>
           {errors.recaptcha && (

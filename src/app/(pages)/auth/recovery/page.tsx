@@ -8,6 +8,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppStore } from '@/app/store/store'
+import { PATH } from '@/shared/constants/PATH'
 
 import { useCheckRecoveryCodeMutation, useCreateNewPasswordMutation } from './authApi'
 import s from './page.module.scss'
@@ -41,7 +42,7 @@ export default function RecoveryPassword() {
         .unwrap()
         .then(() => {
           setIsLoadingPage(false)
-          router.replace('/auth/recovery')
+          router.replace(PATH.AUTH.RECOVERY)
         })
         .catch(() => {
           router.push('/auth/resend-link')
@@ -75,7 +76,7 @@ export default function RecoveryPassword() {
         await createNewPassword({ newPassword, recoveryCode }).unwrap()
         reset()
         //logout()
-        router.push('/auth/login')
+        router.push(PATH.AUTH.LOGIN)
       } catch (error) {
         const err = error as FetchBaseQueryError & { data?: { messages?: { message: string }[] } }
 
