@@ -7,23 +7,36 @@
    max-width: 378px;
 }
 
-.buttonsColumn {
+.titleText {
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.inputsColumn {
     display: flex;
     flex-direction: column;
     gap: 24px;
     align-items: stretch;
 }
 
-.passwordText {
+.grayText {
     padding: 7px 0 17px;
     color: var(--Light-900);
+}
+
+.marginText {
+    margin-bottom: 18px;
 }
 
 .errorText {
     color: var(--Danger-500);
 }
 
-.passwordDialog {
+.centerElement {
+    align-self: center;
+}
+
+.dialogButton {
     div {
          button {
         min-width: 96px;

@@ -95,8 +95,8 @@ export default function RecoveryPassword() {
   }
 
   return (
-    <Card padding={'24px'} style={{ maxWidth: '378px' }}>
-      <Typography as={'h1'} style={{ textAlign: 'center', marginBottom: '37px' }} variant={'h1'}>
+    <Card padding={'24px'} className={s.wrapper}>
+      <Typography as={'h1'} className={s.titleText} variant={'h1'}>
         Create New Password
       </Typography>
 

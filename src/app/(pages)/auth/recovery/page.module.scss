@@ -1,5 +1,10 @@
 .wrapper {
-  display: flex;
+    max-width: 378px;
+}
+
+.titleText { 
+    margin-bottom: 37px;
+    text-align: center
 }
 
 .buttonsColumn {

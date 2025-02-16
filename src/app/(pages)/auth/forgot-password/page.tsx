@@ -55,8 +55,8 @@ export default function ForgotPassword() {
   }
 
   return (
-    <Card padding={'24px'} style={{ maxWidth: '378px' }}>
-      <Typography as={'h1'} style={{ textAlign: 'center', marginBottom: '37px' }} variant={'h1'}>
+    <Card padding={'24px'} className={s.cardWrapper}>
+      <Typography as={'h1'} className={s.titleText} variant={'h1'}>
         Forgot Password
       </Typography>
 
@@ -83,19 +83,19 @@ export default function ForgotPassword() {
             {serverError}
           </Typography>
         )}
-        <Typography className={s.passwordText} variant={'regular-text-14'}>
+        <Typography className={s.grayText} variant={'regular-text-14'}>
           Enter your email address and we will send you furthe instructions
         </Typography>
 
         {isSuccess && (
-          <div style={{ marginBottom: '18px' }}>
+          <div className={s.marginText}>
             <Typography variant={'regular-text-14'}>The link has been sent by email.</Typography>
             <Typography variant={'regular-text-14'}>
               If you don’t receive an email send link again
             </Typography>
           </div>
         )}
-        <div className={s.buttonsColumn}>
+        <div className={s.inputsColumn}>
           <Button type={'submit'} disabled={isLoading}>
             <Typography variant={'h3'}>{isSuccess ? 'Send Link Again' : 'Send Link'}</Typography>
           </Button>
@@ -115,7 +115,7 @@ export default function ForgotPassword() {
               <ReCAPTCHA
                 ref={recaptchaRef}
                 theme={'dark'}
-                style={{ alignSelf: 'center' }}
+                className={s.centerElement}
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY as string}
                 onChange={field.onChange}
               />
@@ -125,7 +125,7 @@ export default function ForgotPassword() {
       </form>
 
       <Dialog
-        className={s.passwordDialog}
+        className={s.dialogButton}
         title={'Email sent'}
         size={'sm'}
         open={isOpen}
