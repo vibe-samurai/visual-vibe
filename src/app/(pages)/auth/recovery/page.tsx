@@ -1,17 +1,20 @@
 'use client'
-
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { Button, Card, Input, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { z } from 'zod'
 
 import {
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
 } from '@/app/services/vibeVisualApi'
 import { AppStore } from '@/app/store/store'
+import { errorMessages, password } from '@/features/auth/model/validationScheme'
+import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
@@ -22,17 +25,19 @@ export default function RecoveryPassword() {
   const dispatch = useDispatch()
   const recoveryCode = useSelector((state: AppStore) => state.recovery.recoveryCode)
 
-  const [checkRecoverCode, { isLoading, isError }] = useCheckRecoveryCodeMutation()
+  const [createNewPassword] = useCreateNewPasswordMutation()
+  // const [logout] = useLogoutMutation()
+
+  const [checkRecoverCode, { isLoading }] = useCheckRecoveryCodeMutation()
   const [isLoadingPage, setIsLoadingPage] = useState(true)
   const [serverError, setServerError] = useState<undefined | string>(undefined)
-
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // убрать проверку после тестирования
-    //   if (!recoveryCode) {
-    //    setIsLoadingPage(false)
-    // }
+    //убрать проверку после тестирования
+    if (!recoveryCode) {
+      setIsLoadingPage(false)
+    }
     const code = searchParams.get('code')
 
     if (code && code !== recoveryCode) {
@@ -49,21 +54,23 @@ export default function RecoveryPassword() {
     }
   }, [dispatch, recoveryCode, checkRecoverCode, router, searchParams])
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    watch,
-    trigger,
-    getValues,
-    formState: { errors },
-  } = useForm({
-    defaultValues: { password: '', passwordConfirmation: '' },
-    mode: 'onSubmit',
+  const newPasswordSchema = z.object({
+    password: password(errorMessages.password),
+    passwordConfirmation: z.string().refine(
+      value => {
+        return value === watchedPassword
+      },
+      { message: 'The passwords must match' }
+    ),
   })
 
-  const [createNewPassword] = useCreateNewPasswordMutation()
-  // const [logout] = useLogoutMutation()
+  const { control, handleSubmit, reset, watch, trigger, getValues } = useForm({
+    defaultValues: { password: '', passwordConfirmation: '' },
+    mode: 'onSubmit',
+    resolver: zodResolver(newPasswordSchema),
+  })
+
+  const watchedPassword = watch('password')
 
   const onSubmit = async () => {
     const isValid = await trigger('passwordConfirmation')
@@ -84,14 +91,8 @@ export default function RecoveryPassword() {
     }
   }
 
-  const password = watch('password')
-
   if (isLoading || isLoadingPage) {
     return <></>
-  }
-
-  if (isError) {
-    return <div>Error occurred, please try again.</div>
   }
 
   return (
@@ -103,42 +104,19 @@ export default function RecoveryPassword() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.buttonsColumn}>
           {' '}
-          <Controller
+          <FormInput
             name={'password'}
             control={control}
-            rules={{
-              required: { value: true, message: 'Password is required' },
-              minLength: { value: 6, message: 'Password must be at least 6 characters' },
-              maxLength: { value: 20, message: 'Password must be at most 20 characters' },
-            }}
-            render={({ field }) => (
-              <Input
-                {...field}
-                type={'password'}
-                errorMessage={errors.password?.message}
-                label={'New password'}
-                placeholder={'******************'}
-              />
-            )}
+            label={'New password'}
+            type={'password'}
+            placeholder={'******************'}
           />
-          <Controller
+          <FormInput
             name={'passwordConfirmation'}
             control={control}
-            rules={{
-              required: { value: true, message: 'Password is required' },
-              minLength: { value: 6, message: 'Password must be at least 6 characters' },
-              maxLength: { value: 20, message: 'Password must be at most 20 characters' },
-              validate: value => value === password || 'The passwords must match',
-            }}
-            render={({ field }) => (
-              <Input
-                {...field}
-                type={'password'}
-                errorMessage={errors.passwordConfirmation?.message}
-                label={'Password confirmation'}
-                placeholder={'******************'}
-              />
-            )}
+            label={'Password confirmation'}
+            type={'password'}
+            placeholder={'******************'}
           />
         </div>
         {serverError && (

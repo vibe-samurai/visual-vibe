@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { Button, Dialog, Input, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Dialog, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -25,7 +25,7 @@ export default function ForgotPassword() {
   const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [serverError, setServerError] = useState<string | null>(null)
+  const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [currentEmail, setCurrentEmail] = useState<string>('')
 
   const passwordSchema = z.object({
@@ -49,22 +49,15 @@ export default function ForgotPassword() {
         ...data,
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL as string,
       }).unwrap()
-      setServerError(null)
+      setServerError(undefined)
       setCurrentEmail(watch('email'))
       setIsOpen(true)
       recaptchaRef.current?.reset()
       reset()
-    } catch (error: FetchBaseQueryError | unknown) {
-      if ('data' in (error as FetchBaseQueryError)) {
-        const err = error as FetchBaseQueryError
+    } catch (error) {
+      const err = error as FetchBaseQueryError & { data?: { messages?: { message: string }[] } }
 
-        setServerError(
-          (err.data as { messages?: { message?: string }[] })?.messages?.[0]?.message ||
-            'Request Error'
-        )
-      } else {
-        setServerError('Unknown Error')
-      }
+      setServerError(err.data?.messages?.[0]?.message)
     }
   }
 
