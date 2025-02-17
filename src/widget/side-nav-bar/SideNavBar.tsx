@@ -56,7 +56,7 @@ export const SideNavBar = () => {
       <>
         <aside className={s.wrapper}>
           <nav>
-            <Sidebar>
+            <Sidebar style={{ backgroundColor: '#000000FF' }}>
               {sidebarOptions.map((option, index) => (
                 <SidebarItem
                   key={index}
