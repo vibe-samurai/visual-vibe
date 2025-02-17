@@ -13,7 +13,6 @@ import { vibeVisualApi } from '@/app/services/vibeVisualApi'
 import { PATH } from '@/shared/constants/PATH'
 
 const mutex = new Mutex()
-
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://inctagram.work/api/',
 
@@ -60,9 +59,6 @@ export const baseQueryWithReauth: BaseQueryFn<
           vibeVisualApi.util.resetApiState()
 
           localStorage.removeItem('accessToken')
-          /*if (!result?.meta?.request.url.includes('v1/auth/me')) {
-            await router.push(PATH.AUTH.LOGIN);
-          }*/
         }
       } finally {
         release()
