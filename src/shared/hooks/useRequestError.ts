@@ -18,19 +18,20 @@ type ErrorMessages = {
 }
 
 export const useRequestError = (
-  error: FetchBaseQueryError | SerializedError | undefined
+  error: FetchBaseQueryError | SerializedError | string | null | undefined
 ): string | null => {
   let errorMessage: string | null = null
-  const err = error as ResponseError
 
-  if (!err) return errorMessage
+  if (!error) return errorMessage
 
-  if (err.status === 'FETCH_ERROR') {
+  if (typeof error === 'string') {
+    errorMessage = error
+  } else if ((error as FetchBaseQueryError).status === 'FETCH_ERROR') {
     errorMessage = 'No internet connection'
-  } else if (+err.status >= 500) {
+  } else if ((error as ResponseError).status && +(error as ResponseError).status >= 500) {
     errorMessage = 'Internal Server Error. Please try again later.'
-  } else {
-    errorMessage = err.data.messages[0].message
+  } else if ((error as ResponseError).data?.messages) {
+    errorMessage = (error as ResponseError).data.messages[0].message
   }
 
   return errorMessage

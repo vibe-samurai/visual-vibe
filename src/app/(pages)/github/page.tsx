@@ -16,7 +16,7 @@ export default function GithubPage() {
 
     if (accessToken) {
       try {
-        localStorage.setItem('accessToken', JSON.stringify(accessToken))
+        localStorage.setItem('accessToken', accessToken)
         const userId = getDecodedToken(String(accessToken))
 
         if (userId) {

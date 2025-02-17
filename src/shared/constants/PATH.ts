@@ -16,4 +16,5 @@ export const PATH = {
     PROFILE: '/profile',
     SETTINGS: '/profile/settings',
   },
+  CREATE: '/create',
 }

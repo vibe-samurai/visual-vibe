@@ -4,6 +4,7 @@ import {
   GoogleOAuthResponse,
   LoginRequest,
   LoginResponse,
+  MeResponse,
 } from '@/features/auth/types/authApi.types'
 
 export const authApi = vibeVisualApi.injectEndpoints({
@@ -48,6 +49,12 @@ export const authApi = vibeVisualApi.injectEndpoints({
         url: `v1/auth/update-tokens`,
       }),
     }),
+    me: builder.query<MeResponse, void>({
+      providesTags: ['Me'],
+      query: () => ({
+        url: `v1/auth/me`,
+      }),
+    }),
     logout: builder.mutation<void, void>({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled
@@ -67,5 +74,6 @@ export const {
   useLoginMutation,
   useGoogleOAuthMutation,
   useUpdateTokensMutation,
+  useMeQuery,
   useLogoutMutation,
 } = authApi
