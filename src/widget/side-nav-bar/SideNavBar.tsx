@@ -16,6 +16,8 @@ import { useAuth } from '@/app/context/AuthContext'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { sidebarOptions } from '@/widget/side-nav-bar/options/sidebarOptions'
 
+import s from './SideNavBar.module.scss'
+
 export const SideNavBar = () => {
   const { logout, isLoading: isAuthLoading, isAuthenticated } = useAuth()
   const { data: meData, isLoading: isMeLoading } = useMeQuery()
@@ -52,9 +54,9 @@ export const SideNavBar = () => {
   return (
     isAuthenticated && (
       <>
-        <aside>
+        <aside className={s.wrapper}>
           <nav>
-            <Sidebar style={{ marginTop: '60px' }}>
+            <Sidebar>
               {sidebarOptions.map((option, index) => (
                 <SidebarItem
                   key={index}
