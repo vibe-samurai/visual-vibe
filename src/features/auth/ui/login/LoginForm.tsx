@@ -1,3 +1,5 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
@@ -10,7 +12,6 @@ import s from './LoginForm.module.scss'
 
 type LoginFormProps = {
   disabled?: boolean
-
   onSubmit: (formData: LoginFormValues) => void
   isError: boolean
 }

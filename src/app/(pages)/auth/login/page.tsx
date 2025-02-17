@@ -1,10 +1,10 @@
 'use client'
 
-import { Alertpopup, Button, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Alertpopup, Button, Card, Loader, Typography } from '@vibe-samurai/visual-ui-kit'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler } from 'react-hook-form'
 
-import { useLoginMutation } from '@/features/auth/api/authApi'
+import { useAuth } from '@/app/context/AuthContext'
 import { LoginFormValues } from '@/features/auth/model/validationScheme'
 import { LoginForm } from '@/features/auth/ui/login/LoginForm'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
@@ -15,23 +15,22 @@ import { useRequestError } from '@/shared/hooks/useRequestError'
 import s from './LoginPage.module.scss'
 
 export default function Login() {
-  const [login, { isError, isLoading, error }] = useLoginMutation()
-  const errorMessage = useRequestError(error)
+  const { login, isLoading, error } = useAuth()
   const { replace } = useRouter()
+  const errorMessage = useRequestError(error)
 
   const onSubmit: SubmitHandler<LoginFormValues> = async ({ email, password }) => {
     try {
-      const data = await login({ email: email!, password: password! }).unwrap()
+      const data = await login({ email: email!, password: password! })
       const userId = getDecodedToken(data.accessToken)
 
       replace(`/profile/${userId}`)
     } catch (error) {
-      return <Alertpopup alertType={'error'} message={`${error}`} />
+      console.error('Login failed:', error)
     }
   }
 
-  // TODO loading выводить в кастомном loader
-  if (isLoading) return <div>loading...</div>
+  if (isLoading) return <Loader />
 
   return (
     <>
@@ -43,7 +42,7 @@ export default function Login() {
 
         <OAuthBlock />
 
-        <LoginForm disabled={isLoading} onSubmit={onSubmit} isError={isError} />
+        <LoginForm disabled={isLoading} onSubmit={onSubmit} isError={!!error} />
 
         <Typography variant={'regular-text-16'} className={s['account-text']}>
           Don’t have an account?
