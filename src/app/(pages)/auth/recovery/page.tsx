@@ -7,16 +7,15 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
+import {
+  useCheckRecoveryCodeMutation,
+  useCreateNewPasswordMutation,
+} from '@/app/services/vibeVisualApi'
 import { AppStore } from '@/app/store/store'
 import { PATH } from '@/shared/constants/PATH'
 
-import { useCheckRecoveryCodeMutation, useCreateNewPasswordMutation } from './authApi'
 import s from './page.module.scss'
 import { setRecoveryCode } from './recoverySlice'
-export type NewPasswordData = {
-  newPassword: string
-  recoveryCode: string
-}
 
 export default function RecoveryPassword() {
   const router = useRouter()

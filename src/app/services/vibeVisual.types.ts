@@ -7,3 +7,8 @@ export type RecoveryPassword = {
   recaptcha: string
   baseUrl: string
 }
+
+export type NewPasswordData = {
+  newPassword: string
+  recoveryCode: string
+}
