@@ -1,7 +1,17 @@
-//import { Header } from '@vibe-samurai/visual-ui-kit'
+'use client'
+
+import { Header } from '@vibe-samurai/visual-ui-kit'
+
+import { useAuth } from '@/app/context/AuthContext'
+
+import s from './MainHeader.module.scss'
 
 export const MainHeader = () => {
+  const { isAuthenticated } = useAuth()
+
   return (
-    <div style={{ width: '1280px', height: '100px', borderBottom: '1px solid grey' }}>Header</div>
+    <div className={s.wrapper}>
+      <Header isAuth={isAuthenticated} />
+    </div>
   )
 }
