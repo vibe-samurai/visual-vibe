@@ -1,9 +1,24 @@
-.formWrapper {
+.wrapper {
+  max-width: 378px;
+}
+
+.titleText {
+  margin-bottom: 37px;
+  text-align: center;
+}
+
+.buttonsColumn {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  align-items: center;
-  justify-content: center;
+  gap: 24px;
+  margin-bottom: 8px;
+}
 
-  width: 290px;
+.passwordText {
+  margin-bottom: 40px;
+  color: var(--Light-900);
+}
+
+.errorText {
+  color: var(--Danger-500);
 }
