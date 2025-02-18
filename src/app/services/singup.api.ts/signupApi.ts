@@ -1,3 +1,5 @@
+import { PROJECT_HOST } from '@/shared'
+
 import { vibeVisualApi } from '../vibeVisualApi'
 
 export type SignUpReq = {
@@ -12,7 +14,7 @@ const signupApi = vibeVisualApi.injectEndpoints({
       query: body => ({
         url: '/v1/auth/registration',
         method: 'POST',
-        body: { ...body, baseUrl: 'http://localhost:3000' },
+        body: { ...body, baseUrl: PROJECT_HOST },
       }),
     }),
   }),
