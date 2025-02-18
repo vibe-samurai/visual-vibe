@@ -5,7 +5,11 @@ import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 
-import { errorMessages, LoginFormValues, loginScheme } from '@/features/auth/model/validationScheme'
+import {
+  errorMessages,
+  LoginFormValues,
+  loginScheme,
+} from '@/features/auth/model/validation/validationScheme'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './LoginForm.module.scss'

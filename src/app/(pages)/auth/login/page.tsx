@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { SubmitHandler } from 'react-hook-form'
 
 import { useAuth } from '@/app/context/AuthContext'
-import { LoginFormValues } from '@/features/auth/model/validationScheme'
+import { LoginFormValues } from '@/features/auth/model/validation/validationScheme'
 import { LoginForm } from '@/features/auth/ui/login/LoginForm'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { OAuthBlock } from '@/shared/components'

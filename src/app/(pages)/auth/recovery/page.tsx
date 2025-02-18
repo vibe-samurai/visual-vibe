@@ -13,12 +13,13 @@ import {
   useCreateNewPasswordMutation,
 } from '@/app/services/vibeVisualApi'
 import { AppStore } from '@/app/store/store'
-import { errorMessages, password } from '@/features/auth/model/validationScheme'
 import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
 import { setRecoveryCode } from './recoverySlice'
+
+import { errorMessages, password } from '@/features/auth/model/validationScheme'
 
 export default function RecoveryPassword() {
   const router = useRouter()
