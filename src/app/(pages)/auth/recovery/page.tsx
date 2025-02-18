@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { Button, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Card, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -11,6 +11,7 @@ import { z } from 'zod'
 import {
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
+  useTerminateAllSessionsMutation,
 } from '@/app/services/vibeVisualApi'
 import { AppStore } from '@/app/store/store'
 import { errorMessages, password } from '@/features/auth/model/validation/validationScheme'
@@ -37,18 +38,15 @@ export default function RecoveryPassword() {
   const dispatch = useDispatch()
   const recoveryCode = useSelector((state: AppStore) => state.recovery.recoveryCode)
 
-  const [createNewPassword] = useCreateNewPasswordMutation()
-
   const [checkRecoverCode, { isLoading }] = useCheckRecoveryCodeMutation()
+  const [createNewPassword] = useCreateNewPasswordMutation()
+  const [terminateAllSessions] = useTerminateAllSessionsMutation()
+
   const [isLoadingPage, setIsLoadingPage] = useState(true)
   const [serverError, setServerError] = useState<undefined | string>(undefined)
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    //убрать проверку после тестирования
-    if (!recoveryCode) {
-      setIsLoadingPage(false)
-    }
     const code = searchParams.get('code')
 
     if (code && code !== recoveryCode) {
@@ -63,7 +61,7 @@ export default function RecoveryPassword() {
           router.push('/auth/resend-link')
         })
     }
-  }, [dispatch, recoveryCode, checkRecoverCode, router, searchParams])
+  }, [dispatch, checkRecoverCode, router, searchParams])
 
   const { control, handleSubmit, reset, trigger, getValues } = useForm<newPasswordValues>({
     defaultValues: { password: '', passwordConfirmation: '' },
@@ -80,7 +78,7 @@ export default function RecoveryPassword() {
       try {
         await createNewPassword({ newPassword, recoveryCode }).unwrap()
         reset()
-        //logout()
+        await terminateAllSessions()
         router.push(PATH.AUTH.LOGIN)
       } catch (error) {
         const err = error as FetchBaseQueryError & { data?: { messages?: { message: string }[] } }
@@ -90,9 +88,7 @@ export default function RecoveryPassword() {
     }
   }
 
-  if (isLoading || isLoadingPage) {
-    return <></>
-  }
+  if (isLoading || isLoadingPage) return <Loader />
 
   return (
     <Card padding={'24px'} className={s.wrapper}>

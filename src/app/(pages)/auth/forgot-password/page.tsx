@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { Button, Dialog, Card, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Dialog, Card, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
