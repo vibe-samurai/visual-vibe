@@ -13,7 +13,7 @@ import { errorMessages, email } from '@/features/auth/model/validation/validatio
 import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
-import s from './ForgorPasswordForm.module.scss'
+import s from './ForgotPasswordForm.module.scss'
 
 type RecoveryPasswordFormData = {
   email: string
