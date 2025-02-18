@@ -1,53 +1,30 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
-import { useForm, useWatch } from 'react-hook-form'
+import { UseFormReturn, useWatch } from 'react-hook-form'
 
 import { FormCheckbox, FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
 import { useRequestError } from '@/shared/hooks/useRequestError'
 
 import s from './SignUpForm.module.scss'
-import { SignUpFields, signUpSchema, SignUpState } from '../../model'
+import { SignUpFields } from '../../features/auth/model'
 
 type SignUpFormProps = {
   onSubmit: (formData: SignUpFields) => void
-  signUpState: SignUpState
   errorMessage: ReturnType<typeof useRequestError>
-  onFormStateChange: (formState: SignUpState) => void
-  onSuccessSubmit: (isSuccess: boolean) => void
+  formControlOptions: Pick<UseFormReturn<SignUpFields>, 'control' | 'handleSubmit' | 'formState'>
 }
 
 export const SignUpForm = (props: SignUpFormProps) => {
-  const { signUpState, onSubmit, errorMessage, onFormStateChange, onSuccessSubmit } = props
+  const { onSubmit, errorMessage, formControlOptions } = props
 
   const {
     control,
     handleSubmit,
-    formState: { isSubmitSuccessful, isValid },
-    reset,
-  } = useForm<SignUpFields>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: { ...signUpState },
-    mode: 'onTouched',
-  })
-
-  const formStateWatcher = useWatch({ control })
-
-  onFormStateChange(formStateWatcher)
-
-  if (isSubmitSuccessful) {
-    reset({
-      userName: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
-      agree: false,
-    })
-    onSuccessSubmit(true)
-  }
+    formState: { isValid },
+  } = formControlOptions
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
@@ -68,14 +45,14 @@ export const SignUpForm = (props: SignUpFormProps) => {
         placeholder={'******************'}
       />
       <FormCheckbox control={control} name={'agree'} label={<CheckboxLabel />} />
-      <Button fullWidth disabled={!isValid}>
-        Sign up
-      </Button>
       {errorMessage && (
-        <Typography variant={'bold-text-16'} className={s.error}>
+        <Typography variant={'regular-text-16'} className={s.error}>
           {errorMessage}
         </Typography>
       )}
+      <Button fullWidth disabled={!isValid}>
+        Sign up
+      </Button>
     </form>
   )
 }

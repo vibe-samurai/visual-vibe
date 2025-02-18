@@ -1,2 +1,2 @@
-export * from './sign-up-form'
 export * from './email-confirmed'
+export * from './signup-form'
