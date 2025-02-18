@@ -10,17 +10,23 @@ import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
+import { errorMessages, email } from '@/features/auth/model/validation/validationScheme'
 import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
 
-import { errorMessages, email } from '@/features/auth/model/validationScheme'
-
 type ForgotPasswordFormData = {
   email: string
   recaptcha: string
 }
+
+const forgotPasswordSchema = z.object({
+  email: email(errorMessages.email),
+  recaptcha: z.string().min(1, { message: 'Please complete the reCAPTCHA' }),
+})
+
+type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
 
 export default function ForgotPassword() {
   const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
@@ -29,19 +35,15 @@ export default function ForgotPassword() {
   const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [currentEmail, setCurrentEmail] = useState<string>('')
 
-  const passwordSchema = z.object({
-    email: email(errorMessages.email),
-    recaptcha: z.string().min(1, { message: 'Please complete the reCAPTCHA' }),
-  })
   const {
     control,
     handleSubmit,
     watch,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<ForgotPasswordValues>({
     defaultValues: { email: '', recaptcha: '' },
-    resolver: zodResolver(passwordSchema),
+    resolver: zodResolver(forgotPasswordSchema),
   })
 
   const onSubmit = async (data: ForgotPasswordFormData) => {

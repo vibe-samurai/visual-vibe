@@ -13,13 +13,24 @@ import {
   useCreateNewPasswordMutation,
 } from '@/app/services/vibeVisualApi'
 import { AppStore } from '@/app/store/store'
+import { errorMessages, password } from '@/features/auth/model/validation/validationScheme'
 import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
 import { setRecoveryCode } from './recoverySlice'
 
-import { errorMessages, password } from '@/features/auth/model/validationScheme'
+const newPasswordSchema = z
+  .object({
+    password: password(errorMessages.password),
+    passwordConfirmation: z.string(),
+  })
+  .refine(data => data.password === data.passwordConfirmation, {
+    message: 'The passwords must match',
+    path: ['passwordConfirmation'],
+  })
+
+type newPasswordValues = z.infer<typeof newPasswordSchema>
 
 export default function RecoveryPassword() {
   const router = useRouter()
@@ -27,7 +38,6 @@ export default function RecoveryPassword() {
   const recoveryCode = useSelector((state: AppStore) => state.recovery.recoveryCode)
 
   const [createNewPassword] = useCreateNewPasswordMutation()
-  // const [logout] = useLogoutMutation()
 
   const [checkRecoverCode, { isLoading }] = useCheckRecoveryCodeMutation()
   const [isLoadingPage, setIsLoadingPage] = useState(true)
@@ -55,23 +65,11 @@ export default function RecoveryPassword() {
     }
   }, [dispatch, recoveryCode, checkRecoverCode, router, searchParams])
 
-  const newPasswordSchema = z.object({
-    password: password(errorMessages.password),
-    passwordConfirmation: z.string().refine(
-      value => {
-        return value === watchedPassword
-      },
-      { message: 'The passwords must match' }
-    ),
-  })
-
-  const { control, handleSubmit, reset, watch, trigger, getValues } = useForm({
+  const { control, handleSubmit, reset, trigger, getValues } = useForm<newPasswordValues>({
     defaultValues: { password: '', passwordConfirmation: '' },
     mode: 'onSubmit',
     resolver: zodResolver(newPasswordSchema),
   })
-
-  const watchedPassword = watch('password')
 
   const onSubmit = async () => {
     const isValid = await trigger('passwordConfirmation')
