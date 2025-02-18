@@ -31,11 +31,11 @@ interface PasswordValidation {
   noLeadingSpace: string
 }
 
-const email = (messages: EmailValidation = errorMessages.email) => {
+export const email = (messages: EmailValidation = errorMessages.email) => {
   return z.string().trim().min(1, messages.required).email(messages.invalid)
 }
 
-const password = (messages: PasswordValidation = errorMessages.password) => {
+export const password = (messages: PasswordValidation = errorMessages.password) => {
   return z
     .string()
     .min(6, messages.minLength)
