@@ -1,11 +1,13 @@
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/navigation'
 
+import { useAuth } from '@/app/context/AuthContext'
 import { useGoogleOAuthMutation } from '@/features/auth/api/authApi'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { PATH } from '@/shared/constants/PATH'
 
 export const useGoogleAuth = () => {
+  const { setAuth } = useAuth()
   const [authMeGoogle] = useGoogleOAuthMutation()
   const { push } = useRouter()
 
@@ -21,7 +23,7 @@ export const useGoogleAuth = () => {
         }).unwrap()
 
         if (accessToken) {
-          localStorage.setItem('accessToken', JSON.stringify(accessToken))
+          setAuth(accessToken)
           const userId = getDecodedToken(String(accessToken))
 
           if (userId) {

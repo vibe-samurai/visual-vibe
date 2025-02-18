@@ -6,15 +6,25 @@ import { NewPasswordData, RecoveryPassword } from './vibeVisual.types'
 
 export const vibeVisualApi = createApi({
   baseQuery: baseQueryWithReauth,
-  endpoints: build => ({
-    recoveryPassword: build.mutation<void, RecoveryPassword>({
+  endpoints: builder => ({
+    resendVerificationEmail: builder.mutation<void, string>({
+      query: (email: string) => ({
+        url: '/v1/auth/registration-email-resending',
+        method: 'POST',
+        body: {
+          email,
+          baseUrl: 'http://localhost:3000/',
+        },
+      }),
+    }),
+    recoveryPassword: builder.mutation<void, RecoveryPassword>({
       query: body => ({
         url: 'v1/auth/password-recovery',
         method: 'POST',
         body,
       }),
     }),
-    checkRecoveryCode: build.mutation<{ email: string }, { recoveryCode: string }>({
+    checkRecoveryCode: builder.mutation<{ email: string }, { recoveryCode: string }>({
       query: ({ recoveryCode }) => {
         return {
           method: 'POST',
@@ -25,7 +35,7 @@ export const vibeVisualApi = createApi({
         }
       },
     }),
-    createNewPassword: build.mutation<void, NewPasswordData>({
+    createNewPassword: builder.mutation<void, NewPasswordData>({
       query: body => {
         return {
           method: 'POST',
@@ -39,8 +49,8 @@ export const vibeVisualApi = createApi({
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
 })
-
 export const {
+  useResendVerificationEmailMutation,
   useRecoveryPasswordMutation,
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
