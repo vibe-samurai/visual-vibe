@@ -1,0 +1,10 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 355px;
+
+  .loginBtn {
+    color: var(--Primary-500);
+  }
+}
