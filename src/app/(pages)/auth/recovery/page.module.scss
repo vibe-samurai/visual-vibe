@@ -7,18 +7,3 @@
   text-align: center;
 }
 
-.buttonsColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 8px;
-}
-
-.passwordText {
-  margin-bottom: 40px;
-  color: var(--Light-900);
-}
-
-.errorText {
-  color: var(--Danger-500);
-}
