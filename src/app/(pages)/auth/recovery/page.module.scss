@@ -1,24 +1,9 @@
-.wrapper {
-  max-width: 378px;
-}
-
-.titleText {
-  margin-bottom: 37px;
-  text-align: center;
-}
-
-.buttonsColumn {
+.formWrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 8px;
-}
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
 
-.passwordText {
-  margin-bottom: 40px;
-  color: var(--Light-900);
-}
-
-.errorText {
-  color: var(--Danger-500);
+  width: 290px;
 }
