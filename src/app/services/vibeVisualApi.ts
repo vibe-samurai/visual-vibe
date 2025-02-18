@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-query'
 
-import { NewPasswordData, RecoveryPassword } from './vibeVisual.types'
+import { NewPasswordData, RecoveryPasswordData } from './vibeVisual.types'
 
 export const vibeVisualApi = createApi({
   baseQuery: baseQueryWithReauth,
@@ -17,7 +17,7 @@ export const vibeVisualApi = createApi({
         },
       }),
     }),
-    recoveryPassword: builder.mutation<void, RecoveryPassword>({
+    recoveryPassword: builder.mutation<void, RecoveryPasswordData>({
       query: body => ({
         url: 'v1/auth/password-recovery',
         method: 'POST',

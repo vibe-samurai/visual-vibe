@@ -2,7 +2,7 @@ export type UpdateTokenResponse = {
   data: { accessToken: string }
 }
 
-export type RecoveryPassword = {
+export type RecoveryPasswordData = {
   email: string
   recaptcha: string
   baseUrl: string
