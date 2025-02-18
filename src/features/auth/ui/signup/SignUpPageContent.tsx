@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { useSignupMutation } from '@/app/services/singup.api.ts/signupApi'
+import { useSignupMutation } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { SignUpForm } from '@/entities'
 import { PATH } from '@/shared/constants/PATH'
