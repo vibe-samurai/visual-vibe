@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const passwordRegex =
+export const passwordRegex =
   /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}])[0-9a-zA-Z!#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}]{6,}$/
 
 export const errorMessages = {
@@ -35,7 +35,7 @@ const email = (messages: EmailValidation = errorMessages.email) => {
   return z.string().trim().min(1, messages.required).email(messages.invalid)
 }
 
-const password = (messages: PasswordValidation = errorMessages.password) => {
+export const password = (messages: PasswordValidation = errorMessages.password) => {
   return z
     .string()
     .min(6, messages.minLength)
