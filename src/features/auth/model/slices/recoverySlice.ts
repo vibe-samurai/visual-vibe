@@ -1,14 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
   recoveryCode: '',
 }
 
-const recoverySlice = createSlice({
+export const recoverySlice = createSlice({
   name: 'recovery',
   initialState,
   reducers: {
-    setRecoveryCode: (state, action) => {
+    setRecoveryCode: (state, action: PayloadAction<string>) => {
       state.recoveryCode = action.payload
     },
   },
