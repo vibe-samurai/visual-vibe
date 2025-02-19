@@ -1,9 +1,9 @@
-.wrapper {
-  max-width: 378px;
-}
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
 
-.titleText {
-  margin-bottom: 37px;
-  text-align: center;
+  width: 290px;
 }
-
