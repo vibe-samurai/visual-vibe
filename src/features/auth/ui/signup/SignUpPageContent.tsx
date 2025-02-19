@@ -9,6 +9,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useSignupMutation } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { SignUpForm } from '@/entities'
+import { OAuthBlock } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
 import { useRequestError } from '@/shared/hooks/useRequestError'
 
@@ -63,6 +64,7 @@ export const SignUpPageContent = () => {
   return (
     <Card padding={'24px'} className={s.contentWrapper}>
       <Typography variant={'h1'}>Sign Up</Typography>
+      <OAuthBlock />
       <SignUpForm
         onSubmit={onSubmit}
         errorMessage={errorMessage}
