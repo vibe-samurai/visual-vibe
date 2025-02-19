@@ -11,7 +11,10 @@ import CreateNewPasswordForm from '@/features/auth/ui/create-new-password/Create
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
-import { setRecoveryCode } from '../../../../features/auth/model/slices/recoverySlice'
+import {
+  setRecoveryCode,
+  setRecoveryEmail,
+} from '../../../../features/auth/model/slices/recoverySlice'
 
 export default function RecoveryPassword() {
   const router = useRouter()
@@ -26,9 +29,11 @@ export default function RecoveryPassword() {
 
   useEffect(() => {
     const code = searchParams.get('code')
+    const email = searchParams.get('email')
 
-    if (code && code !== recoveryCode) {
+    if (code && code !== recoveryCode && email) {
       dispatch(setRecoveryCode(code))
+      dispatch(setRecoveryEmail(email))
       checkRecoverCode({ recoveryCode: code })
         .unwrap()
         .then(() => {

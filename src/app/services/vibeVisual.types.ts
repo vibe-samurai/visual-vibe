@@ -8,6 +8,8 @@ export type RecoveryPasswordData = {
   baseUrl: string
 }
 
+export type RecoveryPasswordResending = Omit<RecoveryPasswordData, 'recaptcha'>
+
 export type NewPasswordData = {
   newPassword: string
   recoveryCode: string

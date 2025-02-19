@@ -32,7 +32,7 @@ type Props = {
   watchEmail: (email: string) => void
 }
 
-export default function ForgorPasswordForm({ setIsOpen, watchEmail }: Props) {
+export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
   const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [serverError, setServerError] = useState<string | undefined>(undefined)
@@ -60,7 +60,6 @@ export default function ForgorPasswordForm({ setIsOpen, watchEmail }: Props) {
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL as string,
       }).unwrap()
       setServerError(undefined)
-      localStorage.setItem('recoveryEmail', watch('email'))
       setIsOpen(true)
       recaptchaRef.current?.reset()
       reset()

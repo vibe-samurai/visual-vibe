@@ -2,7 +2,7 @@
 import { Dialog, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import { useState } from 'react'
 
-import ForgorPasswordForm from '@/features/auth/ui/forgot-password/ForgorPasswordForm'
+import ForgotPasswordForm from '@/features/auth/ui/forgot-password/ForgotPasswordForm'
 
 import s from './page.module.scss'
 
@@ -15,9 +15,7 @@ export default function ForgotPassword() {
       <Typography as={'h1'} className={s.titleText} variant={'h1'}>
         Forgot Password
       </Typography>
-
-      <ForgorPasswordForm setIsOpen={setIsOpen} watchEmail={setRecoveryEmail} />
-
+      <ForgotPasswordForm setIsOpen={setIsOpen} watchEmail={setRecoveryEmail} />
       <Dialog
         className={s.dialogButton}
         title={'Email sent'}
