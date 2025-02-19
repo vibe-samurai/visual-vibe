@@ -29,12 +29,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
 
-    setIsAuthenticated(!!token)
-  }, [])
+    if (!isAuthenticated && token) {
+      setIsAuthenticated(true)
+    }
+  }, [isAuthenticated])
 
-  const setAuth = (token: string) => {
-    localStorage.setItem('accessToken', token)
-    setIsAuthenticated(true)
+  const setAuth = (accessToken: string) => {
+    setIsAuthenticated(!!accessToken)
   }
 
   const login = async (credentials: LoginRequest): Promise<LoginResponse> => {
@@ -64,7 +65,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       await logoutMutation().unwrap()
-      localStorage.removeItem('accessToken')
       setIsAuthenticated(false)
     } catch (error) {
       setError('Logout failed. Please try again.')

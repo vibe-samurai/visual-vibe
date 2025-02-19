@@ -23,13 +23,13 @@ export const useGoogleAuth = () => {
         }).unwrap()
 
         if (accessToken) {
+          localStorage.setItem('accessToken', accessToken)
           setAuth(accessToken)
           const userId = getDecodedToken(String(accessToken))
 
           if (userId) {
             push(`/profile/${userId}`)
           } else {
-            console.error('Ошибка: userId не найден')
             push(PATH.AUTH.LOGIN)
           }
         }
