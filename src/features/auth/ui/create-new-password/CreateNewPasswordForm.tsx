@@ -7,10 +7,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import {
-  useCreateNewPasswordMutation,
-  useTerminateAllSessionsMutation,
-} from '@/app/services/vibeVisualApi'
+import { useCreateNewPasswordMutation } from '@/app/services/vibeVisualApi'
 import { useAppSelector } from '@/app/store/store'
 import { errorMessages, password } from '@/features/auth/model/validation/validationScheme'
 import { FormInput } from '@/shared/components/form-input/form-input'
@@ -33,7 +30,6 @@ type newPasswordValues = z.infer<typeof newPasswordSchema>
 export default function CreateNewPasswordFord() {
   const router = useRouter()
   const [createNewPassword] = useCreateNewPasswordMutation()
-  const [terminateAllSessions] = useTerminateAllSessionsMutation()
   const [serverError, setServerError] = useState<undefined | string>(undefined)
   const recovery = useAppSelector(recoverySelector)
   const recoveryCode = recovery.recoveryCode
@@ -53,7 +49,6 @@ export default function CreateNewPasswordFord() {
       try {
         await createNewPassword({ newPassword, recoveryCode }).unwrap()
         reset()
-        await terminateAllSessions()
         router.push(PATH.AUTH.LOGIN)
       } catch (error) {
         const err = error as FetchBaseQueryError & { data?: { messages?: { message: string }[] } }

@@ -44,14 +44,7 @@ export const vibeVisualApi = createApi({
         }
       },
     }),
-    terminateAllSessions: builder.mutation<void, void>({
-      query: () => ({
-        url: `v1/sessions/terminate-all`,
-        method: 'DELETE',
-      }),
-    }),
   }),
-
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
 })
@@ -60,5 +53,4 @@ export const {
   useRecoveryPasswordMutation,
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
-  useTerminateAllSessionsMutation,
 } = vibeVisualApi
