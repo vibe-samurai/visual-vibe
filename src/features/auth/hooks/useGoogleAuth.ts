@@ -23,6 +23,7 @@ export const useGoogleAuth = () => {
         }).unwrap()
 
         if (accessToken) {
+          localStorage.setItem('accessToken', accessToken)
           setAuth(accessToken)
           const userId = getDecodedToken(String(accessToken))
 
