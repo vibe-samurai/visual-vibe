@@ -20,19 +20,10 @@ export const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    setForm: (state, action: PayloadAction<SignUpState>) => {
-      Object.assign(state, action.payload)
-    },
-    resetForm: state => {
-      state.email = ''
-      state.password = ''
-      state.passwordConfirm = ''
-      state.userName = ''
-      state.agree = false
-    },
+    setForm: (state, action: PayloadAction<SignUpState>) => action.payload,
   },
 })
 
-export const { setForm, resetForm } = signupSlice.actions
+export const { setForm } = signupSlice.actions
 
 export default signupSlice.reducer
