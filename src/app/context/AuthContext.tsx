@@ -65,7 +65,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       await logoutMutation().unwrap()
-      localStorage.removeItem('accessToken')
       setIsAuthenticated(false)
     } catch (error) {
       setError('Logout failed. Please try again.')
