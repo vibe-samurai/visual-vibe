@@ -1,5 +1,6 @@
 'use client'
 
+import { Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
@@ -34,6 +35,7 @@ export default function GithubPage() {
 
   return (
     <PageContainer title={'Back to home page'} backHref={PATH.HOME}>
+      <Loader />
       Processing GitHub authorization...
     </PageContainer>
   )

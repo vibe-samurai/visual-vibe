@@ -29,12 +29,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
 
-    setIsAuthenticated(!!token)
-  }, [])
+    if (!isAuthenticated && token) {
+      setIsAuthenticated(true)
+    }
+  }, [isAuthenticated])
 
-  const setAuth = (token: string) => {
-    localStorage.setItem('accessToken', token)
-    setIsAuthenticated(true)
+  const setAuth = (accessToken: string) => {
+    if (accessToken) {
+      localStorage.setItem('accessToken', accessToken)
+    } else {
+      localStorage.removeItem('accessToken')
+    }
+    setIsAuthenticated(!!accessToken)
   }
 
   const login = async (credentials: LoginRequest): Promise<LoginResponse> => {

@@ -39,7 +39,6 @@ export const SideNavBar = () => {
     try {
       await logout()
       setIsModalActive(false)
-      setAlert({ type: 'success', message: 'Log out is finished' })
     } catch (error) {
       setAlert({ type: 'error', message: 'Logout failed. Please try again.' })
     }
@@ -80,6 +79,7 @@ export const SideNavBar = () => {
         </aside>
         {isModalActive && (
           <Dialog
+            aria-describedby={'logoutDescription'}
             title={'Log out'}
             onClose={closeModal}
             confirmButtonText={'Yes'}
@@ -88,7 +88,11 @@ export const SideNavBar = () => {
             onCancelButtonClick={closeModal}
             open={isModalActive}
           >
-            <Typography variant={'regular-text-16'} style={{ paddingBottom: '30px' }}>
+            <Typography
+              id={'logoutDescription'}
+              variant={'regular-text-16'}
+              style={{ paddingBottom: '30px' }}
+            >
               Are you really want to log out of your account{' '}
               <Typography as={'span'} variant={'bold-text-16'}>
                 {meData?.email || 'your account'}
