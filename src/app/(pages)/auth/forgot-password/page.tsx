@@ -10,12 +10,11 @@ import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
+import { email, errorMessages } from '@/features/auth/model'
 import { FormInput } from '@/shared/components/form-input/form-input'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
-
-import { errorMessages, email } from '@/features/auth/model/validationScheme'
 
 type ForgotPasswordFormData = {
   email: string
