@@ -12,30 +12,6 @@
   text-align: center;
 }
 
-.inputsColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: stretch;
-}
-
-.grayText {
-  padding: 7px 0 17px;
-  color: var(--Light-900);
-}
-
-.marginText {
-  margin-bottom: 18px;
-}
-
-.errorText {
-  color: var(--Danger-500);
-}
-
-.centerElement {
-  align-self: center;
-}
-
 .dialogButton {
   div {
     button {
