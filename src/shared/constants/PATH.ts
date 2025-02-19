@@ -4,6 +4,7 @@ export const PATH = {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     VERIFICATION_LINK_EXPIRED: '/auth/verification-link-expired',
+    RECOVERY_LINK_EXPIRED: '/auth/recovery-link-expired',
     FORGOT_PASSWORD: '/auth/forgot-password',
     RECOVERY: '/auth/recovery',
     PRIVACY_POLICY: '/auth/privacy-policy',
@@ -16,4 +17,5 @@ export const PATH = {
     PROFILE: '/profile',
     SETTINGS: '/profile/settings',
   },
+  CREATE: '/create',
 }
