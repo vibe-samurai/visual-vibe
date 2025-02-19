@@ -35,11 +35,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isAuthenticated])
 
   const setAuth = (accessToken: string) => {
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken)
-    } else {
-      localStorage.removeItem('accessToken')
-    }
     setIsAuthenticated(!!accessToken)
   }
 

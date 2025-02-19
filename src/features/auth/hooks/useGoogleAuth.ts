@@ -30,7 +30,6 @@ export const useGoogleAuth = () => {
           if (userId) {
             push(`/profile/${userId}`)
           } else {
-            console.error('Ошибка: userId не найден')
             push(PATH.AUTH.LOGIN)
           }
         }

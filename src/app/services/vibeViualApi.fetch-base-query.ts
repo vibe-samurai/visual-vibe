@@ -56,9 +56,8 @@ export const baseQueryWithReauth: BaseQueryFn<
           localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
           result = await baseQuery(args, api, extraOptions)
         } else {
+          console.error('Ошибка обновления токенов')
           vibeVisualApi.util.resetApiState()
-
-          localStorage.removeItem('accessToken')
         }
       } finally {
         release()
