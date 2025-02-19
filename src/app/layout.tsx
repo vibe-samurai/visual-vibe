@@ -1,14 +1,13 @@
 import React from 'react'
 
 import ClientProvider from '@/app/store/ClientProvider'
-import { PROJECT_TITLE } from '@/shared/constants/CONSTANTS'
 
 import type { Metadata } from 'next'
 
 import './globals.scss'
 
 export const metadata: Metadata = {
-  title: PROJECT_TITLE,
+  title: 'Visual Vibe App',
   description: 'Visual Vibe next app',
   icons: {
     icon: '/favicon.ico',

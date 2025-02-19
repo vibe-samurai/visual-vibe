@@ -13,6 +13,7 @@ import { vibeVisualApi } from '@/app/services/vibeVisualApi'
 import { PATH } from '@/shared/constants/PATH'
 
 const mutex = new Mutex()
+
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://inctagram.work/api/',
 
@@ -56,8 +57,12 @@ export const baseQueryWithReauth: BaseQueryFn<
           localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
           result = await baseQuery(args, api, extraOptions)
         } else {
-          console.error('Ошибка обновления токенов')
           vibeVisualApi.util.resetApiState()
+
+          localStorage.removeItem('accessToken')
+          /*if (!result?.meta?.request.url.includes('v1/auth/me')) {
+            await router.push(PATH.AUTH.LOGIN);
+          }*/
         }
       } finally {
         release()
