@@ -4,61 +4,41 @@ import { Button, Loader, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { useConfirmEmailMutation } from '@/app/services'
+import { useConfirmEmailQuery } from '@/app/services'
 import { PATH } from '@/shared/constants/PATH'
 import { PATH_PUBLIC } from '@/shared/constants/PATH_PUBLIC'
 
 import s from './EmailConfirmed.module.scss'
 
 const resultText = {
-  fail: {
-    title: 'Something went wrong!',
-  },
-  success: {
-    title: 'Congratulations',
-    text: 'Your email has been confirmed!',
-  },
+  title: 'Congratulations',
+  text: 'Your email has been confirmed!',
 }
 
 export const EmailConfirmedContent = () => {
   const searchParams = useSearchParams()
   const { push } = useRouter()
+  const confirmationCode = searchParams.get('code')
 
-  const [confirmEmail, { isError, isLoading, isUninitialized }] = useConfirmEmailMutation()
+  const { isLoading, isError } = useConfirmEmailQuery({
+    confirmationCode: confirmationCode!,
+  })
 
-  useEffect(() => {
-    if (isError) {
-      push(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
-    }
-  }, [isError, push])
+  if (isError) {
+    push(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
+  }
 
-  useEffect(() => {
-    const confirmationCode = searchParams.get('code')
-
-    async function fetchData() {
-      if (confirmationCode) {
-        try {
-          await confirmEmail({ confirmationCode })
-        } catch (error) {
-          console.error(error)
-        }
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  if (isLoading || isUninitialized || isError) return <Loader />
+  if (isLoading || isError) return <Loader />
 
   return (
     <div className={s.contentWrapper}>
       <Typography as={'h1'} variant={'h1'} className={s.title}>
-        {resultText.success.title}
+        {resultText.title}
       </Typography>
       <Typography variant={'bold-text-16'} className={s.text}>
-        {resultText.success.text}
+        {resultText.text}
       </Typography>
       <Button as={Link} href={PATH.AUTH.LOGIN} className={s.link}>
         Sign In
