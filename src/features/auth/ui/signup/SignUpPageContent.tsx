@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, Typography, Button, Dialog, Loader } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { useSignupMutation } from '@/app/services'
@@ -23,7 +23,7 @@ export const SignUpPageContent = () => {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
 
-  const { control, handleSubmit, formState, watch, reset } = useForm<SignUpFields>({
+  const { control, handleSubmit, formState, reset, getValues } = useForm<SignUpFields>({
     resolver: zodResolver(signUpSchema),
     defaultValues: { ...signupState },
     mode: 'all',
@@ -31,14 +31,6 @@ export const SignUpPageContent = () => {
 
   const [signUpReq, { isLoading, error }] = useSignupMutation()
   const errorMessage = useRequestError(error)
-
-  useEffect(() => {
-    const subscription = watch(values => {
-      dispatch(setForm(values))
-    })
-
-    return () => subscription.unsubscribe()
-  }, [dispatch, watch])
 
   const onSubmit = useCallback<SubmitHandler<SignUpFields>>(
     async ({ email, password, userName }) => {
@@ -57,8 +49,12 @@ export const SignUpPageContent = () => {
     [signUpReq, reset]
   )
 
-  function handleModalClosed() {
+  const handleModalClosed = () => {
     setOpen(false)
+  }
+
+  const handleTermsClick = () => {
+    dispatch(setForm(getValues()))
   }
 
   return (
@@ -69,6 +65,7 @@ export const SignUpPageContent = () => {
         onSubmit={onSubmit}
         errorMessage={errorMessage}
         formControlOptions={{ control, handleSubmit, formState }}
+        handleTermsClick={handleTermsClick}
       />
       <Typography variant={'regular-text-16'}>Do you have an account?</Typography>
       <Button as={Link} variant={'link'} href={PATH.AUTH.LOGIN} className={s.loginBtn}>

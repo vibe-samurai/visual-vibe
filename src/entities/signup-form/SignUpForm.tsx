@@ -2,7 +2,7 @@
 
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
-import { UseFormReturn, useWatch } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 
 import { FormCheckbox, FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
@@ -11,14 +11,18 @@ import { useRequestError } from '@/shared/hooks/useRequestError'
 import s from './SignUpForm.module.scss'
 import { SignUpFields } from '../../features/auth/model'
 
-type SignUpFormProps = {
-  onSubmit: (formData: SignUpFields) => void
+type SignUpFormProps<T extends SignUpFields = SignUpFields> = {
+  onSubmit: (formData: T) => void
   errorMessage: ReturnType<typeof useRequestError>
-  formControlOptions: Pick<UseFormReturn<SignUpFields>, 'control' | 'handleSubmit' | 'formState'>
+  formControlOptions: Pick<UseFormReturn<T>, 'control' | 'handleSubmit' | 'formState'>
+} & CheckboxLabelProps
+
+type CheckboxLabelProps = {
+  handleTermsClick: () => void
 }
 
 export const SignUpForm = (props: SignUpFormProps) => {
-  const { onSubmit, errorMessage, formControlOptions } = props
+  const { onSubmit, errorMessage, formControlOptions, handleTermsClick } = props
 
   const {
     control,
@@ -44,7 +48,11 @@ export const SignUpForm = (props: SignUpFormProps) => {
         type={'password'}
         placeholder={'******************'}
       />
-      <FormCheckbox control={control} name={'agree'} label={<CheckboxLabel />} />
+      <FormCheckbox
+        control={control}
+        name={'agree'}
+        label={<CheckboxLabel handleTermsClick={handleTermsClick} />}
+      />
       {errorMessage && (
         <Typography variant={'regular-text-16'} className={s.error}>
           {errorMessage}
@@ -57,14 +65,14 @@ export const SignUpForm = (props: SignUpFormProps) => {
   )
 }
 
-export const CheckboxLabel = () => (
+export const CheckboxLabel = ({ handleTermsClick }: CheckboxLabelProps) => (
   <Typography variant={'small-text'}>
     I agree to the{' '}
-    <Link href={PATH.AUTH.TERMS_OF_SERVICE} className={s.link}>
+    <Link href={PATH.AUTH.TERMS_OF_SERVICE} className={s.link} onClick={handleTermsClick}>
       Terms of Service
     </Link>{' '}
     and{' '}
-    <Link href={PATH.AUTH.PRIVACY_POLICY} className={s.link}>
+    <Link href={PATH.AUTH.PRIVACY_POLICY} className={s.link} onClick={handleTermsClick}>
       Privacy Policy
     </Link>
   </Typography>
