@@ -1,3 +1,5 @@
+'use client'
+
 import { InputProps, Input } from '@vibe-samurai/visual-ui-kit'
 import { FieldValues, UseControllerProps, Control, useController } from 'react-hook-form'
 

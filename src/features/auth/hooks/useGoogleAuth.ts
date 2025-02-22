@@ -1,3 +1,5 @@
+'use client'
+
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/navigation'
 

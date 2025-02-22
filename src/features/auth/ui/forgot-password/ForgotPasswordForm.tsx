@@ -10,7 +10,7 @@ import { z } from 'zod'
 
 import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
 import { errorMessages, email } from '@/features/auth/model/validation/validationScheme'
-import { FormInput } from '@/shared/components/form-input/form-input'
+import { FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './ForgotPasswordForm.module.scss'

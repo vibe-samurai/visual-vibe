@@ -1,3 +1,5 @@
+'use client'
+
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
