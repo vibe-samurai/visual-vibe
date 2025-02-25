@@ -30,9 +30,9 @@ async function confirmRegistration(code: string) {
 export default async function EmailConfirmedPage({
   searchParams,
 }: {
-  searchParams: { code?: string }
+  searchParams: Promise<{ code?: string }>
 }) {
-  const { code } = searchParams
+  const { code } = await searchParams
 
   if (!code) {
     redirect(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
