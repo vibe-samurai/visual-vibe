@@ -17,7 +17,7 @@ async function confirmRegistration(code: string) {
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      console.error(`HTTP error! status: ${response.status}`)
     }
 
     return { success: true, message: 'Confirmation processed' }
@@ -32,7 +32,7 @@ export default async function EmailConfirmedPage({
 }: {
   searchParams: { code?: string }
 }) {
-  const { code } = await searchParams
+  const { code } = searchParams || {}
 
   if (!code) {
     redirect(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
