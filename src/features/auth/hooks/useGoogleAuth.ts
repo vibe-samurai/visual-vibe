@@ -2,23 +2,35 @@
 
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
 
-import { useAuth } from '@/app/context/AuthContext'
-import { useGoogleOAuthMutation } from '@/features/auth/api/authApi'
+import { useGoogleOAuthMutation, useLazyMeQuery } from '@/features/auth/api/authApi'
+import {
+  setAuth,
+  setUserId,
+  setMeData,
+  setLoading,
+  setError,
+} from '@/features/auth/model/slices/authSlice'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { PATH } from '@/shared/constants/PATH'
 
 export const useGoogleAuth = () => {
-  const { setAuth } = useAuth()
   const [authMeGoogle] = useGoogleOAuthMutation()
-  const { push } = useRouter()
+  const [getMe] = useLazyMeQuery()
+  const { replace } = useRouter()
+  const dispatch = useDispatch()
 
   const login = useGoogleLogin({
     flow: 'auth-code',
     onError: error => {
       console.error('Login Failed:', error)
+      dispatch(setError('Google login failed. Please try again.'))
     },
     onSuccess: async (credentialResponse: CodeResponse) => {
+      dispatch(setLoading(true))
+      dispatch(setError(null))
+
       try {
         const { accessToken } = await authMeGoogle({
           code: credentialResponse.code,
@@ -26,17 +38,29 @@ export const useGoogleAuth = () => {
 
         if (accessToken) {
           localStorage.setItem('accessToken', accessToken)
-          setAuth(accessToken)
-          const userId = getDecodedToken(String(accessToken))
 
-          if (userId) {
-            push(`/profile/${userId}`)
+          const userData = await getMe().unwrap()
+
+          if (userData) {
+            dispatch(setMeData(userData))
+            dispatch(setAuth(true))
+
+            const userId = getDecodedToken(accessToken)
+
+            if (userId) {
+              dispatch(setUserId(userId))
+            }
+
+            replace(PATH.HOME)
           } else {
-            push(PATH.AUTH.LOGIN)
+            replace(PATH.AUTH.LOGIN)
           }
         }
       } catch (error) {
-        console.error('auth me Error', error)
+        console.error('Google auth Error:', error)
+        dispatch(setError('Google login failed. Please try again.'))
+      } finally {
+        dispatch(setLoading(false))
       }
     },
   })

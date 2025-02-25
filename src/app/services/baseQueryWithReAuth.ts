@@ -8,13 +8,14 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 
-import { UpdateTokenResponse } from '@/app/services/vibeVisual.types'
-import { vibeVisualApi } from '@/app/services/vibeVisualApi'
+import { baseAppApi } from '@/app/services/baseAppApi'
+import { UpdateTokenResponse } from '@/app/services/baseAppApi.types'
+import { BASE_URL } from '@/shared/constants/BASE_URL'
 import { PATH } from '@/shared/constants/PATH'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://inctagram.work/api/',
+  baseUrl: BASE_URL,
 
   credentials: 'include',
 
@@ -29,7 +30,7 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-export const baseQueryWithReauth: BaseQueryFn<
+export const baseQueryWithReAuth: BaseQueryFn<
   FetchArgs | string,
   unknown,
   FetchBaseQueryError
@@ -56,7 +57,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
           result = await baseQuery(args, api, extraOptions)
         } else {
-          vibeVisualApi.util.resetApiState()
+          baseAppApi.util.resetApiState()
         }
       } finally {
         release()

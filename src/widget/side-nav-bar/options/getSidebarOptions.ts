@@ -19,61 +19,61 @@ import {
 
 import { PATH } from '@/shared/constants/PATH'
 
-export const sidebarOptions = [
+export const getSidebarOptions = (userId: string | null) => [
   {
     icon: HomeIcon,
     iconActive: HomeActiveIcon,
     title: 'Home',
-    url: PATH.HOME as string,
+    url: PATH.HOME,
     isDisabled: false,
   },
   {
     icon: CreateIcon,
     iconActive: CreateActiveIcon,
     title: 'Create',
-    url: PATH.CREATE as string,
+    url: PATH.CREATE,
     isDisabled: false,
   },
   {
     icon: MyProfileIcon,
     iconActive: MyProfileActiveIcon,
     title: 'My Profile',
-    url: PATH.PROFILE.PROFILE as string,
+    url: userId ? `${PATH.PROFILE.PROFILE}/${userId}` : PATH.PROFILE.PROFILE,
     isDisabled: false,
   },
   {
     icon: MessengerIcon,
     iconActive: MessengerActiveIcon,
     title: 'Messenger',
-    url: '#',
+    url: PATH.MESSENGER,
     isDisabled: false,
   },
   {
     icon: SearchIcon,
     iconActive: SearchActiveIcon,
     title: 'Search',
-    url: '#',
+    url: PATH.SEARCH,
     isDisabled: false,
   },
   {
     icon: StatisticsIcon,
     iconActive: StatisticsActiveIcon,
     title: 'Statistics',
-    url: '#',
+    url: PATH.STATISTICS,
     isDisabled: false,
   },
   {
     icon: FavoritesIcon,
     iconActive: FavoritesActiveIcon,
     title: 'Favorites',
-    url: '#',
+    url: PATH.FAVORITES,
     isDisabled: false,
   },
   {
     icon: LogOutIcon,
     iconActive: LogOutActiveIcon,
     title: 'Log Out',
-    url: PATH.AUTH.LOGIN as string,
+    url: '#' as string,
     isDisabled: false,
   },
 ]

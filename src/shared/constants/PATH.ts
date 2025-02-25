@@ -1,5 +1,6 @@
 export const PATH = {
-  HOME: '/',
+  PUBLIC: '/',
+  HOME: '/home',
   AUTH: {
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
@@ -18,4 +19,8 @@ export const PATH = {
     SETTINGS: '/profile/settings',
   },
   CREATE: '/create',
+  FAVORITES: '/favorites',
+  MESSENGER: '/messenger',
+  STATISTICS: '/statistics',
+  SEARCH: '/search',
 }

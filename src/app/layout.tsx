@@ -9,7 +9,7 @@ import './globals.scss'
 
 export const metadata: Metadata = {
   title: PROJECT_TITLE,
-  description: 'Visual Vibe next app',
+  description: 'Visual Vibe Next App',
   icons: {
     icon: '/favicon.ico',
   },

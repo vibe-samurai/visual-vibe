@@ -1,46 +1,45 @@
 'use client'
 
-import {
-  Alertpopup,
-  Dialog,
-  Loader,
-  Sidebar,
-  SidebarItem,
-  Typography,
-} from '@vibe-samurai/visual-ui-kit'
+import { Alertpopup, Dialog, Sidebar, SidebarItem, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import { useAuth } from '@/app/context/AuthContext'
-import { useMeQuery } from '@/features/auth/api/authApi'
-import { sidebarOptions } from '@/widget/side-nav-bar/options/sidebarOptions'
+import { useAppSelector } from '@/app/store/store'
+import { useLogout } from '@/features/auth/hooks/useLogout'
+import { selectIsAuthenticated, selectMeData } from '@/features/auth/model/selectors/selectors'
+import { getSidebarOptions } from '@/widget/side-nav-bar/options/getSidebarOptions'
 
 import s from './SideNavBar.module.scss'
 
 export const SideNavBar = () => {
-  const { logout, isLoading: isAuthLoading, isAuthenticated } = useAuth()
-  const { data: meData, isLoading: isMeLoading } = useMeQuery()
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const meData = useAppSelector(selectMeData)
   const [isModalActive, setIsModalActive] = useState(false)
   const [alert, setAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const router = useRouter()
 
-  const isLoading = isAuthLoading || isMeLoading
+  const { handleLogout } = useLogout()
 
-  const handleLinkClick = (index: number, href: string) => {
+  const handleLinkClick = (index: number, href: string, userId: number | string) => {
     setActiveIndex(index)
-    if (index !== 7) {
-      router.push(href)
+
+    if (index === 2) {
+      router.replace(`${href}/${userId}`)
+    } else {
+      router.replace(href)
     }
   }
 
   const handleLogOutClick = async () => {
     try {
-      await logout()
+      await handleLogout()
       setIsModalActive(false)
     } catch (error) {
       setAlert({ type: 'error', message: 'Logout failed. Please try again.' })
+      console.error('Logout failed: ', error)
     }
   }
 
@@ -48,7 +47,7 @@ export const SideNavBar = () => {
     setIsModalActive(false)
   }
 
-  if (isLoading) return <Loader />
+  const sidebarOptions = getSidebarOptions(`${meData?.userId}` || null)
 
   return (
     isAuthenticated && (
@@ -66,7 +65,9 @@ export const SideNavBar = () => {
                       href={href}
                       className={className}
                       onClick={() =>
-                        index === 7 ? setIsModalActive(true) : handleLinkClick(index, href)
+                        index === 7
+                          ? setIsModalActive(true)
+                          : handleLinkClick(index, href, meData?.userId || '')
                       }
                     >
                       {children}

@@ -1,15 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-query'
+import { baseQueryWithReAuth } from '@/app/services/baseQueryWithReAuth'
 
 import {
   NewPasswordData,
   RecoveryPasswordData,
   RecoveryPasswordResending,
-} from './vibeVisual.types'
+} from './baseAppApi.types'
 
 export const vibeVisualApi = createApi({
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryWithReAuth,
   endpoints: builder => ({
     resendVerificationEmail: builder.mutation<void, string>({
       query: (email: string) => ({

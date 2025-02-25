@@ -7,14 +7,11 @@ import { useEffect, useState } from 'react'
 import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
+import { setRecoveryCode, setRecoveryEmail } from '@/features/auth/model/slices/recoverySlice'
 import CreateNewPasswordForm from '@/features/auth/ui/create-new-password/CreateNewPasswordForm'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
-import {
-  setRecoveryCode,
-  setRecoveryEmail,
-} from '../../../../features/auth/model/slices/recoverySlice'
 
 export default function RecoveryPassword() {
   const router = useRouter()
