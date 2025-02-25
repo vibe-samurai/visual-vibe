@@ -41,7 +41,7 @@ export default function RecoveryPassword() {
           router.push(PATH.AUTH.RECOVERY_LINK_EXPIRED)
         })
     }
-  }, [dispatch, checkRecoverCode, router, searchParams])
+  }, [dispatch, checkRecoverCode, router, searchParams, recoveryCode])
 
   if (isLoading || isLoadingPage) return <Loader />
 

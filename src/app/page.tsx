@@ -28,7 +28,7 @@ export default function Public() {
           // Перенаправляем пользователя на главную страницу
           router.push('/home')
         } catch (error) {
-          console.log('Failed to fetch user data:', error)
+          console.warn('Failed to fetch user data:', error)
 
           // Очищаем localStorage и сбрасываем состояние авторизации
           localStorage.removeItem('accessToken')
