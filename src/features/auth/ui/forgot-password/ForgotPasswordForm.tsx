@@ -100,8 +100,10 @@ export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
         <Button disabled={isLoading}>
           <Typography variant={'h3'}>{isSuccess ? 'Send Link Again' : 'Send Link'}</Typography>
         </Button>
-        <Button as={Link} href={PATH.AUTH.LOGIN} variant={'link'}>
-          <Typography variant={'h3'}>Back to Sign In</Typography>
+        <Button asChild variant={'link'}>
+          <Link href={PATH.AUTH.LOGIN}>
+            <Typography variant={'h3'}>Back to Sign In</Typography>
+          </Link>
         </Button>
 
         {errors.recaptcha && (
