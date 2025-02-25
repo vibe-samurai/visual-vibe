@@ -17,6 +17,7 @@ import { SendButton } from '@public/icon/SendButton'
 import ProfileImage2 from '@public/images/my-post/profile-photo-2.png'
 
 import s from './page.module.scss'
+import More from '../my-post/More'
 import { SaveButton } from '../my-post/SaveButton'
 
 const defaultAvatarArray = [
@@ -87,6 +88,7 @@ const MyPost = ({ params }: PostPageProps) => {
 
       <div className={s.postContainer}>
         <PostSlider images={postData.images} />
+
         <div className={s.commentsContainer}>
           <div className={s.commetsHeader}>
             <Image
@@ -97,11 +99,7 @@ const MyPost = ({ params }: PostPageProps) => {
               height={36}
             />
             <Typography variant={'h3'}>{postData.userName}</Typography>
-            <div className={s.moreDots}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            <More id={+id} />
           </div>
 
           <div className={s.commentsBody}>

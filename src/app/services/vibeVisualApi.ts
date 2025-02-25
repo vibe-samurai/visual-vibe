@@ -71,6 +71,12 @@ export const vibeVisualApi = createApi({
         url: `v1/posts/${postId}/comments`,
       }),
     }),
+    deletePostById: builder.mutation<void, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `v1/posts/${postId}/comments`,
+        method: 'DELETE',
+      }),
+    }),
   }),
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
@@ -84,4 +90,5 @@ export const {
   useGetPostByIdQuery,
   useGetCommentsByPostIdQuery,
   useGetLikesByPostIdQuery,
+  useDeletePostByIdMutation,
 } = vibeVisualApi

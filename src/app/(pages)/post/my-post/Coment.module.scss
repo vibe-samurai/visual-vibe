@@ -8,30 +8,29 @@
 }
 
 .comment {
-    display: grid;
-    grid-template-columns: 36px 1fr 16px;
-    gap: 12px;
-    align-items: flex-start;
-
+  display: grid;
+  grid-template-columns: 36px 1fr 16px;
+  gap: 12px;
+  align-items: flex-start;
 }
 
 .commentText {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 
-    span {
-             &:first-child {
-            margin-right: 5px;
-        }
+  span {
+    &:first-child {
+      margin-right: 5px;
     }
+  }
 }
 
 .commentInfo {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    color: var(--Light-900);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--Light-900);
 
-    button {
-        cursor: pointer;
-    }
+  button {
+    cursor: pointer;
+  }
 }

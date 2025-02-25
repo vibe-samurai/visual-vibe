@@ -1,0 +1,82 @@
+.moreWrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.moreDots {
+  cursor: pointer;
+
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+
+    background-color: var(--Light-100);
+
+    transition: all 0.2s ease 0s;
+  }
+
+  &:hover {
+    span {
+      background-color: var(--Primary-500);
+    }
+  }
+}
+
+.moreBody {
+  position: absolute;
+  top: 100%;
+  right: 0;
+
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+
+  width: max-content;
+  padding: 12px;
+  border: 1px solid var(--Dark-100);
+  border-radius: 2px;
+
+  background-color: var(--Dark-500);
+}
+
+.open {
+  display: flex;
+}
+
+.moreItem {
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    color: var(--Light-900);
+
+    svg {
+      path {
+        fill: var(--Light-900);
+      }
+    }
+  }
+}
+
+.dialog {
+  div {
+    button {
+      margin-top: 30px;
+    }
+  }
+}
