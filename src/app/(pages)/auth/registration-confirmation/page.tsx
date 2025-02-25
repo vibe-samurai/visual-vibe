@@ -32,7 +32,7 @@ export default async function EmailConfirmedPage({
 }: {
   searchParams: { code?: string }
 }) {
-  const { code } = searchParams || {}
+  const { code } = searchParams
 
   if (!code) {
     redirect(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
