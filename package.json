@@ -20,6 +20,7 @@
     "@vibe-samurai/visual-ui-kit": "0.0.14",
     "async-mutex": "^0.5.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.5.2",
     "jwt-decode": "^4.0.0",
     "next": "15.1.6",
     "react": "^19.0.0",
