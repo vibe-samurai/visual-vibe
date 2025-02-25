@@ -2,7 +2,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { PostImage } from '@/app/services/vibeVisual.types'
+import { PostImage } from '@/entities/posts/types'
 import { ArrowBackIcon } from '@public/icon/ArrowBackIcon'
 
 import s from './PostSlider.module.scss'

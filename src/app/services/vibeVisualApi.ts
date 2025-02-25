@@ -1,12 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-query'
+import { Post, PostComments, PostLikes } from '@/entities/posts/types'
 
 import {
   NewPasswordData,
-  Post,
-  PostComments,
-  PostLikes,
   RecoveryPasswordData,
   RecoveryPasswordResending,
 } from './vibeVisual.types'
