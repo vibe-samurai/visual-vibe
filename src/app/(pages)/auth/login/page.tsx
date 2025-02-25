@@ -28,7 +28,7 @@ export default function Login() {
       await login({ email: email!, password: password! })
       replace(PATH.HOME)
     } catch (error) {
-      setError('Login failed. Please check your credentials and try again.')
+      setError(`Login failed. Please check your credentials and try again, ${error}`)
     } finally {
       setIsLoading(false)
     }
