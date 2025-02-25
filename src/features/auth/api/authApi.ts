@@ -1,4 +1,4 @@
-import { vibeVisualApi } from '@/app/services/vibeVisualApi'
+import { baseAppApi } from '@/app/services/baseAppApi'
 import {
   GoogleOAuthRequest,
   GoogleOAuthResponse,
@@ -7,7 +7,7 @@ import {
   MeResponse,
 } from '@/features/auth/types/authApi.types'
 
-export const authApi = vibeVisualApi.injectEndpoints({
+export const authApi = baseAppApi.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       async onQueryStarted(_, { queryFulfilled }) {
@@ -75,5 +75,6 @@ export const {
   useGoogleOAuthMutation,
   useUpdateTokensMutation,
   useMeQuery,
+  useLazyMeQuery,
   useLogoutMutation,
 } = authApi

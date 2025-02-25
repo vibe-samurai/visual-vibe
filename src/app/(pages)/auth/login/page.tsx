@@ -1,32 +1,36 @@
 'use client'
 
 import { Alertpopup, Button, Card, Loader, Typography } from '@vibe-samurai/visual-ui-kit'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 
-import { useAuth } from '@/app/context/AuthContext'
+import { useFormAuth } from '@/features/auth/hooks/useFormAuth'
 import { LoginFormValues } from '@/features/auth/model/validation/validationScheme'
 import { LoginForm } from '@/features/auth/ui/login/LoginForm'
-import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { OAuthBlock } from '@/shared/components'
 import { PATH } from '@/shared/constants/PATH'
-import { useRequestError } from '@/shared/hooks/useRequestError'
 
 import s from './LoginPage.module.scss'
 
 export default function Login() {
-  const { login, isLoading, error } = useAuth()
+  const { login, meErrorMessage, errorMessage } = useFormAuth()
   const { replace } = useRouter()
-  const errorMessage = useRequestError(error)
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async ({ email, password }) => {
+  const handleSubmit: SubmitHandler<LoginFormValues> = async ({ email, password }) => {
+    setIsLoading(true)
+    setError(null)
+
     try {
-      const data = await login({ email: email!, password: password! })
-      const userId = getDecodedToken(data.accessToken)
-
-      replace(`/profile/${userId}`)
+      await login({ email: email!, password: password! })
+      replace(PATH.HOME)
     } catch (error) {
-      console.error('Login failed:', error)
+      setError('Login failed. Please check your credentials and try again.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -34,7 +38,10 @@ export default function Login() {
 
   return (
     <>
-      {errorMessage && <Alertpopup alertType={'error'} message={errorMessage} />}
+      {meErrorMessage ||
+        (errorMessage && (
+          <Alertpopup alertType={'error'} message={meErrorMessage || errorMessage} />
+        ))}
       <Card className={s.card}>
         <Typography as={'h1'} variant={'h1'}>
           Sign In
@@ -42,13 +49,13 @@ export default function Login() {
 
         <OAuthBlock />
 
-        <LoginForm disabled={isLoading} onSubmit={onSubmit} isError={!!error} />
+        <LoginForm disabled={isLoading} onSubmit={handleSubmit} isError={!!error} />
 
         <Typography variant={'regular-text-16'} className={s['account-text']}>
           Don’t have an account?
         </Typography>
-        <Button as={'a'} variant={'link'} href={PATH.AUTH.SIGNUP}>
-          Sign Up
+        <Button asChild variant={'link'}>
+          <Link href={PATH.AUTH.SIGNUP}>Sign Up</Link>
         </Button>
       </Card>
     </>

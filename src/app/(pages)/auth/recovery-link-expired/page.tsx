@@ -1,11 +1,10 @@
 'use client'
 import { Button, Dialog } from '@vibe-samurai/visual-ui-kit'
-import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useRecoveryPasswordResendingMutation } from '@/app/services/vibeVisualApi'
-import { AppStore, useAppSelector } from '@/app/store/store'
+import { useAppSelector } from '@/app/store/store'
 import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
 import { EmailLinkExpired } from '@/shared/components/email-link-expired/EmailLinkExpired'
 
@@ -20,7 +19,7 @@ export default function EmailExpired() {
 
   const onSubmit = async () => {
     if (!email) {
-      console.log('Email not found')
+      console.error('Email not found')
 
       return
     }
@@ -31,7 +30,7 @@ export default function EmailExpired() {
       })
       setIsOpen(true)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
