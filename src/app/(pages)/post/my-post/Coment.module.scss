@@ -1,0 +1,37 @@
+.profilePhoto {
+  width: 35px;
+  height: 36px;
+  margin-right: 12px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.comment {
+    display: grid;
+    grid-template-columns: 36px 1fr 16px;
+    gap: 12px;
+    align-items: flex-start;
+
+}
+
+.commentText {
+    margin-bottom: 5px;
+
+    span {
+             &:first-child {
+            margin-right: 5px;
+        }
+    }
+}
+
+.commentInfo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--Light-900);
+
+    button {
+        cursor: pointer;
+    }
+}

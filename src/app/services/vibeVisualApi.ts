@@ -4,6 +4,9 @@ import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-quer
 
 import {
   NewPasswordData,
+  Post,
+  PostComments,
+  PostLikes,
   RecoveryPasswordData,
   RecoveryPasswordResending,
 } from './vibeVisual.types'
@@ -55,6 +58,21 @@ export const vibeVisualApi = createApi({
         }
       },
     }),
+    getPostById: builder.query<Post, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `v1/posts/id/${postId}`,
+      }),
+    }),
+    getLikesByPostId: builder.query<PostLikes, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `v1/posts/${postId}/likes`,
+      }),
+    }),
+    getCommentsByPostId: builder.query<PostComments, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `v1/posts/${postId}/comments`,
+      }),
+    }),
   }),
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
@@ -65,4 +83,7 @@ export const {
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
   useRecoveryPasswordResendingMutation,
+  useGetPostByIdQuery,
+  useGetCommentsByPostIdQuery,
+  useGetLikesByPostIdQuery,
 } = vibeVisualApi
