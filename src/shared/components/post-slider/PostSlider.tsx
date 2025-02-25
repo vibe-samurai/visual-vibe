@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { PostImage } from '@/entities/posts/types'
-import ArrowBackIcon from '@public/icon/ArrowBackIcon'
+import { ArrowBackIcon } from '@public/icon/ArrowBackIcon'
 
 import s from './PostSlider.module.scss'
 
