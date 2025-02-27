@@ -1,0 +1,22 @@
+.closeButton {
+  cursor: pointer;
+
+  position: absolute;
+  top: 60px;
+  right: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  &:hover {
+    svg {
+      path {
+      fill: var(--Light-900)
+      }
+    }
+  }
+}

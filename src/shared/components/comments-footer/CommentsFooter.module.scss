@@ -1,0 +1,87 @@
+.commentsFooter {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsInfo {
+  padding: 12px 24px 8px;
+  border-bottom: 1px solid var(--Dark-100);
+}
+
+.commentsAddComment {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 24px;
+}
+
+.commentsActions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 20px;
+
+  button {
+    cursor: pointer;
+
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+}
+
+.commentsLikes {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.likeOwnerPhotos {
+  display: flex;
+  align-items: center;
+}
+
+.likeOwnerPhoto {
+  position: relative;
+  z-index: 1;
+
+  width: 24px;
+  height: 24px;
+  margin-left: -9px; /* Половина ширины, чтобы частично скрыть */
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:nth-child(1) {
+    z-index: 3;
+  }
+
+  &:nth-child(2) {
+    z-index: 2;
+  }
+
+  &:nth-child(3) {
+    z-index: 1;
+  }
+}
+
+.grayText {
+  color: var(--Light-900);
+}
+
+.addCommentInput {
+  width: 100%;
+
+  input {
+    padding-left: 0;
+    border: none;
+    background-color: transparent;
+  }
+}

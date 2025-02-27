@@ -1,0 +1,16 @@
+.postContainer {
+  position: absolute;
+  top: 96px;
+  right: 64px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  width: 100%;
+  max-width: 80%;
+  height: 70%;
+  border: 1px solid var(--Dark-100);
+  border-radius: 2px;
+
+  background-color: var(--Dark-300);
+}

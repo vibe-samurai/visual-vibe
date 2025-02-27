@@ -52,13 +52,7 @@ export type PostComments = {
   items: PostComment[]
 }
 
-export type CommentatorAvatar = {
-  url: string
-  width: number
-  height: number
-  fileSize: number
-  createdAt: string
-}
+export type CommentatorAvatar = Omit<PostImage, 'uploadId'>
 
 export type PostLikes = {
   totalCount: number

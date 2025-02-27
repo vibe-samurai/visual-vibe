@@ -1,0 +1,10 @@
+.commentsBody {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 15px;
+
+  padding: 20px 24px 8px;
+  border-bottom: 1px solid var(--Dark-100);
+}

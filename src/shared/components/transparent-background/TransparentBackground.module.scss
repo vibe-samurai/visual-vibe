@@ -1,5 +1,5 @@
-.opacityLayout {
-     position: absolute;
+.transparentBackground {
+  position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
@@ -9,10 +9,10 @@
   width: 100%;
   height: 100vh;
 
-  opacity: 0.6;
+  opacity: 0.8;
   background-color: var(--Dark-900);
 }
 
 .open {
-    display: block;
+  display: block;
 }

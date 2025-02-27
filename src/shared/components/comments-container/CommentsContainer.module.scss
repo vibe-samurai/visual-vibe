@@ -1,0 +1,33 @@
+.commentsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.editMode {
+  padding-top: 62px;
+}
+
+.grayText {
+  color: var(--Light-900);
+}
+
+.editBody {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px;
+}
+
+.editButton {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 24px;
+}
+
+.editTextarea {
+  height: 120px;
+}
+
+.marginLeftAuto {
+  margin-left: auto;
+}

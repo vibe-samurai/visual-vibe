@@ -1,22 +1,24 @@
 import { Dialog, Typography } from '@vibe-samurai/visual-ui-kit'
-import React, { useState } from 'react'
+import React from 'react'
 
-import s from './ConfirmClosePost.module.scss'
+import s from './ConfirmCloseDialog.module.scss'
+import TransparentBackground from '../transparent-background/TransparentBackground'
 
 type Props = {
   isOpen: boolean
   setIsOpen: () => void
   offEditMode: () => void
 }
-const ConfirmClosePost = ({ isOpen, setIsOpen, offEditMode }: Props) => {
+const ConfirmCloseDialog = ({ isOpen, setIsOpen, offEditMode }: Props) => {
   const offEditModeHandler = () => {
     setIsOpen()
     offEditMode()
   }
 
   return (
-    <div className={`${s.opacityLayout} ${isOpen && s.open}`}>
+    <TransparentBackground isOpen={isOpen}>
       <Dialog
+        className={s.dialog}
         open={isOpen}
         onClose={() => {
           setIsOpen()
@@ -35,8 +37,8 @@ const ConfirmClosePost = ({ isOpen, setIsOpen, offEditMode }: Props) => {
           saved
         </Typography>
       </Dialog>
-    </div>
+    </TransparentBackground>
   )
 }
 
-export default ConfirmClosePost
+export default ConfirmCloseDialog

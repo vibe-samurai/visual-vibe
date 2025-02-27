@@ -1,0 +1,21 @@
+.editHeader {
+  position: absolute;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--Dark-100);
+  border-radius: 2px 2px 0 0;
+
+  background-color: var(--Dark-300);
+
+  button {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
