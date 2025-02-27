@@ -8,16 +8,17 @@ import { EditIcon } from '@public/icon/EditIcon'
 import s from './More.module.scss'
 type Props = {
   id: number
+  setEditMode: () => void
 }
-const More = ({ id }: Props) => {
+const More = ({ id, setEditMode }: Props) => {
   const [isOpenBody, setOpenBody] = useState(false)
-  const [isOpenDialog, setOpenDialog] = useState(true)
+  const [isOpenDialog, setOpenDialog] = useState(false)
   const [deletePost] = useDeletePostByIdMutation()
 
   return (
     <div className={s.moreWrapper}>
       <div className={`${s.moreBody} ${isOpenBody ? s.open : ''}`}>
-        <button className={s.moreItem} type={'button'}>
+        <button className={s.moreItem} type={'button'} onClick={() => setEditMode()}>
           <EditIcon />
           <Typography variant={'regular-text-14'} as={'span'}>
             Edit Post
