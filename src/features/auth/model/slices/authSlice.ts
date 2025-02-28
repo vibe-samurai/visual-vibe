@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { MeResponse } from '@/features/auth/types/authApi.types'
+import { deleteCookie } from '@/features/auth/utils/cookieUtils'
 
 interface AuthState {
   isAuthenticated: boolean
@@ -11,8 +12,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuthenticated: !!localStorage.getItem('accessToken'),
-  userId: localStorage.getItem('userId'),
+  isAuthenticated: false,
+  userId: null,
   isLoading: false,
   error: null,
 }
@@ -40,8 +41,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.userId = null
       state.meData = undefined
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('userId')
+      deleteCookie('accessToken')
+      deleteCookie('userData')
     },
   },
 })
