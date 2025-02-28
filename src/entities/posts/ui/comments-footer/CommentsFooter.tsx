@@ -2,7 +2,7 @@ import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
 import React from 'react'
 
-import { useGetLikesByPostIdQuery } from '@/app/services/vibeVisualApi'
+import { useGetLikesByPostIdQuery, useUpdatePostLikeMutation } from '@/app/services/vibeVisualApi'
 import { Post } from '@/entities/posts/types'
 import { SaveButton } from '@/entities/posts/ui/save-button/SaveButton'
 import { LikeButton } from '@/shared/components/like-button/LikeButton'
@@ -11,6 +11,7 @@ import { SendButton } from '@public/icon/SendButton'
 import ProfileImage1 from '@public/images/my-post/profile-photo-1.png'
 
 import s from './CommentsFooter.module.scss'
+import LikesList from '../likes-list/LikesList'
 
 const defaultAvatarArray = [
   {
@@ -23,6 +24,7 @@ type Props = {
 }
 const CommentsFooter = ({ post }: Props) => {
   const { data, error, isLoading } = useGetLikesByPostIdQuery({ postId: post.id })
+  const [updateLike] = useUpdatePostLikeMutation()
 
   if (!data) {
     return
@@ -32,7 +34,13 @@ const CommentsFooter = ({ post }: Props) => {
     <div className={s.commentsFooter}>
       <div className={s.commentsInfo}>
         <div className={s.commentsActions}>
-          <LikeButton like={post.isLiked} big />
+          <LikeButton
+            likeStatus={data.isLiked}
+            updateLike={() => {
+              updateLike({ postId: post.id, likeStatus: 'NONE' })
+            }}
+            big
+          />
           <SendButton />
           <SaveButton />
         </div>
@@ -66,6 +74,7 @@ const CommentsFooter = ({ post }: Props) => {
         <Input className={s.addCommentInput} type={'text'} placeholder={'Add a Comment...'}></Input>
         <Button variant={'link'}>Publish</Button>
       </div>
+      <LikesList likesList={data.items} />
     </div>
   )
 }

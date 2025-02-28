@@ -6,6 +6,7 @@ import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
 
 import s from './Coment.module.scss'
 import { Post } from '../posts/types'
+import LikesList from '../posts/ui/likes-list/LikesList'
 
 type Props = {
   commenter?: boolean
@@ -54,7 +55,7 @@ const Comment = ({
           )}
         </div>
       </div>
-      {commenter && <LikeButton like={isLiked} />}
+      {commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
     </div>
   )
 }

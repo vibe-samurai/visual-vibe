@@ -1,8 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { baseQueryWithReauth } from '@/app/services/vibeViualApi.fetch-base-query'
 import { Post, PostComments, PostLikes } from '@/entities/posts/types'
 
+import { baseQueryWithReAuth } from './BaseQueryWithReAuth'
 import {
   NewPasswordData,
   RecoveryPasswordData,
@@ -10,7 +10,7 @@ import {
 } from './vibeVisual.types'
 
 export const vibeVisualApi = createApi({
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryWithReAuth,
   endpoints: builder => ({
     resendVerificationEmail: builder.mutation<void, string>({
       query: (email: string) => ({
@@ -84,6 +84,13 @@ export const vibeVisualApi = createApi({
         body: description,
       }),
     }),
+    updatePostLike: builder.mutation<void, { likeStatus: 'NONE'; postId: number }>({
+      query: ({ likeStatus, postId }) => ({
+        url: `v1/posts/${postId}/like-status`,
+        method: 'PUT',
+        body: likeStatus,
+      }),
+    }),
   }),
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
@@ -99,4 +106,5 @@ export const {
   useGetLikesByPostIdQuery,
   useDeletePostByIdMutation,
   useUpdatePostDescriptionMutation,
+  useUpdatePostLikeMutation,
 } = vibeVisualApi

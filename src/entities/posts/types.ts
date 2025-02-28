@@ -61,11 +61,11 @@ export type PostLikes = {
   pageSize: number
   prevCursor: number
   nextCursor?: unknown
-  items: Item[]
+  items: LikeItem[]
   isLiked: boolean
 }
 
-export type Item = {
+export type LikeItem = {
   id: number
   userId: number
   userName: string

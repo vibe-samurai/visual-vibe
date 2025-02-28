@@ -5,17 +5,16 @@ import { LikeIconOutline } from '@public/icon/LikeIconOutline'
 
 import s from './LikeButton.module.scss'
 type Props = ComponentPropsWithoutRef<'button'> & {
-  like?: boolean
+  likeStatus?: boolean
   big?: boolean
+  updateLike: () => void
 }
-export const LikeButton = ({ like = false, big = false, ...props }: Props) => {
-  const [likeStatus, setLikeStatus] = useState<boolean>(like)
-
+export const LikeButton = ({ likeStatus, big = false, updateLike, ...props }: Props) => {
   return (
     <button
       type={'button'}
       className={`${s.likeButton} ${big ? s.big : ''}`}
-      onClick={() => setLikeStatus(!likeStatus)}
+      onClick={updateLike}
       {...props}
     >
       {likeStatus ? <LikeIconFill /> : <LikeIconOutline />}
