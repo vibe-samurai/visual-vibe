@@ -24,5 +24,5 @@ export const PATH = {
   MESSENGER: '/messenger',
   STATISTICS: '/statistics',
   SEARCH: '/search',
-  PUBLIC_PAGE: '/public-page',
+  PUBLIC_PAGE: '/public',
 }

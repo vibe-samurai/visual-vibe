@@ -30,20 +30,19 @@ export const useOAuth = () => {
 
     try {
       setCookie('accessToken', accessToken, 7)
+      const userId = getDecodedToken(accessToken)
+
+      if (userId) {
+        dispatch(setUserId(userId))
+      }
 
       const userData = await getMe().unwrap()
+
+      replace(PATH.HOME, { scroll: false })
 
       if (userData) {
         dispatch(setMeData(userData))
         dispatch(setAuth(true))
-
-        const userId = getDecodedToken(accessToken)
-
-        if (userId) {
-          dispatch(setUserId(userId))
-        }
-
-        replace(PATH.HOME, { scroll: false })
       } else {
         replace(PATH.AUTH.LOGIN, { scroll: false })
       }

@@ -60,6 +60,7 @@ export const authApi = baseAppApi.injectEndpoints({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled
         deleteCookie('accessToken')
+        deleteCookie('userData')
         dispatch(authApi.util.resetApiState())
       },
       query: body => ({

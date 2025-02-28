@@ -17,6 +17,7 @@ export function middleware(request: NextRequest) {
     PATH.AUTH.UPDATE_TOKENS,
     PATH.MAIN,
     PATH.GITHUB,
+    PATH.PUBLIC_PAGE,
   ]
   const { pathname } = request.nextUrl
 

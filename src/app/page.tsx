@@ -3,25 +3,46 @@
 import { Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { useMeQuery } from '@/features/auth/api/authApi'
+import { useLazyMeQuery } from '@/features/auth/api/authApi'
+import { setAuth, setMeData } from '@/features/auth/model/slices/authSlice'
+import { deleteCookie, getCookie } from '@/features/auth/utils/cookieUtils'
 import { PATH } from '@/shared/constants/PATH'
 
 export default function IndexPage() {
-  const { data: me, error, isLoading } = useMeQuery()
+  const dispatch = useDispatch()
   const router = useRouter()
+  const [getMe] = useLazyMeQuery()
 
   useEffect(() => {
-    if (isLoading) return
+    const fetchUserData = async () => {
+      const token = getCookie('accessToken')
 
-    if (error || !me?.userId) {
-      router.push(PATH.MAIN)
+      if (token) {
+        try {
+          const userData = await getMe().unwrap()
 
-      return
+          dispatch(setMeData(userData))
+          dispatch(setAuth(true))
+
+          router.push(PATH.HOME)
+        } catch (error) {
+          console.warn('Failed to fetch user data:', error)
+
+          deleteCookie('accessToken')
+          dispatch(setAuth(false))
+          dispatch(setMeData(null))
+        }
+      } else {
+        dispatch(setAuth(false))
+        dispatch(setMeData(null))
+        router.push(PATH.PUBLIC_PAGE)
+      }
     }
 
-    router.push(PATH.HOME)
-  }, [isLoading, error, me, router])
+    fetchUserData()
+  }, [dispatch, getMe, router])
 
   return <Loader />
 }
