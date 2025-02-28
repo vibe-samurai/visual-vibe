@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
+import { useAppSelector } from '@/app/store/store'
 import ConfirmCloseDialog from '@/entities/posts/ui/confirm-close-dialog/ConfirmCloseDialog'
 import PostContainer from '@/entities/posts/ui/post-container/PostContainer'
 import CloseButton from '@/shared/components/close-button/CloseButton'
 import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
 
+import { postSelector } from './model/selectors/postSelector'
 import { Post } from './types'
 
 type Props = {
@@ -13,33 +15,16 @@ type Props = {
 
 export const PostComponent = ({ post }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
-  const [editMode, setEditMode] = useState(false)
-  const [confirmClosePost, setConfirmClosePost] = useState(false)
-
-  const editModeHandler = () => {
-    setEditMode(!editMode)
-  }
+  const editMode = useAppSelector(postSelector).editMode
+  const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
 
   return (
     <TransparentBackground isOpen={isOpen}>
       {editMode || <CloseButton onClick={() => setIsOpen(false)} />}
 
-      <PostContainer
-        setEditMode={editModeHandler}
-        post={post}
-        editMode={editMode}
-        confirmClosePost={() => {
-          setConfirmClosePost(!confirmClosePost)
-        }}
-      />
+      <PostContainer post={post} />
 
-      {confirmClosePost && (
-        <ConfirmCloseDialog
-          isOpen={confirmClosePost}
-          setIsOpen={() => setConfirmClosePost(!confirmClosePost)}
-          offEditMode={() => setEditMode(false)}
-        />
-      )}
+      {confirmCloseEditing && <ConfirmCloseDialog />}
     </TransparentBackground>
   )
 }

@@ -1,34 +1,35 @@
 import { Dialog, Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
 
 import s from './ConfirmCloseDialog.module.scss'
+import { postSelector } from '../../model/selectors/postSelector'
+import { setconfirmCloseEditing, setEditMode } from '../../model/slices/postSlice'
 
-type Props = {
-  isOpen: boolean
-  setIsOpen: () => void
-  offEditMode: () => void
-}
-const ConfirmCloseDialog = ({ isOpen, setIsOpen, offEditMode }: Props) => {
+const ConfirmCloseDialog = () => {
+  const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
+  const dispatch = useAppDispatch()
+
+  const closeConfirmDialog = () => {
+    dispatch(setconfirmCloseEditing(!confirmCloseEditing))
+  }
+
   const offEditModeHandler = () => {
-    setIsOpen()
-    offEditMode()
+    closeConfirmDialog()
+    dispatch(setEditMode(false))
   }
 
   return (
-    <TransparentBackground isOpen={isOpen}>
+    <TransparentBackground isOpen={confirmCloseEditing}>
       <Dialog
         className={s.dialog}
-        open={isOpen}
-        onClose={() => {
-          setIsOpen()
-        }}
+        open={confirmCloseEditing}
+        onClose={closeConfirmDialog}
         size={'md'}
         onConfirmButtonClick={offEditModeHandler}
-        onCancelButtonClick={() => {
-          setIsOpen()
-        }}
+        onCancelButtonClick={closeConfirmDialog}
         title={'Close Post'}
         confirmButtonText={'Yes'}
         cancelButtonText={'No'}

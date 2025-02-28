@@ -2,20 +2,22 @@ import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import React, { useState } from 'react'
 
 import { useUpdatePostDescriptionMutation } from '@/app/services/vibeVisualApi'
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 
 import s from './CommentsContainer.module.scss'
+import { postSelector } from '../../model/selectors/postSelector'
+import { setEditMode } from '../../model/slices/postSlice'
 import CommentsBody from '../comments-body/CommentsBody'
 import CommentsFooter from '../comments-footer/CommentsFooter'
 import CommentsHeader from '../comments-header/CommentsHeader'
 
 type Props = {
-  editMode: boolean
   post: Post
-  setEditMode: () => void
 }
-const CommentsContainer = ({ editMode, post, setEditMode }: Props) => {
+const CommentsContainer = ({ post }: Props) => {
   const [text, setText] = useState('')
+  const editMode = useAppSelector(postSelector).editMode
 
   const [updatePost] = useUpdatePostDescriptionMutation()
   const updateDescriptionHandler = () => {
@@ -30,7 +32,7 @@ const CommentsContainer = ({ editMode, post, setEditMode }: Props) => {
 
   return (
     <div className={`${s.commentsContainer} ${editMode && s.editMode}`}>
-      <CommentsHeader post={post} editMode={editMode} setEditMode={setEditMode} />
+      <CommentsHeader post={post} />
 
       {editMode ? (
         <div className={s.editBody}>
