@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
+import ConfirmCloseDialog from '@/entities/posts/ui/confirm-close-dialog/ConfirmCloseDialog'
+import PostContainer from '@/entities/posts/ui/post-container/PostContainer'
 import CloseButton from '@/shared/components/close-button/CloseButton'
-import ConfirmCloseDialog from '@/shared/components/confirm-close-dialog/ConfirmCloseDialog'
-import PostContainer from '@/shared/components/post-container/PostContainer'
 import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
 
 import { Post } from './types'

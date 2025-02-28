@@ -1,8 +1,9 @@
 import { Dialog, Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
+import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
+
 import s from './ConfirmCloseDialog.module.scss'
-import TransparentBackground from '../transparent-background/TransparentBackground'
 
 type Props = {
   isOpen: boolean

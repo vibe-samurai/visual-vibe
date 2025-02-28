@@ -1,8 +1,7 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
-import Image from 'next/image'
 import React from 'react'
 
-import { LikeButton } from '@/app/(pages)/post/my-post/LikeButton'
+import { LikeButton } from '@/shared/components/like-button/LikeButton'
 import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
 
 import s from './Coment.module.scss'

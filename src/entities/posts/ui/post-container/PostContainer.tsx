@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Post } from '@/entities/posts/types'
+import CommentsContainer from '@/entities/posts/ui/comments-container/CommentsContainer'
+import PostSlider from '@/shared/components/post-slider/PostSlider'
 
 import s from './PostContainer.module.scss'
-import CommentsContainer from '../comments-container/CommentsContainer'
 import EditPostHeader from '../edit-post-header/EditPostHeader'
-import PostSlider from '../post-slider/PostSlider'
 
 type Props = {
   post: Post

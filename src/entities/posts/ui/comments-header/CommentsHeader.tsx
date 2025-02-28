@@ -1,11 +1,12 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
-import More from '@/app/(pages)/post/my-post/More'
 import { Post } from '@/entities/posts/types'
+import More from '@/entities/posts/ui/more-button/More'
+import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
 
 import s from './CommentsHeader.module.scss'
-import ProfilePhoto from '../profile-photo/ProfilePhoto'
+
 type Props = {
   post: Post
   editMode: boolean
