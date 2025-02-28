@@ -21,8 +21,8 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9
       '@vibe-samurai/visual-ui-kit':
-        specifier: 0.0.16
-        version: 0.0.16(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)
+        specifier: 0.0.17
+        version: 0.0.17(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)
       async-mutex:
         specifier: ^0.5.0
         version: 0.5.0
@@ -1020,8 +1020,8 @@ packages:
     resolution: {integrity: sha512-kCYXKAum9CecGVHGij7muybDfTS2sD3t0L4bJsEZLkyrXUImiCTq1M3LG2SRtOhiHFwMR9wAFplpT6XHYjTkwQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@vibe-samurai/visual-ui-kit@0.0.16':
-    resolution: {integrity: sha512-LvfB+Iz11cBPHRYYTwk4EyglvLeih05HvNEo7L6lRAfrLqpKMesTSgsm614BUOM/y7iUq/jzhbI2X1xyX4fQ+w==}
+  '@vibe-samurai/visual-ui-kit@0.0.17':
+    resolution: {integrity: sha512-wvOrN1sqpBd2SHLl/gpyI3W+GgG3IPUtRI49bAjA9gDl6Bfu9yBJgJS8SPgGJAMwg/APbH4X72QVSlaUUL7MSA==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3511,7 +3511,7 @@ snapshots:
       '@typescript-eslint/types': 8.25.0
       eslint-visitor-keys: 4.2.0
 
-  '@vibe-samurai/visual-ui-kit@0.0.16(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)':
+  '@vibe-samurai/visual-ui-kit@0.0.17(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)':
     dependencies:
       '@fontsource/inter': 5.1.1
       '@fontsource/roboto': 5.1.1

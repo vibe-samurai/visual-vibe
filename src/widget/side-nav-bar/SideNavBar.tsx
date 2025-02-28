@@ -2,12 +2,11 @@
 
 import { Alertpopup, Dialog, Sidebar, SidebarItem, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
-import { useSelector } from 'react-redux'
 
 import { useAppSelector } from '@/app/store/store'
 import { useLogout } from '@/features/auth/hooks'
 import { useSidebarNavigation } from '@/features/auth/hooks/useSidebarNavigation'
-import { selectIsAuthenticated, selectMeData } from '@/features/auth/model/selectors/selectors'
+import { selectMeData } from '@/features/auth/model/selectors/selectors'
 import { getSidebarOptions } from '@/widget/side-nav-bar/options/getSidebarOptions'
 
 import s from './SideNavBar.module.scss'

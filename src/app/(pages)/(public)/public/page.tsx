@@ -1,4 +1,5 @@
+import {PageContainer} from '@/shared'
 
 export default function PublicPage() {
-  return <div>Public Page</div>
+  return <PageContainer>Public Page</PageContainer>
 }
