@@ -12,6 +12,7 @@ import {
   setLoading,
   setError,
 } from '@/features/auth/model/slices/authSlice'
+import { setCookie } from '@/features/auth/utils/cookieUtils'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { PATH } from '@/shared/constants/PATH'
 
@@ -37,7 +38,7 @@ export const useGoogleAuth = () => {
         }).unwrap()
 
         if (accessToken) {
-          localStorage.setItem('accessToken', accessToken)
+          setCookie('accessToken', accessToken.trim(), 7)
 
           const userData = await getMe().unwrap()
 

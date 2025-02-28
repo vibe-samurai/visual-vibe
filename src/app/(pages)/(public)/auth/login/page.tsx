@@ -49,7 +49,7 @@ export default function Login() {
 
         <OAuthBlock />
 
-        <LoginForm disabled={isLoading} onSubmit={handleSubmit} isError={!!error} />
+        <LoginForm disabled={isLoading} onSubmitAction={handleSubmit} isError={!!error} />
 
         <Typography variant={'regular-text-16'} className={s['account-text']}>
           Don’t have an account?

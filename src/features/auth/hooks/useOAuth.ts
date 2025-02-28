@@ -11,6 +11,7 @@ import {
   setLoading,
   setError,
 } from '@/features/auth/model/slices/authSlice'
+import { getCookie, setCookie } from '@/features/auth/utils/cookieUtils'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { PATH } from '@/shared/constants/PATH'
 
@@ -20,7 +21,7 @@ export const useOAuth = () => {
   const dispatch = useDispatch()
 
   const handleOAuth = async (accessToken: string) => {
-    if (localStorage.getItem('accessToken') === accessToken) {
+    if (getCookie('accessToken') === accessToken) {
       return
     }
 
@@ -28,7 +29,7 @@ export const useOAuth = () => {
     dispatch(setError(null))
 
     try {
-      localStorage.setItem('accessToken', accessToken)
+      setCookie('accessToken', accessToken, 7)
 
       const userData = await getMe().unwrap()
 

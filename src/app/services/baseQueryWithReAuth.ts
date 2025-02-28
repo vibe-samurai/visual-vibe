@@ -10,6 +10,7 @@ import { Mutex } from 'async-mutex'
 
 import { baseAppApi } from '@/app/services/baseAppApi'
 import { UpdateTokenResponse } from '@/app/services/baseAppApi.types'
+import { deleteCookie, getCookie, setCookie } from '@/features/auth/utils/cookieUtils'
 import { BASE_URL } from '@/shared/constants/BASE_URL'
 import { PATH } from '@/shared/constants/PATH'
 
@@ -20,7 +21,7 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
 
   prepareHeaders: headers => {
-    const token = localStorage.getItem('accessToken')
+    const token = getCookie('accessToken')
 
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
@@ -54,10 +55,12 @@ export const baseQueryWithReAuth: BaseQueryFn<
         )) as UpdateTokenResponse
 
         if (refreshResult.data) {
-          localStorage.setItem('accessToken', refreshResult.data.accessToken.trim())
+          setCookie('accessToken', refreshResult.data.accessToken.trim(), 7)
           result = await baseQuery(args, api, extraOptions)
         } else {
           baseAppApi.util.resetApiState()
+
+          deleteCookie('accessToken')
         }
       } finally {
         release()

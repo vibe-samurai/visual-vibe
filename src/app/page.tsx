@@ -1,49 +1,27 @@
 'use client'
 
+import { Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { useLazyMeQuery } from '@/features/auth/api/authApi'
-import { setAuth, setMeData } from '@/features/auth/model/slices/authSlice'
+import { useMeQuery } from '@/features/auth/api/authApi'
+import { PATH } from '@/shared/constants/PATH'
 
-export default function Public() {
-  const dispatch = useDispatch()
+export default function IndexPage() {
+  const { data: me, error, isLoading } = useMeQuery()
   const router = useRouter()
-  const [getMe] = useLazyMeQuery()
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem('accessToken')
+    if (isLoading) return
 
-      if (token) {
-        try {
-          // Запрашиваем данные пользователя
-          const userData = await getMe().unwrap()
+    if (error || !me?.userId) {
+      router.push(PATH.MAIN)
 
-          // Сохраняем данные в Redux
-          dispatch(setMeData(userData))
-          dispatch(setAuth(true))
-
-          // Перенаправляем пользователя на главную страницу
-          router.push('/home')
-        } catch (error) {
-          console.warn('Failed to fetch user data:', error)
-
-          // Очищаем localStorage и сбрасываем состояние авторизации
-          localStorage.removeItem('accessToken')
-          dispatch(setAuth(false))
-          dispatch(setMeData(null))
-        }
-      } else {
-        // Если токена нет, сбрасываем состояние авторизации
-        dispatch(setAuth(false))
-        dispatch(setMeData(null))
-      }
+      return
     }
 
-    fetchUserData()
-  }, [dispatch, getMe, router])
+    router.push(PATH.HOME)
+  }, [isLoading, error, me, router])
 
-  return <div>Public</div>
+  return <Loader />
 }

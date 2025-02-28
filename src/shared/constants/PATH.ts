@@ -1,5 +1,5 @@
 export const PATH = {
-  PUBLIC: '/',
+  MAIN: '/',
   HOME: '/home',
   AUTH: {
     LOGIN: '/auth/login',
@@ -14,6 +14,7 @@ export const PATH = {
     UPDATE_TOKENS: '/auth/update-tokens',
     ME: '/auth/me',
   },
+  GITHUB: '/github',
   PROFILE: {
     PROFILE: '/profile',
     SETTINGS: '/profile/settings',
@@ -23,4 +24,5 @@ export const PATH = {
   MESSENGER: '/messenger',
   STATISTICS: '/statistics',
   SEARCH: '/search',
+  PUBLIC_PAGE: '/public-page',
 }

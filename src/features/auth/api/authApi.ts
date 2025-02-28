@@ -6,6 +6,7 @@ import {
   LoginResponse,
   MeResponse,
 } from '@/features/auth/types/authApi.types'
+import { deleteCookie, setCookie } from '@/features/auth/utils/cookieUtils'
 
 export const authApi = baseAppApi.injectEndpoints({
   endpoints: builder => ({
@@ -16,7 +17,7 @@ export const authApi = baseAppApi.injectEndpoints({
         if (!data) {
           return
         }
-        localStorage.setItem('accessToken', data.accessToken.trim())
+        setCookie('accessToken', data.accessToken.trim(), 7)
       },
       query: body => ({
         url: `v1/auth/login`,
@@ -32,7 +33,7 @@ export const authApi = baseAppApi.injectEndpoints({
           return
         }
 
-        localStorage.setItem('accessToken', data.accessToken.trim())
+        setCookie('accessToken', data.accessToken.trim(), 7)
       },
 
       invalidatesTags: ['Me'],
@@ -58,7 +59,7 @@ export const authApi = baseAppApi.injectEndpoints({
     logout: builder.mutation<void, void>({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled
-        localStorage.removeItem('accessToken')
+        deleteCookie('accessToken')
         dispatch(authApi.util.resetApiState())
       },
       query: body => ({
