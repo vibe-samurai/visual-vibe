@@ -1,2 +1,2 @@
-export * from '../../../../entities/signup-form/SignUpForm'
+export * from './signup-form'
 export * from './SignUpPageContent'

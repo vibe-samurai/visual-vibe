@@ -3,11 +3,10 @@
 import { Alertpopup, Dialog, Sidebar, SidebarItem, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 
-import { useAppSelector } from '@/app/store/store'
-import { useLogout } from '@/features/auth/hooks'
-import { useSidebarNavigation } from '@/features/auth/hooks/useSidebarNavigation'
-import { selectMeData } from '@/features/auth/model/selectors/selectors'
-import { getSidebarOptions } from '@/widget/side-nav-bar/options/getSidebarOptions'
+import { useAppSelector } from '@/app/store'
+import { useLogout, useSidebarNavigation } from '@/features/auth'
+import { selectMeData } from '@/features/auth/model/selectors'
+import { getSidebarOptions } from '@/widget/side-nav-bar/options'
 
 import s from './SideNavBar.module.scss'
 

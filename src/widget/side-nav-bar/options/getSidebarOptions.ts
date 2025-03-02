@@ -17,7 +17,7 @@ import {
   StatisticsIcon,
 } from '@vibe-samurai/visual-ui-kit'
 
-import { PATH } from '@/shared/constants/PATH'
+import { PATH } from '@/shared/constants'
 
 export const getSidebarOptions = (userId: string | null) => [
   {

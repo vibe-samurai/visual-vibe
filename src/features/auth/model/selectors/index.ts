@@ -1,1 +1,1 @@
-export * from './signupSelector'
+export * from './selectors'

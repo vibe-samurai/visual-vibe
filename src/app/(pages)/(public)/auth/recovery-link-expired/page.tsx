@@ -1,19 +1,20 @@
 'use client'
+
 import { Button, Dialog } from '@vibe-samurai/visual-ui-kit'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useRecoveryPasswordResendingMutation } from '@/app/services/vibeVisualApi'
-import { useAppSelector } from '@/app/store/store'
-import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
-import { EmailLinkExpired } from '@/shared/components/email-link-expired/EmailLinkExpired'
+import { useAppSelector } from '@/app/store'
+import { useRecoveryPasswordResendingMutation } from '@/features/auth'
+import { selectRecoveryData } from '@/features/auth/model/selectors'
+import { EmailLinkExpired } from '@/shared/components'
 
 import s from './page.module.scss'
 
 export default function EmailExpired() {
   const [isOpen, setIsOpen] = useState(false)
   const [recoveryPasswordResend] = useRecoveryPasswordResendingMutation()
-  const recovery = useAppSelector(recoverySelector)
+  const recovery = useAppSelector(selectRecoveryData)
   const email = recovery.recoveryEmail
   const { handleSubmit } = useForm()
 

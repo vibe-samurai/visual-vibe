@@ -6,20 +6,24 @@ import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { useSignupMutation } from '@/app/services'
-import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import { SignUpForm } from '@/entities'
-import { OAuthBlock } from '@/shared'
-import { PATH } from '@/shared/constants/PATH'
-import { useRequestError } from '@/shared/hooks/useRequestError'
+import { useAppDispatch, useAppSelector } from '@/app/store'
+import {
+  setSignupForm,
+  SignUpFields,
+  SignUpForm,
+  signUpSchema,
+  useSignupMutation,
+} from '@/features/auth'
+import { selectSignupData } from '@/features/auth/model/selectors'
+import { OAuthBlock } from '@/shared/components'
+import { PATH } from '@/shared/constants'
+import { useRequestError } from '@/shared/hooks'
 
 import s from './SignUpPageContent.module.scss'
-import { SignUpFields, signUpSchema, setForm } from '../../model'
-import { signupSelector } from '../../model/selectors'
 
 export const SignUpPageContent = () => {
   const dispatch = useAppDispatch()
-  const signupState = useAppSelector(signupSelector)
+  const signupState = useAppSelector(selectSignupData)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
 
@@ -54,7 +58,7 @@ export const SignUpPageContent = () => {
   }
 
   const handleTermsClick = () => {
-    dispatch(setForm(getValues()))
+    dispatch(setSignupForm(getValues()))
   }
 
   return (
@@ -65,7 +69,7 @@ export const SignUpPageContent = () => {
         onSubmit={onSubmit}
         errorMessage={errorMessage}
         formControlOptions={{ control, handleSubmit, formState }}
-        handleTermsClick={handleTermsClick}
+        handleTermsClickAction={handleTermsClick}
       />
       <Typography variant={'regular-text-16'}>Do you have an account?</Typography>
       <Button asChild variant={'link'} className={s.loginBtn}>

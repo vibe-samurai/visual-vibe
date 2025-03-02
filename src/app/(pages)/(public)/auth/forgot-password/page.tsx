@@ -1,4 +1,5 @@
 'use client'
+
 import { Dialog, Card, Typography } from '@vibe-samurai/visual-ui-kit'
 import { useState } from 'react'
 
@@ -15,7 +16,7 @@ export default function ForgotPassword() {
       <Typography as={'h1'} className={s.titleText} variant={'h1'}>
         Forgot Password
       </Typography>
-      <ForgotPasswordForm setIsOpen={setIsOpen} watchEmail={setRecoveryEmail} />
+      <ForgotPasswordForm setIsOpenAction={setIsOpen} watchEmailAction={setRecoveryEmail} />
       <Dialog
         className={s.dialogButton}
         title={'Email sent'}

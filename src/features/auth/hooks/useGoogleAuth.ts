@@ -4,17 +4,17 @@ import { CodeResponse, useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 
-import { useGoogleOAuthMutation, useLazyMeQuery } from '@/features/auth/api/authApi'
 import {
   setAuth,
-  setUserId,
-  setMeData,
-  setLoading,
   setError,
-} from '@/features/auth/model/slices/authSlice'
-import { setCookie } from '@/features/auth/utils/cookieUtils'
-import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
-import { PATH } from '@/shared/constants/PATH'
+  setLoading,
+  setMeData,
+  setUserId,
+  useGoogleOAuthMutation,
+  useLazyMeQuery,
+} from '@/features/auth'
+import { getDecodedToken, setCookie } from '@/features/auth/utils'
+import { PATH } from '@/shared/constants'
 
 export const useGoogleAuth = () => {
   const [authMeGoogle] = useGoogleOAuthMutation()

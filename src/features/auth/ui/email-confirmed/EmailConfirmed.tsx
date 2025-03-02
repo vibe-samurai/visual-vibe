@@ -5,8 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-import { PATH } from '@/shared/constants/PATH'
-import { PATH_PUBLIC } from '@/shared/constants/PATH_PUBLIC'
+import { PATH, PATH_PUBLIC } from '@/shared/constants'
 
 import s from './EmailConfirmed.module.scss'
 

@@ -1,1 +1,1 @@
-export * from './signupSlice'
+export * from './authSlice'

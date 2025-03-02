@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation'
 
-import { EmailConfirmedContent } from '@/features'
-import { PROJECT_API_HOST } from '@/shared'
-import { PATH } from '@/shared/constants/PATH'
+import { EmailConfirmedContent } from '@/features/auth'
+import { PATH, PROJECT_API_HOST } from '@/shared/constants'
 
 async function confirmRegistration(code: string) {
   try {

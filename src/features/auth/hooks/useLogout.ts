@@ -4,9 +4,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { useLogoutMutation } from '@/features/auth/api/authApi'
-import { logout, setLoading, setError } from '@/features/auth/model/slices/authSlice'
-import { PATH } from '@/shared/constants/PATH'
+import { logout, setError, setLoading, useLogoutMutation } from '@/features/auth'
+import { PATH } from '@/shared/constants'
 
 export const useLogout = () => {
   const [isModalActive, setIsModalActive] = useState(false)

@@ -4,10 +4,10 @@ import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { UseFormReturn } from 'react-hook-form'
 
-import { SignUpFields } from '@/features/auth/model'
-import { FormCheckbox, FormInput } from '@/shared'
-import { PATH } from '@/shared/constants/PATH'
-import { useRequestError } from '@/shared/hooks/useRequestError'
+import { SignUpFields } from '@/features/auth'
+import { FormCheckbox, FormInput } from '@/shared/components'
+import { PATH } from '@/shared/constants'
+import { useRequestError } from '@/shared/hooks'
 
 import s from './SignUpForm.module.scss'
 
@@ -18,11 +18,11 @@ type SignUpFormProps<T extends SignUpFields = SignUpFields> = {
 } & CheckboxLabelProps
 
 type CheckboxLabelProps = {
-  handleTermsClick: () => void
+  handleTermsClickAction: () => void
 }
 
 export const SignUpForm = (props: SignUpFormProps) => {
-  const { onSubmit, errorMessage, formControlOptions, handleTermsClick } = props
+  const { onSubmit, errorMessage, formControlOptions, handleTermsClickAction } = props
 
   const {
     control,
@@ -51,7 +51,7 @@ export const SignUpForm = (props: SignUpFormProps) => {
       <FormCheckbox
         control={control}
         name={'agree'}
-        label={<CheckboxLabel handleTermsClick={handleTermsClick} />}
+        label={<CheckboxLabel handleTermsClickAction={handleTermsClickAction} />}
       />
       {errorMessage && (
         <Typography variant={'regular-text-16'} className={s.error}>
@@ -65,14 +65,14 @@ export const SignUpForm = (props: SignUpFormProps) => {
   )
 }
 
-export const CheckboxLabel = ({ handleTermsClick }: CheckboxLabelProps) => (
+export const CheckboxLabel = ({ handleTermsClickAction }: CheckboxLabelProps) => (
   <Typography variant={'small-text'}>
     I agree to the{' '}
-    <Link href={PATH.AUTH.TERMS_OF_SERVICE} className={s.link} onClick={handleTermsClick}>
+    <Link href={PATH.AUTH.TERMS_OF_SERVICE} className={s.link} onClick={handleTermsClickAction}>
       Terms of Service
     </Link>{' '}
     and{' '}
-    <Link href={PATH.AUTH.PRIVACY_POLICY} className={s.link} onClick={handleTermsClick}>
+    <Link href={PATH.AUTH.PRIVACY_POLICY} className={s.link} onClick={handleTermsClickAction}>
       Privacy Policy
     </Link>
   </Typography>

@@ -1,27 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
 
-import { baseAppApi } from '@/app/services/baseAppApi'
-import { authSlice } from '@/features/auth/model/slices/authSlice'
-import recoveryReducer, { recoverySlice } from '@/features/auth/model/slices/recoverySlice'
-import signupReducer, { signupSlice } from '@/features/auth/model/slices/signupSlice'
-
-export type AppStore = ReturnType<typeof store.getState>
+import { baseAppApi } from '@/app/services'
+import authReducer from '@/features/auth/model/slices/authSlice'
 
 export const store = configureStore({
   reducer: {
     [baseAppApi.reducerPath]: baseAppApi.reducer,
-    [authSlice.reducerPath]: authSlice.reducer,
-    [recoverySlice.name]: recoveryReducer,
-    [signupSlice.name]: signupReducer,
+    auth: authReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseAppApi.middleware),
 })
 
+export type AppStore = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
-export const useAppSelector = useSelector.withTypes<AppStore>()
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<AppStore> = useSelector
 
 setupListeners(store.dispatch)

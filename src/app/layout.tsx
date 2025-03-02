@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ClientProvider from '@/app/store/ClientProvider'
-import { PROJECT_TITLE } from '@/shared/constants/CONSTANTS'
+import { PROJECT_TITLE } from '@/shared/constants'
 
 import type { Metadata } from 'next'
 

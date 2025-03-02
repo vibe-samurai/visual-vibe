@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useGoogleAuth } from '@/features/auth/hooks/useGoogleAuth'
+import { useGoogleAuth } from '@/features/auth'
 import GithubIcon from '@public/icon/GithubIcon'
 import GoogleIcon from '@public/icon/GoogleIcon'
 

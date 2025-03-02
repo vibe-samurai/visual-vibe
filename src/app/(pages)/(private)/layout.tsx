@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import { MainHeader } from '@/widget/main-header/MainHeader'
-import { SideNavBar } from '@/widget/side-nav-bar/SideNavBar'
+import { MainHeader } from '@/widget/main-header'
+import { SideNavBar } from '@/widget/side-nav-bar'
 
 import s from './AuthorizedLayout.module.scss'
 

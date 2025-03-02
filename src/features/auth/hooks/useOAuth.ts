@@ -3,17 +3,16 @@
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 
-import { useLazyMeQuery } from '@/features/auth/api/authApi'
 import {
   setAuth,
-  setUserId,
-  setMeData,
-  setLoading,
   setError,
-} from '@/features/auth/model/slices/authSlice'
-import { getCookie, setCookie } from '@/features/auth/utils/cookieUtils'
-import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
-import { PATH } from '@/shared/constants/PATH'
+  setLoading,
+  setMeData,
+  setUserId,
+  useLazyMeQuery,
+} from '@/features/auth'
+import { getCookie, getDecodedToken, setCookie } from '@/features/auth/utils'
+import { PATH } from '@/shared/constants'
 
 export const useOAuth = () => {
   const [getMe] = useLazyMeQuery()

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { PATH } from '@/shared/constants/PATH'
+import { PATH } from '@/shared/constants'
 
 export function middleware(request: NextRequest) {
   // publicPaths can be a string or a regex

@@ -2,21 +2,20 @@
 
 import { Card, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
-import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
-import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
-import { setRecoveryCode, setRecoveryEmail } from '@/features/auth/model/slices/recoverySlice'
-import CreateNewPasswordForm from '@/features/auth/ui/create-new-password/CreateNewPasswordForm'
-import { PATH } from '@/shared/constants/PATH'
+import { useAppDispatch, useAppSelector } from '@/app/store'
+import { setRecoveryCode, setRecoveryEmail, useCheckRecoveryCodeMutation } from '@/features/auth'
+import { selectRecoveryData } from '@/features/auth/model/selectors'
+import { CreateNewPasswordForm } from '@/features/auth/ui/create-new-password/CreateNewPasswordForm'
+import { PATH } from '@/shared/constants'
 
 import s from './page.module.scss'
 
-export default function RecoveryPassword() {
+function RecoveryPasswordContent() {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const recovery = useAppSelector(recoverySelector)
+  const recovery = useAppSelector(selectRecoveryData)
   const recoveryCode = recovery.recoveryCode
 
   const [checkRecoverCode, { isLoading }] = useCheckRecoveryCodeMutation()
@@ -52,5 +51,13 @@ export default function RecoveryPassword() {
       </Typography>
       <CreateNewPasswordForm />
     </Card>
+  )
+}
+
+export default function RecoveryPassword() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <RecoveryPasswordContent />
+    </Suspense>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { PageContainer, Privacy } from '@/shared/components'
-import { PATH } from '@/shared/constants/PATH'
+import { PATH } from '@/shared/constants'
 
 export default function PrivacyPolicy() {
   return (

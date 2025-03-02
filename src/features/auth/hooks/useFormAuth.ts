@@ -2,18 +2,18 @@
 
 import { useDispatch } from 'react-redux'
 
-import { useLazyMeQuery, useLoginMutation } from '@/features/auth/api/authApi'
 import {
+  LoginRequest,
   setAuth,
-  setUserId,
-  setLoading,
   setError,
+  setLoading,
   setMeData,
-} from '@/features/auth/model/slices/authSlice'
-import { LoginRequest } from '@/features/auth/types/authApi.types'
-import { setCookie } from '@/features/auth/utils/cookieUtils'
-import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
-import { useRequestError } from '@/shared/hooks/useRequestError'
+  setUserId,
+  useLazyMeQuery,
+  useLoginMutation,
+} from '@/features/auth'
+import { getDecodedToken, setCookie } from '@/features/auth/utils'
+import { useRequestError } from '@/shared/hooks'
 
 export const useFormAuth = () => {
   const dispatch = useDispatch()

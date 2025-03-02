@@ -10,9 +10,8 @@ import { Mutex } from 'async-mutex'
 
 import { baseAppApi } from '@/app/services/baseAppApi'
 import { UpdateTokenResponse } from '@/app/services/baseAppApi.types'
-import { deleteCookie, getCookie, setCookie } from '@/features/auth/utils/cookieUtils'
-import { BASE_URL } from '@/shared/constants/BASE_URL'
-import { PATH } from '@/shared/constants/PATH'
+import { deleteCookie, getCookie, setCookie } from '@/features/auth/utils'
+import { BASE_URL, PATH } from '@/shared/constants'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({

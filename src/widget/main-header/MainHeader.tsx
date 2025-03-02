@@ -3,7 +3,7 @@
 import { Header } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 
-import { PATH } from '@/shared/constants/PATH'
+import { PATH } from '@/shared/constants'
 
 import s from './MainHeader.module.scss'
 

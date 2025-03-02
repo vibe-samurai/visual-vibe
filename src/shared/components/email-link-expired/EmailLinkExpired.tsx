@@ -7,9 +7,8 @@ import s from './EmailLinkExpired.module.scss'
 type Props = {
   children: ReactNode
 }
-export const EmailLinkExpired = (props: Props) => {
-  const { children } = props
 
+export const EmailLinkExpired = ({ children }: Props) => {
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
@@ -17,7 +16,7 @@ export const EmailLinkExpired = (props: Props) => {
           Email verification link expired
         </Typography>
         <Typography variant={'regular-text-16'} className={s.text}>
-          Looks like the verification link has expired. Not to worry, we can send the link again
+          Looks like the verification link has expired. Not to worry, we can send the link again.
         </Typography>
         {children}
         <Image

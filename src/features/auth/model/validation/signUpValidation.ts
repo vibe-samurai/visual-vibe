@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { passwordRegex } from './validationScheme'
+import { passwordRegex } from '@/features/auth'
 
 const usernameRegex = /^[a-zA-Z0-9_-]+$/
 
@@ -38,7 +38,7 @@ export const signUpSchema = z
     message: passwordMessages.match,
     path: ['passwordConfirm'],
   })
-  .refine(data => data.agree === true, {
+  .refine(data => data.agree, {
     message: 'You must agree to the Terms of Service and Privacy Policy',
     path: ['agree'], // Указываем путь к полю, чтобы ошибка была привязана к нему
   })

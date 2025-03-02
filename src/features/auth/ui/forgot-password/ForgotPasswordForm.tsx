@@ -1,4 +1,5 @@
 'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
@@ -8,10 +9,9 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
-import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
-import { errorMessages, email } from '@/features/auth/model/validation/validationScheme'
-import { FormInput } from '@/shared'
-import { PATH } from '@/shared/constants/PATH'
+import { email, errorMessages, useRecoveryPasswordMutation } from '@/features/auth'
+import { FormInput } from '@/shared/components'
+import { PATH } from '@/shared/constants'
 
 import s from './ForgotPasswordForm.module.scss'
 
@@ -28,11 +28,11 @@ const forgotPasswordSchema = z.object({
 type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
 
 type Props = {
-  setIsOpen: (isOpen: boolean) => void
-  watchEmail: (email: string) => void
+  setIsOpenAction: (isOpen: boolean) => void
+  watchEmailAction: (email: string) => void
 }
 
-export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
+export default function ForgotPasswordForm({ setIsOpenAction, watchEmailAction }: Props) {
   const [recoveryPassword, { isLoading, isSuccess }] = useRecoveryPasswordMutation()
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [serverError, setServerError] = useState<string | undefined>(undefined)
@@ -50,8 +50,8 @@ export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
   useEffect(() => {
     const recoveryEmail = watch('email')
 
-    watchEmail(recoveryEmail)
-  }, [watch, watchEmail])
+    watchEmailAction(recoveryEmail)
+  }, [watch, watchEmailAction])
 
   const onSubmit = async (data: RecoveryPasswordFormData) => {
     try {
@@ -60,7 +60,7 @@ export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL as string,
       }).unwrap()
       setServerError(undefined)
-      setIsOpen(true)
+      setIsOpenAction(true)
       recaptchaRef.current?.reset()
       reset()
     } catch (error) {
@@ -85,14 +85,14 @@ export default function ForgotPasswordForm({ setIsOpen, watchEmail }: Props) {
         </Typography>
       )}
       <Typography className={s.grayText} variant={'regular-text-14'}>
-        Enter your email address and we will send you furthe instructions
+        Enter your email address and we will send you further instructions
       </Typography>
 
       {isSuccess && (
         <div className={s.marginText}>
           <Typography variant={'regular-text-14'}>The link has been sent by email.</Typography>
           <Typography variant={'regular-text-14'}>
-            If you don’t receive an email send link again
+            If you don’t receive an email, send the link again
           </Typography>
         </div>
       )}

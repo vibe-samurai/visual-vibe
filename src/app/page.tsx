@@ -5,10 +5,9 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { useLazyMeQuery } from '@/features/auth/api/authApi'
-import { setAuth, setMeData } from '@/features/auth/model/slices/authSlice'
-import { deleteCookie, getCookie } from '@/features/auth/utils/cookieUtils'
-import { PATH } from '@/shared/constants/PATH'
+import { setAuth, setMeData, useLazyMeQuery } from '@/features/auth'
+import { deleteCookie, getCookie } from '@/features/auth/utils'
+import { PATH } from '@/shared/constants'
 
 export default function IndexPage() {
   const dispatch = useDispatch()

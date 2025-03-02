@@ -6,11 +6,9 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 
-import { useFormAuth } from '@/features/auth/hooks/useFormAuth'
-import { LoginFormValues } from '@/features/auth/model/validation/validationScheme'
-import { LoginForm } from '@/features/auth/ui/login/LoginForm'
+import { LoginForm, LoginFormValues, useFormAuth } from '@/features/auth'
 import { OAuthBlock } from '@/shared/components'
-import { PATH } from '@/shared/constants/PATH'
+import { PATH } from '@/shared/constants'
 
 import s from './LoginPage.module.scss'
 

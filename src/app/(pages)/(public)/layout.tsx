@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { MainHeader } from '@/widget/main-header/MainHeader'
+import { MainHeader } from '@/widget/main-header'
 
 import s from './PublicLayout.module.scss'
 

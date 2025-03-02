@@ -1,4 +1,5 @@
 'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
@@ -7,14 +8,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { useCreateNewPasswordMutation } from '@/app/services/vibeVisualApi'
-import { useAppSelector } from '@/app/store/store'
-import { errorMessages, password } from '@/features/auth/model/validation/validationScheme'
-import { FormInput } from '@/shared'
-import { PATH } from '@/shared/constants/PATH'
+import { useAppSelector } from '@/app/store'
+import { errorMessages, password, useCreateNewPasswordMutation } from '@/features/auth'
+import { selectRecoveryData } from '@/features/auth/model/selectors'
+import { FormInput } from '@/shared/components'
+import { PATH } from '@/shared/constants'
 
 import s from './CreateNewPasswordForm.module.scss'
-import { recoverySelector } from '../../model/selectors/recoverySelector'
 
 const newPasswordSchema = z
   .object({
@@ -28,11 +28,11 @@ const newPasswordSchema = z
 
 type newPasswordValues = z.infer<typeof newPasswordSchema>
 
-export default function CreateNewPasswordFord() {
+export const CreateNewPasswordForm = () => {
   const router = useRouter()
   const [createNewPassword] = useCreateNewPasswordMutation()
   const [serverError, setServerError] = useState<undefined | string>(undefined)
-  const recovery = useAppSelector(recoverySelector)
+  const recovery = useAppSelector(selectRecoveryData)
   const recoveryCode = recovery.recoveryCode
 
   const { control, handleSubmit, reset, trigger, getValues } = useForm<newPasswordValues>({
