@@ -1,8 +1,7 @@
-.fullComment { 
+.fullComment {
   display: flex;
   flex-direction: column;
   gap: 8px;
-
 }
 
 .comment {
@@ -34,11 +33,10 @@
 }
 
 .answers {
-   display: flex;
+  display: flex;
   flex-direction: column;
   gap: 16px;
   padding-left: 48px;
-
 }
 
 .answersButton {
@@ -59,10 +57,10 @@
 }
 
 .answersList {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 170px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 170px;
 }
 
 .open {

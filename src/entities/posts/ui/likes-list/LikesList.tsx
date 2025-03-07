@@ -8,7 +8,6 @@ import TransparentBackground from '@/shared/components/transparent-background/Tr
 
 import s from './LikesList.module.scss'
 import { clearLikesList, postSelector, setLikesListOpen } from '../../model'
-import { LikeItem } from '../../types'
 import LikeOwner from '../like-owner/LikeOwner'
 
 const LikesList = () => {

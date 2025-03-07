@@ -44,15 +44,16 @@ const Answer = ({ photo, text, userName, isLiked, date, commentId, answerId, pos
           </Typography>
         </div>
         <div className={s.answerInfo}>
-          <Typography variant={'small-text'}>{date}</Typography>(
-          <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
-            Like: {data.items.length}
-          </Typography>
-          ) (
+          <Typography variant={'small-text'}>{date}</Typography>
+          {data.items.length > 0 && (
+            <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
+              Like: {data.items.length}
+            </Typography>
+          )}
+
           <Typography as={'button'} variant={'semi-bold-small-text'}>
             Answer
           </Typography>
-          )
         </div>
       </div>
       <LikeButton likeStatus={isLiked} updateLike={() => {}} />

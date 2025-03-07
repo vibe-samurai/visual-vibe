@@ -1,5 +1,5 @@
 import { Dialog, Typography } from '@vibe-samurai/visual-ui-kit'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useDeletePostByIdMutation } from '@/app/services/vibeVisualApi'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
@@ -15,6 +15,7 @@ type Props = {
 const More = ({ id }: Props) => {
   const [isOpenMenu, setOpenMenu] = useState(false)
   const [isOpenDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const menuRef = useRef<HTMLDivElement | null>(null)
 
   const editMode = useAppSelector(postSelector).editMode
   const dispatch = useAppDispatch()
@@ -27,8 +28,29 @@ const More = ({ id }: Props) => {
     deletePost({ postId: id })
   }
 
+  const deleteButtonHandler = () => {
+    setOpenMenu(false)
+    setOpenDeleteDialog(true)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpenMenu(false)
+      }
+    }
+
+    if (isOpenMenu) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpenMenu])
+
   return (
-    <div className={s.moreWrapper}>
+    <div className={s.moreWrapper} ref={menuRef}>
       <div className={`${s.moreBody} ${isOpenMenu ? s.open : ''}`}>
         <button className={s.moreItem} type={'button'} onClick={editModeHandler}>
           <EditIcon />
@@ -36,7 +58,7 @@ const More = ({ id }: Props) => {
             Edit Post
           </Typography>
         </button>
-        <button className={s.moreItem} type={'button'} onClick={() => setOpenDeleteDialog(true)}>
+        <button className={s.moreItem} type={'button'} onClick={deleteButtonHandler}>
           <DeleteIcon />
           <Typography variant={'regular-text-14'} as={'span'}>
             Delete Post

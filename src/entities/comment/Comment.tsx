@@ -67,7 +67,7 @@ const Comment = ({
           </div>
           <div className={s.commentInfo}>
             <Typography variant={'small-text'}>{date}</Typography>
-            {commenter && (
+            {commenter && likesData.items.length > 0 && (
               <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
                 Like: {likesData.items.length}
               </Typography>
