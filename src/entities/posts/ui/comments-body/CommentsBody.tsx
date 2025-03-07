@@ -10,7 +10,7 @@ type Props = {
   post: Post
 }
 const CommentsBody = ({ post }: Props) => {
-  const { data, error, isLoading } = useGetCommentsByPostIdQuery({ postId: post.id })
+  const { data } = useGetCommentsByPostIdQuery({ postId: post.id })
 
   if (!data) {
     return
@@ -19,6 +19,7 @@ const CommentsBody = ({ post }: Props) => {
   return (
     <div className={s.commentsBody}>
       <Comment
+        id={post.id}
         post={post}
         commenter={false}
         photo={post.avatarOwner}
@@ -31,6 +32,7 @@ const CommentsBody = ({ post }: Props) => {
           <Comment
             post={post}
             key={index}
+            id={comment.id}
             commenter
             photo={
               comment.from.avatars?.[1]?.url ||
@@ -40,8 +42,8 @@ const CommentsBody = ({ post }: Props) => {
             text={comment.content}
             userName={comment.from.username}
             isLiked={comment.isLiked}
-            likeCount={comment.likeCount}
             date={formatDate(comment.createdAt)}
+            answerCount={comment.answerCount}
           />
         )
       })}

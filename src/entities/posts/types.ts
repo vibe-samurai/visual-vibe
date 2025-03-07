@@ -56,11 +56,8 @@ export type CommentatorAvatar = Omit<PostImage, 'uploadId'>
 
 export type PostLikes = {
   totalCount: number
-  pagesCount: number
-  page: number
   pageSize: number
-  prevCursor: number
-  nextCursor?: unknown
+  notReadCount: number
   items: LikeItem[]
   isLiked: boolean
 }
@@ -73,4 +70,21 @@ export type LikeItem = {
   avatars: CommentatorAvatar[]
   isFollowing: boolean
   isFollowedBy: boolean
+}
+
+export type Answers = {
+  pageSize: number
+  totalCount: number
+  notReadCount: number
+  items: Item[]
+}
+
+export type Item = {
+  id: number
+  commentId: number
+  from: From
+  content: string
+  createdAt: string
+  likeCount: number
+  isLiked: boolean
 }

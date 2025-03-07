@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { Post, PostComments, PostLikes } from '@/entities/posts/types'
+import { Answers, Post, PostComments, PostLikes } from '@/entities/posts/types'
 
 import { baseQueryWithReAuth } from './BaseQueryWithReAuth'
 import {
@@ -84,11 +84,22 @@ export const vibeVisualApi = createApi({
         body: description,
       }),
     }),
-    updatePostLike: builder.mutation<void, { likeStatus: 'NONE'; postId: number }>({
-      query: ({ likeStatus, postId }) => ({
-        url: `v1/posts/${postId}/like-status`,
-        method: 'PUT',
-        body: likeStatus,
+    getLikesByCommentId: builder.query<PostLikes, { postId: number; commentId: number }>({
+      query: ({ postId, commentId }) => ({
+        url: `v1/posts/${postId}/comments/${commentId}/likes`,
+      }),
+    }),
+    getAnswersByCommentId: builder.query<Answers, { postId: number; commentId: number }>({
+      query: ({ postId, commentId }) => ({
+        url: `v1/posts/${postId}/comments/${commentId}/answers`,
+      }),
+    }),
+    getAnswersLikesById: builder.query<
+      PostLikes,
+      { postId: number; commentId: number; answerId: number }
+    >({
+      query: ({ postId, commentId, answerId }) => ({
+        url: `v1/posts/${postId}/comments/${commentId}/answers/${answerId}/likes`,
       }),
     }),
   }),
@@ -106,5 +117,7 @@ export const {
   useGetLikesByPostIdQuery,
   useDeletePostByIdMutation,
   useUpdatePostDescriptionMutation,
-  useUpdatePostLikeMutation,
+  useGetLikesByCommentIdQuery,
+  useGetAnswersByCommentIdQuery,
+  useGetAnswersLikesByIdQuery,
 } = vibeVisualApi

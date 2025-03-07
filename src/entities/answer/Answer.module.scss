@@ -1,0 +1,28 @@
+.answer {
+  display: grid;
+  grid-template-columns: 36px 1fr 16px;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+
+.answerText {
+  margin-bottom: 5px;
+
+  span {
+    &:first-child {
+      margin-right: 5px;
+    }
+  }
+}
+
+.answerInfo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--Light-900);
+
+  button {
+    cursor: pointer;
+  }
+}

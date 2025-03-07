@@ -6,14 +6,14 @@ import TransparentBackground from '@/shared/components/transparent-background/Tr
 
 import s from './ConfirmCloseDialog.module.scss'
 import { postSelector } from '../../model/selectors/postSelector'
-import { setconfirmCloseEditing, setEditMode } from '../../model/slices/postSlice'
+import { setConfirmCloseEditing, setEditMode } from '../../model/slices/postSlice'
 
 const ConfirmCloseDialog = () => {
   const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
   const dispatch = useAppDispatch()
 
   const closeConfirmDialog = () => {
-    dispatch(setconfirmCloseEditing(!confirmCloseEditing))
+    dispatch(setConfirmCloseEditing(!confirmCloseEditing))
   }
 
   const offEditModeHandler = () => {

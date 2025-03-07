@@ -1,3 +1,10 @@
+.fullComment { 
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+}
+
 .comment {
   display: grid;
   grid-template-columns: 36px 1fr 16px;
@@ -24,4 +31,40 @@
   button {
     cursor: pointer;
   }
+}
+
+.answers {
+   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 48px;
+
+}
+
+.answersButton {
+  cursor: pointer;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  color: var(--Light-900);
+}
+
+.answersLine {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--Light-900);
+}
+
+.answersList {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 170px;
+}
+
+.open {
+  display: flex;
 }

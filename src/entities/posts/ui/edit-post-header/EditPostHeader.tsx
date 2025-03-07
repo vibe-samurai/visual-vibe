@@ -5,13 +5,13 @@ import { useAppDispatch } from '@/app/store/store'
 import CloseButton from '@/shared/components/close-button/CloseButton'
 
 import s from './EditPostHeader.module.scss'
-import { setconfirmCloseEditing } from '../../model'
+import { setConfirmCloseEditing } from '../../model'
 
 const EditPostHeader = () => {
   const dispatch = useAppDispatch()
 
   const closeConfirmDialog = () => {
-    dispatch(setconfirmCloseEditing(true))
+    dispatch(setConfirmCloseEditing(true))
   }
 
   return (
