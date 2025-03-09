@@ -1,13 +1,13 @@
 .postContainer {
   position: absolute;
   top: 96px;
-  right: 64px;
+  left: 25%;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
   width: 100%;
-  max-width: 80%;
+  max-width: 972px;
   height: 70%;
   border: 1px solid var(--Dark-100);
   border-radius: 2px;

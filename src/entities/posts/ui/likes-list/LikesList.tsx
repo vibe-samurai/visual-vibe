@@ -19,36 +19,30 @@ const LikesList = () => {
     dispatch(clearLikesList())
   }
 
-  return (
-    <>
-      {createPortal(
-        <TransparentBackground isOpen={likesListIsOpen}>
-          {' '}
-          <Card className={s.likesList}>
-            <div className={s.likesListHeader}>
-              <Typography variant={'h1'}>Likes</Typography>
-              <CloseButton onClick={likesListCloseHandler}></CloseButton>
-            </div>
-            <Input className={s.likesListInput} placeholder={'Search'}></Input>
-            <div className={s.likeOwnersList}>
-              {likesList.map(like => {
-                return (
-                  <LikeOwner
-                    followed
-                    key={like.id}
-                    name={like.userName}
-                    photo={
-                      like.avatars?.[1]?.url || like.avatars?.[0]?.url || '/default-avatar.png'
-                    }
-                  />
-                )
-              })}
-            </div>
-          </Card>
-        </TransparentBackground>,
-        document.body
-      )}
-    </>
+  return createPortal(
+    <TransparentBackground isOpen={likesListIsOpen}>
+      {' '}
+      <Card className={s.likesList}>
+        <div className={s.likesListHeader}>
+          <Typography variant={'h1'}>Likes</Typography>
+          <CloseButton onClick={likesListCloseHandler}></CloseButton>
+        </div>
+        <Input className={s.likesListInput} placeholder={'Search'}></Input>
+        <div className={s.likeOwnersList}>
+          {likesList.map(like => {
+            return (
+              <LikeOwner
+                followed
+                key={like.id}
+                name={like.userName}
+                photo={like.avatars?.[1]?.url || like.avatars?.[0]?.url || '/default-avatar.png'}
+              />
+            )
+          })}
+        </div>
+      </Card>
+    </TransparentBackground>,
+    document.body
   )
 }
 

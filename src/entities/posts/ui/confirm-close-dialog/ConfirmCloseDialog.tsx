@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/app/store/store'
 
 import s from './ConfirmCloseDialog.module.scss'
 import { postSelector } from '../../model/selectors/postSelector'
-import { setConfirmCloseEditing, setEditMode } from '../../model/slices/postSlice'
+import { setConfirmCloseEditing, setEditMode, setEditText } from '../../model/slices/postSlice'
 
 const ConfirmCloseDialog = () => {
   const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
@@ -17,6 +17,7 @@ const ConfirmCloseDialog = () => {
 
   const offEditModeHandler = () => {
     closeConfirmDialog()
+    dispatch(setEditText(''))
     dispatch(setEditMode(false))
   }
 

@@ -39,30 +39,35 @@ const CommentsFooter = ({ post }: Props) => {
           <SendButton />
           <SaveButton />
         </div>
-        <button onClick={LikesListHandler} type={'button'} className={s.commentsLikes}>
-          <div className={s.likeOwnerPhotos}>
-            {data.items.map((item, itemIndex) => {
-              const avatars = item.avatars.length ? item.avatars : [{ url: '/default-avatar.png' }]
+        {data.totalCount > 0 && (
+          <button onClick={LikesListHandler} type={'button'} className={s.commentsLikes}>
+            <div className={s.likeOwnerPhotos}>
+              {data.items.map(item => {
+                const avatars = item.avatars.length
+                  ? item.avatars
+                  : [{ url: '/default-avatar.png' }]
 
-              return avatars.map((avatar, index) => (
-                <Image
-                  key={`${itemIndex}-${index}`}
-                  className={s.likeOwnerPhoto}
-                  src={avatar.url}
-                  alt={'Like owner photo'}
-                  width={36}
-                  height={36}
-                />
-              ))
-            })}
-          </div>
-          <Typography variant={'regular-text-14'} as={'span'}>
-            {data.totalCount}{' '}
-            <Typography variant={'bold-text-14'} as={'span'}>
-              &quot;Like&quot;
+                return avatars.map(avatar => (
+                  <Image
+                    key={item.id}
+                    className={s.likeOwnerPhoto}
+                    src={avatar.url}
+                    alt={'Like owner photo'}
+                    width={36}
+                    height={36}
+                  />
+                ))
+              })}
+            </div>
+            <Typography variant={'regular-text-14'} as={'span'}>
+              {data.totalCount}{' '}
+              <Typography variant={'bold-text-14'} as={'span'}>
+                &quot;Like&quot;
+              </Typography>
             </Typography>
-          </Typography>
-        </button>
+          </button>
+        )}
+
         <Typography className={s.grayText} variant={'small-text'}>
           {formatExactDate(post.createdAt)}
         </Typography>

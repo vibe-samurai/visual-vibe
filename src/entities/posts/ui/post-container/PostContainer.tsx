@@ -3,6 +3,7 @@ import React from 'react'
 import { useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 import CommentsContainer from '@/entities/posts/ui/comments-container/CommentsContainer'
+import CloseButton from '@/shared/components/close-button/CloseButton'
 import PostSlider from '@/shared/components/post-slider/PostSlider'
 
 import s from './PostContainer.module.scss'
@@ -18,6 +19,7 @@ const PostContainer = ({ post }: Props) => {
 
   return (
     <div className={s.postContainer}>
+      {editMode || <CloseButton onClick={() => {}} />}
       {editMode && <EditPostHeader />}
 
       <PostSlider images={post.images} />

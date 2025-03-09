@@ -1,17 +1,23 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
-import { useAppDispatch } from '@/app/store/store'
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import CloseButton from '@/shared/components/close-button/CloseButton'
 
 import s from './EditPostHeader.module.scss'
-import { setConfirmCloseEditing } from '../../model'
+import { postSelector, setConfirmCloseEditing, setEditMode, setEditText } from '../../model'
 
 const EditPostHeader = () => {
   const dispatch = useAppDispatch()
+  const editText = useAppSelector(postSelector).editText
 
   const closeConfirmDialog = () => {
-    dispatch(setConfirmCloseEditing(true))
+    if (editText.trim().length > 0) {
+      dispatch(setConfirmCloseEditing(true))
+    } else {
+      dispatch(setEditMode(false))
+      dispatch(setEditText(''))
+    }
   }
 
   return (

@@ -1,13 +1,13 @@
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useUpdatePostDescriptionMutation } from '@/app/services/vibeVisualApi'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 
 import s from './CommentsContainer.module.scss'
+import { setEditText } from '../../model'
 import { postSelector } from '../../model/selectors/postSelector'
-import { setEditMode } from '../../model/slices/postSlice'
 import CommentsBody from '../comments-body/CommentsBody'
 import CommentsFooter from '../comments-footer/CommentsFooter'
 import CommentsHeader from '../comments-header/CommentsHeader'
@@ -16,17 +16,18 @@ type Props = {
   post: Post
 }
 const CommentsContainer = ({ post }: Props) => {
-  const [text, setText] = useState('')
+  const dispatch = useAppDispatch()
   const editMode = useAppSelector(postSelector).editMode
+  const editText = useAppSelector(postSelector).editText
 
   const [updatePost] = useUpdatePostDescriptionMutation()
   const updateDescriptionHandler = () => {
-    updatePost({ description: text, postId: post.id })
+    updatePost({ description: editText, postId: post.id })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= 500) {
-      setText(e.target.value)
+      dispatch(setEditText(e.target.value))
     }
   }
 
@@ -40,9 +41,9 @@ const CommentsContainer = ({ post }: Props) => {
             Add publication descriptions
           </Typography>
 
-          <textarea value={text} onChange={handleChange} className={s.editTextarea} />
+          <textarea value={editText} onChange={handleChange} className={s.editTextarea} />
           <Typography variant={'small-text'} className={`${s.grayText} ${s.marginLeftAuto}`}>
-            {text.length}/500
+            {editText.length}/500
           </Typography>
         </div>
       ) : (

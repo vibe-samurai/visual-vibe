@@ -3,12 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LikeItem } from '../../types'
 type PostState = {
   editMode: boolean
+  editText: string
   confirmCloseEditing: boolean
   likesListIsOpen: boolean
   likesList: LikeItem[] // Указываем явный тип массива
 }
 const initialState: PostState = {
   editMode: false,
+  editText: '',
   confirmCloseEditing: false,
   likesListIsOpen: false,
   likesList: [],
@@ -20,6 +22,9 @@ export const postSlice = createSlice({
   reducers: {
     setEditMode: (state, action: PayloadAction<boolean>) => {
       state.editMode = action.payload
+    },
+    setEditText: (state, action: PayloadAction<string>) => {
+      state.editText = action.payload
     },
     setConfirmCloseEditing: (state, action: PayloadAction<boolean>) => {
       state.confirmCloseEditing = action.payload
@@ -38,6 +43,7 @@ export const postSlice = createSlice({
 
 export const {
   setEditMode,
+  setEditText,
   setConfirmCloseEditing,
   setLikesListOpen,
   setLikesList,

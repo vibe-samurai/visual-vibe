@@ -27,11 +27,11 @@ const CommentsBody = ({ post }: Props) => {
         userName={post.userName}
         date={formatDate(post.createdAt)}
       />
-      {data.items.map((comment, index) => {
+      {data.items.map(comment => {
         return (
           <Comment
             post={post}
-            key={index}
+            key={comment.id}
             id={comment.id}
             commenter
             photo={
