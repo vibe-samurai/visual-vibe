@@ -1,8 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
+import { baseQueryWithReAuth } from '@/app/services/baseQueryWithReAuth'
 import { Answers, Post, PostComments, PostLikes } from '@/entities/posts/types'
 
-import { baseQueryWithReAuth } from './BaseQueryWithReAuth'
 import {
   NewPasswordData,
   RecoveryPasswordData,
