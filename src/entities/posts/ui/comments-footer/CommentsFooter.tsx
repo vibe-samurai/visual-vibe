@@ -1,11 +1,12 @@
 import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { useGetLikesByPostIdQuery } from '@/app/services/vibeVisualApi'
-import { useAppDispatch } from '@/app/store/store'
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 import { SaveButton } from '@/entities/posts/ui/save-button/SaveButton'
+import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components/like-button/LikeButton'
 import { formatExactDate } from '@/shared/lib/date/formatExactDate'
 import { SendButton } from '@public/icon/SendButton'
@@ -19,7 +20,7 @@ type Props = {
 }
 const CommentsFooter = ({ post }: Props) => {
   const dispatch = useAppDispatch()
-
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
   const { data } = useGetLikesByPostIdQuery({ postId: post.id })
 
   if (!data) {
@@ -34,11 +35,13 @@ const CommentsFooter = ({ post }: Props) => {
   return (
     <div className={s.commentsFooter}>
       <div className={s.commentsInfo}>
-        <div className={s.commentsActions}>
-          <LikeButton likeStatus={data.isLiked} updateLike={() => {}} big />
-          <SendButton />
-          <SaveButton />
-        </div>
+        {isAuthenticated && (
+          <div className={s.commentsActions}>
+            <LikeButton likeStatus={data.isLiked} updateLike={() => {}} big />
+            <SendButton />
+            <SaveButton />
+          </div>
+        )}
         {data.totalCount > 0 && (
           <button onClick={LikesListHandler} type={'button'} className={s.commentsLikes}>
             <div className={s.likeOwnerPhotos}>
@@ -72,10 +75,16 @@ const CommentsFooter = ({ post }: Props) => {
           {formatExactDate(post.createdAt)}
         </Typography>
       </div>
-      <div className={s.commentsAddComment}>
-        <Input className={s.addCommentInput} type={'text'} placeholder={'Add a Comment...'}></Input>
-        <Button variant={'link'}>Publish</Button>
-      </div>
+      {isAuthenticated && (
+        <div className={s.commentsAddComment}>
+          <Input
+            className={s.addCommentInput}
+            type={'text'}
+            placeholder={'Add a Comment...'}
+          ></Input>
+          <Button variant={'link'}>Publish</Button>
+        </div>
+      )}
       <LikesList />
     </div>
   )

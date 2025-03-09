@@ -5,7 +5,8 @@ import {
   useGetAnswersByCommentIdQuery,
   useGetLikesByCommentIdQuery,
 } from '@/app/services/vibeVisualApi'
-import { useAppDispatch } from '@/app/store/store'
+import { useAppDispatch, useAppSelector } from '@/app/store/store'
+import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components/like-button/LikeButton'
 import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
 
@@ -37,8 +38,8 @@ const Comment = ({
   id,
   answerCount,
 }: Props) => {
-  const [isOpenAnswers, setIsOpenAnswers] = useState(true)
-
+  const [isOpenAnswers, setIsOpenAnswers] = useState(false)
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
   const dispatch = useAppDispatch()
   const { data: likesData } = useGetLikesByCommentIdQuery({ postId: post.id, commentId: id })
   const { data: answersData } = useGetAnswersByCommentIdQuery({ postId: post.id, commentId: id })
@@ -67,19 +68,19 @@ const Comment = ({
           </div>
           <div className={s.commentInfo}>
             <Typography variant={'small-text'}>{date}</Typography>
-            {commenter && likesData.items.length > 0 && (
+            {isAuthenticated && commenter && likesData.items.length > 0 && (
               <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
                 Like: {likesData.items.length}
               </Typography>
             )}
-            {commenter && (
+            {isAuthenticated && commenter && (
               <Typography as={'button'} variant={'semi-bold-small-text'}>
                 Answer
               </Typography>
             )}
           </div>
         </div>
-        {commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
+        {isAuthenticated && commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
         <LikesList />
       </div>
       {commenter && answerCount !== undefined && answerCount > 0 && (

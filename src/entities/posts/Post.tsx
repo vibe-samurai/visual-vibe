@@ -1,6 +1,9 @@
+import { useState } from 'react'
+
 import { useAppSelector } from '@/app/store/store'
 import ConfirmCloseDialog from '@/entities/posts/ui/confirm-close-dialog/ConfirmCloseDialog'
 import PostContainer from '@/entities/posts/ui/post-container/PostContainer'
+import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
 
 import { postSelector } from './model/selectors/postSelector'
@@ -12,12 +15,19 @@ type Props = {
 
 export const PostComponent = ({ post }: Props) => {
   const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <TransparentBackground isOpen>
-      <PostContainer post={post} />
+    <TransparentBackground isOpen={isOpen}>
+      <PostContainer
+        closePost={() => {
+          setIsOpen(false)
+        }}
+        post={post}
+      />
 
-      {confirmCloseEditing && <ConfirmCloseDialog />}
+      {isAuthenticated && confirmCloseEditing && <ConfirmCloseDialog />}
     </TransparentBackground>
   )
 }
