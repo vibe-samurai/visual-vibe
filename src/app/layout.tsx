@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body style={{ width: '100%', maxWidth: '1280px', margin: '0 auto' }}>
+      <body style={{ width: '100%', margin: '0 auto' }}>
         <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
