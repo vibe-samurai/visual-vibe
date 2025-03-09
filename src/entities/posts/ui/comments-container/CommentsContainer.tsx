@@ -41,8 +41,8 @@ const CommentsContainer = ({ post }: Props) => {
             Add publication descriptions
           </Typography>
 
-          <TextArea></TextArea>
-          <textarea value={editText} onChange={handleChange} className={s.editTextarea} />
+          <TextArea value={editText} onChange={handleChange} style={{ height: '120px' }}></TextArea>
+
           <Typography variant={'small-text'} className={`${s.grayText} ${s.marginLeftAuto}`}>
             {editText.length}/500
           </Typography>
