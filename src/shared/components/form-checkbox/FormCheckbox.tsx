@@ -1,3 +1,5 @@
+'use client'
+
 import { CheckboxProps, Checkbox } from '@vibe-samurai/visual-ui-kit'
 import { FieldValues, UseControllerProps, Control, useController } from 'react-hook-form'
 

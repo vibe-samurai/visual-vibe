@@ -9,7 +9,7 @@ import './globals.scss'
 
 export const metadata: Metadata = {
   title: PROJECT_TITLE,
-  description: 'Visual Vibe next app',
+  description: 'Visual Vibe Next App',
   icons: {
     icon: '/favicon.ico',
   },
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body>
+      <body style={{ width: '100%', maxWidth: '1280px', margin: '0 auto' }}>
         <ClientProvider>{children}</ClientProvider>
       </body>
     </html>

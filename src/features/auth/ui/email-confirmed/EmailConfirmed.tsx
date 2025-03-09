@@ -1,12 +1,10 @@
 'use client'
 
-import { Button, Loader, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
-import { useConfirmEmailQuery } from '@/app/services'
 import { PATH } from '@/shared/constants/PATH'
 import { PATH_PUBLIC } from '@/shared/constants/PATH_PUBLIC'
 
@@ -18,20 +16,6 @@ const resultText = {
 }
 
 export const EmailConfirmedContent = () => {
-  const searchParams = useSearchParams()
-  const { push } = useRouter()
-  const confirmationCode = searchParams.get('code')
-
-  const { isLoading, isError } = useConfirmEmailQuery({
-    confirmationCode: confirmationCode!,
-  })
-
-  if (isError) {
-    push(PATH.AUTH.VERIFICATION_LINK_EXPIRED)
-  }
-
-  if (isLoading || isError) return <Loader />
-
   return (
     <div className={s.contentWrapper}>
       <Typography as={'h1'} variant={'h1'} className={s.title}>
@@ -40,8 +24,8 @@ export const EmailConfirmedContent = () => {
       <Typography variant={'bold-text-16'} className={s.text}>
         {resultText.text}
       </Typography>
-      <Button as={Link} href={PATH.AUTH.LOGIN} className={s.link}>
-        Sign In
+      <Button asChild className={s.link}>
+        <Link href={PATH.AUTH.LOGIN}>Sign In</Link>
       </Button>
       <Image
         src={PATH_PUBLIC.SVG.EMAIL_CONFIRMED.path}

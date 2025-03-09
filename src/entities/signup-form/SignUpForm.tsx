@@ -4,12 +4,12 @@ import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import Link from 'next/link'
 import { UseFormReturn } from 'react-hook-form'
 
+import { SignUpFields } from '@/features/auth/model'
 import { FormCheckbox, FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
 import { useRequestError } from '@/shared/hooks/useRequestError'
 
 import s from './SignUpForm.module.scss'
-import { SignUpFields } from '../../features/auth/model'
 
 type SignUpFormProps<T extends SignUpFields = SignUpFields> = {
   onSubmit: (formData: T) => void

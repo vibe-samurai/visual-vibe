@@ -7,7 +7,7 @@ import {
   NewPasswordData,
   RecoveryPasswordData,
   RecoveryPasswordResending,
-} from './vibeVisual.types'
+} from './baseAppApi.types'
 
 export const vibeVisualApi = createApi({
   baseQuery: baseQueryWithReAuth,

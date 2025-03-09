@@ -1,0 +1,23 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  width: 100%;
+  max-width: 378px;
+  height: max-content;
+}
+
+.titleText {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.dialogButton {
+  div {
+    button {
+      min-width: 96px;
+      margin-top: 18px;
+    }
+  }
+}

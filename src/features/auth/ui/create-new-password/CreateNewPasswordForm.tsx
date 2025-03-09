@@ -10,11 +10,12 @@ import { z } from 'zod'
 import { useCreateNewPasswordMutation } from '@/app/services/vibeVisualApi'
 import { useAppSelector } from '@/app/store/store'
 import { errorMessages, password } from '@/features/auth/model/validation/validationScheme'
-import { FormInput } from '@/shared/components/form-input/form-input'
+import { FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './CreateNewPasswordForm.module.scss'
 import { recoverySelector } from '../../model/selectors/recoverySelector'
+
 const newPasswordSchema = z
   .object({
     password: password(errorMessages.password),

@@ -16,11 +16,11 @@ import s from './LoginForm.module.scss'
 
 type LoginFormProps = {
   disabled?: boolean
-  onSubmit: (formData: LoginFormValues) => void
+  onSubmitAction: (formData: LoginFormValues) => void
   isError: boolean
 }
 
-export const LoginForm = ({ disabled, onSubmit, isError }: LoginFormProps) => {
+export const LoginForm = ({ disabled, onSubmitAction, isError }: LoginFormProps) => {
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ export const LoginForm = ({ disabled, onSubmit, isError }: LoginFormProps) => {
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+    <form onSubmit={handleSubmit(onSubmitAction)} className={s.form}>
       {/* Input for email */}
       <Input
         className={s.fullWidth}

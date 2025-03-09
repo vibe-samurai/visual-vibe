@@ -1,17 +1,25 @@
 'use client'
 
 import { Header } from '@vibe-samurai/visual-ui-kit'
+import Link from 'next/link'
 
-import { useAuth } from '@/app/context/AuthContext'
+import { PATH } from '@/shared/constants/PATH'
 
 import s from './MainHeader.module.scss'
 
-export const MainHeader = () => {
-  const { isAuthenticated } = useAuth()
+type Props = {
+  isAuth: boolean
+}
 
+export const MainHeader = ({ isAuth = false }: Props) => {
   return (
     <div className={s.wrapper}>
-      <Header isAuth={isAuthenticated} />
+      <Header
+        isAuth={isAuth}
+        loginLink={PATH.AUTH.LOGIN}
+        signupLink={PATH.AUTH.SIGNUP}
+        LinkComponent={Link}
+      />
     </div>
   )
 }

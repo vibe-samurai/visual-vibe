@@ -2,8 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { vibeVisualApi } from '@/app/services/vibeVisualApi'
+import { baseAppApi } from '@/app/services/baseAppApi'
 import { postSlice } from '@/entities/posts/model'
+import { authSlice } from '@/features/auth/model/slices/authSlice'
 import recoveryReducer, { recoverySlice } from '@/features/auth/model/slices/recoverySlice'
 import signupReducer, { signupSlice } from '@/features/auth/model/slices/signupSlice'
 
@@ -11,12 +12,13 @@ export type AppStore = ReturnType<typeof store.getState>
 
 export const store = configureStore({
   reducer: {
-    [vibeVisualApi.reducerPath]: vibeVisualApi.reducer,
+    [baseAppApi.reducerPath]: baseAppApi.reducer,
+    [authSlice.reducerPath]: authSlice.reducer,
     [recoverySlice.name]: recoveryReducer,
     [signupSlice.name]: signupReducer,
     [postSlice.name]: postSlice.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(vibeVisualApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseAppApi.middleware),
 })
 
 export type AppDispatch = typeof store.dispatch

@@ -1,4 +1,4 @@
-import { vibeVisualApi } from '@/app/services/vibeVisualApi'
+import { baseAppApi } from '@/app/services/baseAppApi'
 import {
   GoogleOAuthRequest,
   GoogleOAuthResponse,
@@ -6,8 +6,9 @@ import {
   LoginResponse,
   MeResponse,
 } from '@/features/auth/types/authApi.types'
+import { deleteCookie, setCookie } from '@/features/auth/utils/cookieUtils'
 
-export const authApi = vibeVisualApi.injectEndpoints({
+export const authApi = baseAppApi.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       async onQueryStarted(_, { queryFulfilled }) {
@@ -16,7 +17,7 @@ export const authApi = vibeVisualApi.injectEndpoints({
         if (!data) {
           return
         }
-        localStorage.setItem('accessToken', data.accessToken.trim())
+        setCookie('accessToken', data.accessToken.trim(), 7)
       },
       query: body => ({
         url: `v1/auth/login`,
@@ -32,7 +33,7 @@ export const authApi = vibeVisualApi.injectEndpoints({
           return
         }
 
-        localStorage.setItem('accessToken', data.accessToken.trim())
+        setCookie('accessToken', data.accessToken.trim(), 7)
       },
 
       invalidatesTags: ['Me'],
@@ -58,7 +59,8 @@ export const authApi = vibeVisualApi.injectEndpoints({
     logout: builder.mutation<void, void>({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled
-        localStorage.removeItem('accessToken')
+        deleteCookie('accessToken')
+        deleteCookie('userData')
         dispatch(authApi.util.resetApiState())
       },
       query: body => ({
@@ -75,5 +77,6 @@ export const {
   useGoogleOAuthMutation,
   useUpdateTokensMutation,
   useMeQuery,
+  useLazyMeQuery,
   useLogoutMutation,
 } = authApi
