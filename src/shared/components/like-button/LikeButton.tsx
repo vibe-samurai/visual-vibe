@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useState } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 
 import { LikeIconFill } from '@public/icon/LikeIconFill'
 import { LikeIconOutline } from '@public/icon/LikeIconOutline'

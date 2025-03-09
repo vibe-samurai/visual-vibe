@@ -1,4 +1,4 @@
-import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Typography, TextArea } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
 import { useUpdatePostDescriptionMutation } from '@/app/services/vibeVisualApi'
@@ -41,6 +41,7 @@ const CommentsContainer = ({ post }: Props) => {
             Add publication descriptions
           </Typography>
 
+          <TextArea></TextArea>
           <textarea value={editText} onChange={handleChange} className={s.editTextarea} />
           <Typography variant={'small-text'} className={`${s.grayText} ${s.marginLeftAuto}`}>
             {editText.length}/500
