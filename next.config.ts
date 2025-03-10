@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_PATH_AUTH_GITHUB: process.env.NEXT_PUBLIC_PATH_AUTH_GITHUB,
     NEXT_PUBLIC_CLIENT_ID_GOOGLE: process.env.NEXT_PUBLIC_CLIENT_ID_GOOGLE,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_INCTAGRAM_API_URL: process.env.NEXT_PUBLIC_INCTAGRAM_API_URL,
   },
   images: {
     remotePatterns: [
