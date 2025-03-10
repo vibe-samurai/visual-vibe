@@ -2,7 +2,7 @@
 
 import { Card, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 
 import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
@@ -13,7 +13,7 @@ import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
 
-export default function RecoveryPassword() {
+function RecoveryPasswordContent() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const recovery = useAppSelector(recoverySelector)
@@ -52,5 +52,13 @@ export default function RecoveryPassword() {
       </Typography>
       <CreateNewPasswordForm />
     </Card>
+  )
+}
+
+export default function RecoveryPassword() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <RecoveryPasswordContent />
+    </Suspense>
   )
 }

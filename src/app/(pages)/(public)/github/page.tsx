@@ -2,13 +2,13 @@
 
 import { Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense } from 'react'
 
 import { useOAuth } from '@/features/auth/hooks/useOAuth'
 import { PageContainer } from '@/shared/components'
 import { PATH } from '@/shared/constants/PATH'
 
-export default function GithubPage() {
+function GithubPageContent() {
   const { push } = useRouter()
   const searchParams = useSearchParams()
   const { handleOAuth } = useOAuth()
@@ -19,7 +19,6 @@ export default function GithubPage() {
     if (accessToken) {
       handleOAuth(accessToken)
     } else {
-      // Если accessToken отсутствует, перенаправляем на страницу входа
       push(PATH.AUTH.LOGIN, { scroll: false })
     }
   }, [push, searchParams, handleOAuth])
@@ -29,5 +28,13 @@ export default function GithubPage() {
       <Loader />
       Processing GitHub authorization...
     </PageContainer>
+  )
+}
+
+export default function GithubPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <GithubPageContent />
+    </Suspense>
   )
 }
