@@ -11,6 +11,7 @@ import {
   setMeData,
 } from '@/features/auth/model/slices/authSlice'
 import { LoginRequest } from '@/features/auth/types/authApi.types'
+import { setCookie } from '@/features/auth/utils/cookieUtils'
 import { getDecodedToken } from '@/features/auth/utils/getDecodedToken'
 import { useRequestError } from '@/shared/hooks/useRequestError'
 
@@ -33,7 +34,7 @@ export const useFormAuth = () => {
         dispatch(setMeData(resMe))
         dispatch(setAuth(true))
       } else if (result.accessToken) {
-        localStorage.setItem('accessToken', result.accessToken.trim())
+        setCookie('accessToken', result.accessToken.trim(), 7)
         dispatch(setAuth(true))
         const userId = getDecodedToken(result.accessToken)
 

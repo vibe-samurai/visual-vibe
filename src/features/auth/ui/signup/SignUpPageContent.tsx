@@ -68,8 +68,8 @@ export const SignUpPageContent = () => {
         handleTermsClick={handleTermsClick}
       />
       <Typography variant={'regular-text-16'}>Do you have an account?</Typography>
-      <Button as={Link} variant={'link'} href={PATH.AUTH.LOGIN} className={s.loginBtn}>
-        Sign in
+      <Button asChild variant={'link'} className={s.loginBtn}>
+        <Link href={PATH.AUTH.LOGIN}>Sign In</Link>
       </Button>
       <Dialog
         open={open}

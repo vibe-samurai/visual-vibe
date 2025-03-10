@@ -12,7 +12,7 @@ export type AppStore = ReturnType<typeof store.getState>
 export const store = configureStore({
   reducer: {
     [baseAppApi.reducerPath]: baseAppApi.reducer,
-    [authSlice.name]: authSlice.reducer,
+    [authSlice.reducerPath]: authSlice.reducer,
     [recoverySlice.name]: recoveryReducer,
     [signupSlice.name]: signupReducer,
   },

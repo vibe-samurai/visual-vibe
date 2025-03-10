@@ -24,8 +24,8 @@ export const EmailConfirmedContent = () => {
       <Typography variant={'bold-text-16'} className={s.text}>
         {resultText.text}
       </Typography>
-      <Button as={Link} href={PATH.AUTH.LOGIN} className={s.link}>
-        Sign In
+      <Button asChild className={s.link}>
+        <Link href={PATH.AUTH.LOGIN}>Sign In</Link>
       </Button>
       <Image
         src={PATH_PUBLIC.SVG.EMAIL_CONFIRMED.path}
