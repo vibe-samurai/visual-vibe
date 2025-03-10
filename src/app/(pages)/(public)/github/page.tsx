@@ -1,5 +1,4 @@
 'use client'
-
 import { Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, Suspense } from 'react'
