@@ -11,11 +11,12 @@ import { Mutex } from 'async-mutex'
 import { baseAppApi } from '@/app/services/baseAppApi'
 import { UpdateTokenResponse } from '@/app/services/baseAppApi.types'
 import { deleteCookie, getCookie, setCookie } from '@/features/auth/utils/cookieUtils'
+import { baseUrl } from '@/shared/constants/baseApi'
 import { PATH } from '@/shared/constants/PATH'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_INCTAGRAM_API_URL,
+  baseUrl: baseUrl,
 
   credentials: 'include',
 
