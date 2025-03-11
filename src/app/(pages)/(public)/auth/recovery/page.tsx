@@ -4,7 +4,6 @@ import { Card, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState, Suspense } from 'react'
 
-import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
 import { setRecoveryCode, setRecoveryEmail } from '@/features/auth/model/slices/recoverySlice'
@@ -12,6 +11,8 @@ import CreateNewPasswordForm from '@/features/auth/ui/create-new-password/Create
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
+
+import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
 
 function RecoveryPasswordContent() {
   const router = useRouter()

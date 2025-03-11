@@ -8,7 +8,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
-import { useRecoveryPasswordMutation } from '@/app/services/vibeVisualApi'
+import { useRecoveryPasswordMutation } from '@/features/auth/api'
 import { errorMessages, email } from '@/features/auth/model/validation/validationScheme'
 import { FormInput } from '@/shared'
 import { PATH } from '@/shared/constants/PATH'
