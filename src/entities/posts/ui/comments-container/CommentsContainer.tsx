@@ -1,7 +1,7 @@
 import { Button, Typography, TextArea } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
-import { useUpdatePostDescriptionMutation } from '@/app/services/vibeVisualApi'
+import { useUpdatePostDescriptionMutation } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 

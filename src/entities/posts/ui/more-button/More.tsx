@@ -1,7 +1,7 @@
 import { Dialog, Typography } from '@vibe-samurai/visual-ui-kit'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useDeletePostByIdMutation } from '@/app/services/vibeVisualApi'
+import { useDeletePostByIdMutation } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { DeleteIcon } from '@public/icon/DeleteIcon'
 import { EditIcon } from '@public/icon/EditIcon'

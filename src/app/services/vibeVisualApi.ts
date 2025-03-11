@@ -1,7 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { Answers, Post, PostComments, PostLikes } from '@/entities/posts/types'
-
 import {
   NewPasswordData,
   RecoveryPasswordData,
@@ -56,52 +54,6 @@ export const vibeVisualApi = createApi({
         }
       },
     }),
-    getPostById: builder.query<Post, { postId: number }>({
-      query: ({ postId }) => ({
-        url: `v1/posts/id/${postId}`,
-      }),
-    }),
-    getLikesByPostId: builder.query<PostLikes, { postId: number }>({
-      query: ({ postId }) => ({
-        url: `v1/posts/${postId}/likes`,
-      }),
-    }),
-    getCommentsByPostId: builder.query<PostComments, { postId: number }>({
-      query: ({ postId }) => ({
-        url: `v1/posts/${postId}/comments`,
-      }),
-    }),
-    deletePostById: builder.mutation<void, { postId: number }>({
-      query: ({ postId }) => ({
-        url: `v1/posts/${postId}/comments`,
-        method: 'DELETE',
-      }),
-    }),
-    updatePostDescription: builder.mutation<void, { description: string; postId: number }>({
-      query: ({ description, postId }) => ({
-        url: `v1/posts/${postId}`,
-        method: 'PUT',
-        body: description,
-      }),
-    }),
-    getLikesByCommentId: builder.query<PostLikes, { postId: number; commentId: number }>({
-      query: ({ postId, commentId }) => ({
-        url: `v1/posts/${postId}/comments/${commentId}/likes`,
-      }),
-    }),
-    getAnswersByCommentId: builder.query<Answers, { postId: number; commentId: number }>({
-      query: ({ postId, commentId }) => ({
-        url: `v1/posts/${postId}/comments/${commentId}/answers`,
-      }),
-    }),
-    getAnswersLikesById: builder.query<
-      PostLikes,
-      { postId: number; commentId: number; answerId: number }
-    >({
-      query: ({ postId, commentId, answerId }) => ({
-        url: `v1/posts/${postId}/comments/${commentId}/answers/${answerId}/likes`,
-      }),
-    }),
   }),
   reducerPath: 'vibeVisualApi',
   tagTypes: ['Me', 'Profile', 'Sessions', 'Posts', 'Payment', 'Comments'],
@@ -112,12 +64,4 @@ export const {
   useCheckRecoveryCodeMutation,
   useCreateNewPasswordMutation,
   useRecoveryPasswordResendingMutation,
-  useGetPostByIdQuery,
-  useGetCommentsByPostIdQuery,
-  useGetLikesByPostIdQuery,
-  useDeletePostByIdMutation,
-  useUpdatePostDescriptionMutation,
-  useGetLikesByCommentIdQuery,
-  useGetAnswersByCommentIdQuery,
-  useGetAnswersLikesByIdQuery,
 } = vibeVisualApi

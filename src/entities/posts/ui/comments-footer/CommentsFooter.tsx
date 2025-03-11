@@ -2,7 +2,7 @@ import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
 import React from 'react'
 
-import { useGetLikesByPostIdQuery } from '@/app/services/vibeVisualApi'
+import { useGetLikesByPostIdQuery } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 import { SaveButton } from '@/entities/posts/ui/save-button/SaveButton'
@@ -35,13 +35,13 @@ const CommentsFooter = ({ post }: Props) => {
   return (
     <div className={s.commentsFooter}>
       <div className={s.commentsInfo}>
-        {isAuthenticated && (
+        {
           <div className={s.commentsActions}>
             <LikeButton likeStatus={data.isLiked} updateLike={() => {}} big />
             <SendButton />
             <SaveButton />
           </div>
-        )}
+        }
         {data.totalCount > 0 && (
           <button onClick={LikesListHandler} type={'button'} className={s.commentsLikes}>
             <div className={s.likeOwnerPhotos}>
@@ -75,7 +75,7 @@ const CommentsFooter = ({ post }: Props) => {
           {formatExactDate(post.createdAt)}
         </Typography>
       </div>
-      {isAuthenticated && (
+      {
         <div className={s.commentsAddComment}>
           <Input
             className={s.addCommentInput}
@@ -84,7 +84,7 @@ const CommentsFooter = ({ post }: Props) => {
           ></Input>
           <Button variant={'link'}>Publish</Button>
         </div>
-      )}
+      }
       <LikesList />
     </div>
   )
