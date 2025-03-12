@@ -6,6 +6,7 @@ import importPlugin from 'eslint-plugin-import'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
+import nextPlugin from '@next/eslint-plugin-next'
 
 export default [
   js.configs.recommended,
@@ -46,6 +47,7 @@ export default [
     plugins: {
       react: reactPlugin,
       'react-hooks': reactHooks,
+      '@next/next': nextPlugin,
     },
     settings: {
       react: {
@@ -54,6 +56,7 @@ export default [
     },
     rules: {
       ...reactPlugin.configs.recommended.rules,
+      ...nextPlugin.configs.recommended.rules,
       'react/prop-types': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',

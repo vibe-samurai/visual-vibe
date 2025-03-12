@@ -3,8 +3,8 @@ import { Button, Dialog } from '@vibe-samurai/visual-ui-kit'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useRecoveryPasswordResendingMutation } from '@/app/services/vibeVisualApi'
 import { useAppSelector } from '@/app/store/store'
+import { useRecoveryPasswordResendingMutation } from '@/features/auth/api'
 import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
 import { EmailLinkExpired } from '@/shared/components/email-link-expired/EmailLinkExpired'
 

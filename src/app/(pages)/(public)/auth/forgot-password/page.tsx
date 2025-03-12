@@ -1,13 +1,7 @@
 'use client'
-import { Dialog, Card, Typography } from '@vibe-samurai/visual-ui-kit'
-import { useState } from 'react'
-
-import ForgotPasswordForm from '@/features/auth/ui/forgot-password/ForgotPasswordForm'
-
-import s from './page.module.scss'
-
 export default function ForgotPassword() {
-  const [isOpen, setIsOpen] = useState(false)
+  return <div>Forgot password</div>
+  /*const [isOpen, setIsOpen] = useState(false)
   const [recoveryEmail, setRecoveryEmail] = useState('')
 
   return (
@@ -28,5 +22,5 @@ export default function ForgotPassword() {
         We have sent a link to confirm your email to {recoveryEmail}.
       </Dialog>
     </Card>
-  )
+  )*/
 }

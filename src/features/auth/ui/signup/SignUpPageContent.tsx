@@ -6,10 +6,10 @@ import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { useSignupMutation } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import { SignUpForm } from '@/entities'
+import { useSignupMutation } from '@/features/auth/api'
 import { OAuthBlock } from '@/shared'
+import { SignUpForm } from '@/shared/components/signup-form'
 import { PATH } from '@/shared/constants/PATH'
 import { useRequestError } from '@/shared/hooks/useRequestError'
 
