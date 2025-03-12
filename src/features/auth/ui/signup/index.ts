@@ -1,2 +1,2 @@
-export * from '../../../../entities/signup-form/SignUpForm'
+export * from '@/shared/components/signup-form/SignUpForm'
 export * from './SignUpPageContent'

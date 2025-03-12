@@ -5,14 +5,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState, Suspense } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
+import { useCheckRecoveryCodeMutation } from '@/features/auth/api'
 import { recoverySelector } from '@/features/auth/model/selectors/recoverySelector'
 import { setRecoveryCode, setRecoveryEmail } from '@/features/auth/model/slices/recoverySlice'
 import CreateNewPasswordForm from '@/features/auth/ui/create-new-password/CreateNewPasswordForm'
 import { PATH } from '@/shared/constants/PATH'
 
 import s from './page.module.scss'
-
-import { useCheckRecoveryCodeMutation } from '@/app/services/vibeVisualApi'
 
 function RecoveryPasswordContent() {
   const router = useRouter()

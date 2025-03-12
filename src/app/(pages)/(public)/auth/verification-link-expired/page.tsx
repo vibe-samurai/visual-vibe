@@ -3,11 +3,10 @@
 import { Button, Input, Modal } from '@vibe-samurai/visual-ui-kit'
 import React, { useState } from 'react'
 
+import { useResendVerificationEmailMutation } from '@/features/auth/api'
 import { EmailLinkExpired } from '@/shared/components/email-link-expired/EmailLinkExpired'
 
 import s from './page.module.scss'
-
-import { useResendVerificationEmailMutation } from '@/app/services/vibeVisualApi'
 
 export default function EmailExpired() {
   const [email, setEmail] = useState('')
