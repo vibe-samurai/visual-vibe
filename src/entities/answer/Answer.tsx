@@ -1,7 +1,7 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
-import { useGetAnswersLikesByIdQuery } from '@/app/services/vibeVisualApi'
+import { useGetAnswersLikesByIdQuery } from '@/app/services'
 import { useAppDispatch } from '@/app/store/store'
 import { LikeButton } from '@/shared/components'
 import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'

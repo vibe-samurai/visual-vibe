@@ -1,10 +1,7 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React, { useState } from 'react'
 
-import {
-  useGetAnswersByCommentIdQuery,
-  useGetLikesByCommentIdQuery,
-} from '@/app/services/vibeVisualApi'
+import { useGetAnswersByCommentIdQuery, useGetLikesByCommentIdQuery } from '@/app/services/'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components/like-button/LikeButton'
@@ -68,19 +65,19 @@ const Comment = ({
           </div>
           <div className={s.commentInfo}>
             <Typography variant={'small-text'}>{date}</Typography>
-            {isAuthenticated && commenter && likesData.items.length > 0 && (
+            {commenter && likesData.items.length > 0 && (
               <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
                 Like: {likesData.items.length}
               </Typography>
             )}
-            {isAuthenticated && commenter && (
+            {commenter && (
               <Typography as={'button'} variant={'semi-bold-small-text'}>
                 Answer
               </Typography>
             )}
           </div>
         </div>
-        {isAuthenticated && commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
+        {commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
         <LikesList />
       </div>
       {commenter && answerCount !== undefined && answerCount > 0 && (

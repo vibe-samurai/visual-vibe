@@ -29,7 +29,7 @@ const PostContainer = ({ post, closePost }: Props) => {
           }}
         />
       )}
-      {isAuthenticated && editMode && <EditPostHeader />}
+      {editMode && <EditPostHeader />}
 
       <PostSlider images={post.images} />
 

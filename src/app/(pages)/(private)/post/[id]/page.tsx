@@ -3,7 +3,7 @@
 import { Loader } from '@vibe-samurai/visual-ui-kit'
 import React, { use } from 'react'
 
-import { useGetPostByIdQuery } from '@/app/services/vibeVisualApi'
+import { useGetPostByIdQuery } from '@/app/services'
 import Post from '@/entities/posts/Post'
 
 type Props = {

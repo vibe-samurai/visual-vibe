@@ -27,7 +27,7 @@ export const PostComponent = ({ post }: Props) => {
         post={post}
       />
 
-      {isAuthenticated && confirmCloseEditing && <ConfirmCloseDialog />}
+      {confirmCloseEditing && <ConfirmCloseDialog />}
     </TransparentBackground>
   )
 }

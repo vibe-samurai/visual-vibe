@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useGetCommentsByPostIdQuery } from '@/app/services/vibeVisualApi'
+import { useGetCommentsByPostIdQuery } from '@/app/services'
 import Comment from '@/entities/comment/Comment'
 import { Post } from '@/entities/posts/types'
 import { formatDate } from '@/shared/lib/date/formatDate'

@@ -21,7 +21,7 @@ const CommentsHeader = ({ post }: Props) => {
     <div className={s.commentsHeader}>
       <ProfilePhoto photo={post.avatarOwner} />
       <Typography variant={'h3'}>{post.userName}</Typography>
-      {isAuthenticated && (editMode || <More id={post.id} />)}
+      {editMode || <More id={post.id} />}
     </div>
   )
 }
