@@ -5,14 +5,19 @@ import { Post } from '@/entities/posts/types'
 
 import s from './ProfilePhoto.module.scss'
 type Props = {
-  photo: string
+  avatar: string
 }
-const ProfilePhoto = ({ photo }: Props) => {
+export const ProfilePhoto = ({ avatar }: Props) => {
   return (
     <>
-      <Image className={s.profilePhoto} src={photo} alt={'Profile Image'} width={36} height={36} />
+      <Image
+        className={s.profilePhoto}
+        src={avatar}
+        alt={'Profile Image'}
+        width={36}
+        height={36}
+        priority
+      />
     </>
   )
 }
-
-export default ProfilePhoto

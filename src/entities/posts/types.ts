@@ -76,10 +76,10 @@ export type Answers = {
   pageSize: number
   totalCount: number
   notReadCount: number
-  items: Item[]
+  items: AnswerItem[]
 }
 
-export type Item = {
+export type AnswerItem = {
   id: number
   commentId: number
   from: From

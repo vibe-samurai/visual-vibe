@@ -8,14 +8,14 @@ import { Post } from '@/entities/posts/types'
 import s from './CommentsContainer.module.scss'
 import { setEditText } from '../../model'
 import { postSelector } from '../../model/selectors/postSelector'
-import CommentsBody from '../comments-body/CommentsBody'
-import CommentsFooter from '../comments-footer/CommentsFooter'
-import CommentsHeader from '../comments-header/CommentsHeader'
+import { CommentsBody } from '../comments-body/CommentsBody'
+import { CommentsFooter } from '../comments-footer/CommentsFooter'
+import { CommentsHeader } from '../comments-header/CommentsHeader'
 
 type Props = {
   post: Post
 }
-const CommentsContainer = ({ post }: Props) => {
+export const CommentsContainer = ({ post }: Props) => {
   const dispatch = useAppDispatch()
   const editMode = useAppSelector(postSelector).editMode
   const editText = useAppSelector(postSelector).editText
@@ -36,30 +36,33 @@ const CommentsContainer = ({ post }: Props) => {
       <CommentsHeader post={post} />
 
       {editMode ? (
-        <div className={s.editBody}>
-          <Typography variant={'regular-text-14'} className={s.grayText}>
-            Add publication descriptions
-          </Typography>
+        <>
+          {' '}
+          <div className={s.editBody}>
+            <Typography variant={'regular-text-14'} className={s.grayText}>
+              Add publication descriptions
+            </Typography>
 
-          <TextArea value={editText} onChange={handleChange} style={{ height: '120px' }}></TextArea>
+            <TextArea
+              value={editText}
+              onChange={handleChange}
+              style={{ height: '120px' }}
+            ></TextArea>
 
-          <Typography variant={'small-text'} className={`${s.grayText} ${s.marginLeftAuto}`}>
-            {editText.length}/500
-          </Typography>
-        </div>
+            <Typography variant={'small-text'} className={`${s.grayText} ${s.marginLeftAuto}`}>
+              {editText.length}/500
+            </Typography>
+          </div>
+          <div className={s.editButton}>
+            <Button onClick={updateDescriptionHandler}>Save Changes</Button>
+          </div>
+        </>
       ) : (
-        <CommentsBody post={post} />
-      )}
-
-      {editMode ? (
-        <div className={s.editButton}>
-          <Button onClick={updateDescriptionHandler}>Save Changes</Button>
-        </div>
-      ) : (
-        <CommentsFooter post={post} />
+        <>
+          <CommentsBody post={post} />
+          <CommentsFooter post={post} />
+        </>
       )}
     </div>
   )
 }
-
-export default CommentsContainer

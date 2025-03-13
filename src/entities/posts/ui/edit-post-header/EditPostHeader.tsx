@@ -2,12 +2,12 @@ import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import CloseButton from '@/shared/components/close-button/CloseButton'
+import { CloseButton } from '@/shared/components/close-button/CloseButton'
 
 import s from './EditPostHeader.module.scss'
 import { postSelector, setConfirmCloseEditing, setEditMode, setEditText } from '../../model'
 
-const EditPostHeader = () => {
+export const EditPostHeader = () => {
   const dispatch = useAppDispatch()
   const editText = useAppSelector(postSelector).editText
 
@@ -27,5 +27,3 @@ const EditPostHeader = () => {
     </div>
   )
 }
-
-export default EditPostHeader

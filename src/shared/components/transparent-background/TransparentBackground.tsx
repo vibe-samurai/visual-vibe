@@ -5,8 +5,6 @@ type Props = ComponentPropsWithoutRef<'div'> & {
   isOpen: boolean
   className?: string
 }
-const TransparentBackground = ({ isOpen, children }: Props) => {
+export const TransparentBackground = ({ isOpen, children }: Props) => {
   return <div className={`${s.transparentBackground} ${isOpen && s.open}`}>{children}</div>
 }
-
-export default TransparentBackground

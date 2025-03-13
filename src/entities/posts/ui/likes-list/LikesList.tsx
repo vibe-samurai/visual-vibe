@@ -2,30 +2,26 @@ import { Card, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import { useAppDispatch, useAppSelector } from '@/app/store/store'
-import CloseButton from '@/shared/components/close-button/CloseButton'
-import TransparentBackground from '@/shared/components/transparent-background/TransparentBackground'
+import { useAppDispatch } from '@/app/store/store'
+import { CloseButton } from '@/shared/components/close-button/CloseButton'
+import { TransparentBackground } from '@/shared/components/transparent-background/TransparentBackground'
 
 import s from './LikesList.module.scss'
-import { clearLikesList, postSelector, setLikesListOpen } from '../../model'
-import LikeOwner from '../like-owner/LikeOwner'
-
-const LikesList = () => {
-  const dispatch = useAppDispatch()
-  const likesList = useAppSelector(postSelector).likesList
-  const likesListIsOpen = useAppSelector(postSelector).likesListIsOpen
-  const likesListCloseHandler = () => {
-    dispatch(setLikesListOpen(false))
-    dispatch(clearLikesList())
-  }
-
+import { LikeItem } from '../../types'
+import { LikeOwner } from '../like-owner/LikeOwner'
+type Props = {
+  open: boolean
+  onClose: () => void
+  likesList: LikeItem[] | []
+}
+export const LikesList = ({ open, onClose, likesList }: Props) => {
   return createPortal(
-    <TransparentBackground isOpen={likesListIsOpen}>
+    <TransparentBackground isOpen={open}>
       {' '}
       <Card className={s.likesList}>
         <div className={s.likesListHeader}>
           <Typography variant={'h1'}>Likes</Typography>
-          <CloseButton onClick={likesListCloseHandler}></CloseButton>
+          <CloseButton onClick={onClose}></CloseButton>
         </div>
         <Input className={s.likesListInput} placeholder={'Search'}></Input>
         <div className={s.likeOwnersList}>
@@ -35,7 +31,9 @@ const LikesList = () => {
                 followed
                 key={like.id}
                 name={like.userName}
-                photo={like.avatars?.[1]?.url || like.avatars?.[0]?.url || '/default-avatar.png'}
+                avatar={
+                  like.avatars?.[1]?.url || like.avatars?.[0]?.url || '/images/default-avatar.ong'
+                }
               />
             )
           })}
@@ -45,5 +43,3 @@ const LikesList = () => {
     document.body
   )
 }
-
-export default LikesList

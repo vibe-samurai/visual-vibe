@@ -1,54 +1,29 @@
+import { Loader } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
 import { useGetCommentsByPostIdQuery } from '@/app/services'
-import Comment from '@/entities/comment/Comment'
+import { Comment } from '@/entities/comment/Comment'
 import { Post } from '@/entities/posts/types'
-import { formatDate } from '@/shared/lib/date/formatDate'
 
+import { PostDescription } from '../post-description'
 import s from './CommentsBody.module.scss'
 type Props = {
   post: Post
 }
-const CommentsBody = ({ post }: Props) => {
-  const { data } = useGetCommentsByPostIdQuery({ postId: post.id })
+export const CommentsBody = ({ post }: Props) => {
+  const { data, isLoading } = useGetCommentsByPostIdQuery({ postId: post.id })
 
+  if (isLoading) return <Loader />
   if (!data) {
     return
   }
 
   return (
     <div className={s.commentsBody}>
-      <Comment
-        id={post.id}
-        post={post}
-        commenter={false}
-        photo={post.avatarOwner}
-        text={post.description}
-        userName={post.userName}
-        date={formatDate(post.createdAt)}
-      />
+      <PostDescription post={post} />
       {data.items.map(comment => {
-        return (
-          <Comment
-            post={post}
-            key={comment.id}
-            id={comment.id}
-            commenter
-            photo={
-              comment.from.avatars?.[1]?.url ||
-              comment.from.avatars?.[0]?.url ||
-              '/default-avatar.png'
-            }
-            text={comment.content}
-            userName={comment.from.username}
-            isLiked={comment.isLiked}
-            date={formatDate(comment.createdAt)}
-            answerCount={comment.answerCount}
-          />
-        )
+        return <Comment comment={comment} post={post} key={comment.id} />
       })}
     </div>
   )
 }
-
-export default CommentsBody

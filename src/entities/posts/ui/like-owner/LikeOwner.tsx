@@ -1,18 +1,18 @@
 import { Button, Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 
-import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
+import { ProfilePhoto } from '@/shared/components/profile-photo/ProfilePhoto'
 
 import s from './LikeOwner.module.scss'
 type Props = {
   followed: boolean
-  photo: string
+  avatar: string
   name: string
 }
-const LikeOwner = ({ followed, photo, name }: Props) => {
+export const LikeOwner = ({ followed, avatar, name }: Props) => {
   return (
     <div className={s.LikeOwner}>
-      <ProfilePhoto photo={photo} />
+      <ProfilePhoto avatar={avatar} />
       <Typography variant={'regular-text-16'}>{name}</Typography>
       <Button className={s.marginLeftAuto} variant={followed ? 'outlined' : 'primary'}>
         {followed ? 'Unfollow' : 'Follow'}
@@ -20,5 +20,3 @@ const LikeOwner = ({ followed, photo, name }: Props) => {
     </div>
   )
 }
-
-export default LikeOwner

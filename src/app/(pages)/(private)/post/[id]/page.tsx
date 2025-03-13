@@ -1,24 +1,32 @@
-'use client'
-
-import { Loader } from '@vibe-samurai/visual-ui-kit'
 import React, { use } from 'react'
 
-import { useGetPostByIdQuery } from '@/app/services'
-import Post from '@/entities/posts/Post'
+import { PostComponent } from '@/entities/posts/Post'
 
-type Props = {
-  params: Promise<{ id: string }>
-}
+// type Props = {
+//   params: Promise<{ id?: string }>
+// }
 
-const PostPage = ({ params }: Props) => {
-  const { id } = use(params)
-  const postId = +id
-  const { data: post, error, isLoading } = useGetPostByIdQuery({ postId })
+// const PostPage = ({ params }: Props) => {
+//   const { id } = use(params)
+//    const postId = id ? Number(id) : undefined
 
-  if (isLoading) return <Loader />
-  if (!post) return <p>Post not found</p>
+//   return <Post postId={postId} />
+// }
 
-  return <Post post={post} />
+// export default PostPage
+
+const PostPage = async ({ params }: { params: { id?: string } }) => {
+  const { id } = await params
+  const postId = id ? Number(id) : undefined
+  let initialPostData = null
+
+  if (postId) {
+    const response = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`)
+
+    initialPostData = await response.json()
+  }
+
+  return <PostComponent postId={postId} initialPost={initialPostData} />
 }
 
 export default PostPage

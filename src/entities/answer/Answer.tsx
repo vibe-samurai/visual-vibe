@@ -1,65 +1,74 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
-import React from 'react'
+import React, { useState } from 'react'
 
-import { useGetAnswersLikesByIdQuery } from '@/app/services'
-import { useAppDispatch } from '@/app/store/store'
+import { useGetAnswersLikesByIdQuery, useLazyGetAnswersLikesByIdQuery } from '@/app/services'
+import { useAppSelector } from '@/app/store/store'
+import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components'
-import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
+import { ProfilePhoto } from '@/shared/components/profile-photo/ProfilePhoto'
+import { formatDate } from '@/shared/lib/date/formatDate'
 
 import s from './Answer.module.scss'
-import { setLikesList, setLikesListOpen } from '../posts/model'
-import LikesList from '../posts/ui/likes-list/LikesList'
+import { AnswerItem } from '../posts/types'
+import { LikesList } from '../posts/ui/likes-list/LikesList'
+
 type Props = {
-  photo: string
-  text: string
-  userName: string
-  isLiked?: boolean
-  date: string
-  commentId: number
-  answerId: number
+  answer: AnswerItem
   postId: number
 }
-const Answer = ({ photo, text, userName, isLiked, date, commentId, answerId, postId }: Props) => {
-  const dispatch = useAppDispatch()
-  const { data } = useGetAnswersLikesByIdQuery({ postId, commentId, answerId })
 
-  if (!data) {
-    return
-  }
-  const LikesListHandler = () => {
-    dispatch(setLikesList(data.items ?? []))
-    dispatch(setLikesListOpen(true))
+export const Answer = ({ answer, postId }: Props) => {
+  const [isOpenLikes, setIsOpenLikes] = useState(false)
+  const [fetchLikes, { data }] = useLazyGetAnswersLikesByIdQuery()
+  const isAuth = useAppSelector(selectIsAuthenticated)
+
+  const handleLikesList = () => {
+    setIsOpenLikes(true)
+    fetchLikes({ postId, commentId: answer.commentId, answerId: answer.id })
   }
 
   return (
     <div className={s.answer}>
-      <ProfilePhoto photo={photo} />
+      <ProfilePhoto
+        avatar={
+          answer.from.avatars?.[1]?.url || answer.from.avatars?.[0]?.url || '/default-avatar.png'
+        }
+      />
       <div className={s.answerBody}>
         <div className={s.answerText}>
           <Typography as={'span'} variant={'bold-text-14'}>
-            {userName}
+            {answer.from.username}
           </Typography>
           <Typography as={'span'} variant={'regular-text-14'}>
-            {text}
+            {answer.content}
           </Typography>
         </div>
         <div className={s.answerInfo}>
-          <Typography variant={'small-text'}>{date}</Typography>
-          {data.items.length > 0 && (
-            <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
-              Like: {data.items.length}
+          <Typography variant={'small-text'}>{formatDate(answer.createdAt)}</Typography>
+          {answer.likeCount > 0 && (
+            <Typography as={'button'} onClick={handleLikesList} variant={'semi-bold-small-text'}>
+              Like: {answer.likeCount}
             </Typography>
           )}
-
-          <Typography as={'button'} variant={'semi-bold-small-text'}>
-            Answer
-          </Typography>
+          {isAuth && (
+            <Typography as={'button'} variant={'semi-bold-small-text'}>
+              Answer
+            </Typography>
+          )}
         </div>
       </div>
-      <LikeButton likeStatus={isLiked} updateLike={() => {}} />
-      <LikesList />
+      {isAuth && (
+        <>
+          <LikeButton likeStatus={answer.isLiked} updateLike={() => {}} />
+          {answer.likeCount > 0 && (
+            <LikesList
+              likesList={data?.items || []}
+              onClose={() => setIsOpenLikes(false)}
+              open={isOpenLikes}
+            />
+          )}
+        </>
+      )}
     </div>
   )
 }
-
-export default Answer

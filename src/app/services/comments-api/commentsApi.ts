@@ -32,7 +32,10 @@ const commentsApi = vibeVisualApi.injectEndpoints({
 
 export const {
   useGetCommentsByPostIdQuery,
+  useLazyGetLikesByCommentIdQuery,
   useGetLikesByCommentIdQuery,
+  useLazyGetAnswersLikesByIdQuery,
   useGetAnswersByCommentIdQuery,
+  useLazyGetAnswersByCommentIdQuery,
   useGetAnswersLikesByIdQuery,
 } = commentsApi

@@ -7,7 +7,7 @@ import s from './ConfirmCloseDialog.module.scss'
 import { postSelector } from '../../model/selectors/postSelector'
 import { setConfirmCloseEditing, setEditMode, setEditText } from '../../model/slices/postSlice'
 
-const ConfirmCloseDialog = () => {
+export const ConfirmCloseDialog = () => {
   const confirmCloseEditing = useAppSelector(postSelector).confirmCloseEditing
   const dispatch = useAppDispatch()
 
@@ -40,5 +40,3 @@ const ConfirmCloseDialog = () => {
     </Dialog>
   )
 }
-
-export default ConfirmCloseDialog

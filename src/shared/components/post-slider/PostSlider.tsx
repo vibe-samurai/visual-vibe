@@ -12,7 +12,7 @@ type Props = {
   images: PostImage[]
 }
 
-const PostSlider = ({ images }: Props) => {
+export const PostSlider = ({ images }: Props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [slideCount, setSlideCount] = useState(0)
@@ -90,5 +90,3 @@ const PostSlider = ({ images }: Props) => {
     </div>
   )
 }
-
-export default PostSlider

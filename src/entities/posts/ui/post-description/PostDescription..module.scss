@@ -1,0 +1,24 @@
+.description {
+  display: flex;
+}
+
+.descriptionText {
+  margin-bottom: 5px;
+
+  span {
+    &:first-child {
+      margin-right: 5px;
+    }
+  }
+}
+
+.descriptionInfo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--Light-900);
+
+  button {
+    cursor: pointer;
+  }
+}

@@ -1,6 +1,6 @@
 import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useGetLikesByPostIdQuery } from '@/app/services'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
@@ -12,15 +12,15 @@ import { formatExactDate } from '@/shared/lib/date/formatExactDate'
 import { SendButton } from '@public/icon/SendButton'
 
 import s from './CommentsFooter.module.scss'
-import { setLikesList, setLikesListOpen } from '../../model'
-import LikesList from '../likes-list/LikesList'
+import { LikesList } from '../likes-list/LikesList'
 
 type Props = {
   post: Post
 }
-const CommentsFooter = ({ post }: Props) => {
+export const CommentsFooter = ({ post }: Props) => {
   const dispatch = useAppDispatch()
-  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  const [isOpenLikes, setIsOpenLikes] = useState(false)
+  const isAuth = useAppSelector(selectIsAuthenticated)
   const { data } = useGetLikesByPostIdQuery({ postId: post.id })
 
   if (!data) {
@@ -28,22 +28,25 @@ const CommentsFooter = ({ post }: Props) => {
   }
 
   const LikesListHandler = () => {
-    dispatch(setLikesList(data.items ?? []))
-    dispatch(setLikesListOpen(true))
+    setIsOpenLikes(true)
   }
 
   return (
     <div className={s.commentsFooter}>
       <div className={s.commentsInfo}>
-        {
+        {isAuth && (
           <div className={s.commentsActions}>
             <LikeButton likeStatus={data.isLiked} updateLike={() => {}} big />
             <SendButton />
             <SaveButton />
           </div>
-        }
+        )}
         {data.totalCount > 0 && (
-          <button onClick={LikesListHandler} type={'button'} className={s.commentsLikes}>
+          <button
+            onClick={isAuth ? LikesListHandler : () => {}}
+            type={'button'}
+            className={s.commentsLikes}
+          >
             <div className={s.likeOwnerPhotos}>
               {data.items.map(item => {
                 const avatars = item.avatars.length
@@ -75,7 +78,7 @@ const CommentsFooter = ({ post }: Props) => {
           {formatExactDate(post.createdAt)}
         </Typography>
       </div>
-      {
+      {isAuth && (
         <div className={s.commentsAddComment}>
           <Input
             className={s.addCommentInput}
@@ -84,10 +87,14 @@ const CommentsFooter = ({ post }: Props) => {
           ></Input>
           <Button variant={'link'}>Publish</Button>
         </div>
-      }
-      <LikesList />
+      )}
+      <LikesList
+        likesList={data.items}
+        onClose={() => {
+          setIsOpenLikes(false)
+        }}
+        open={isOpenLikes}
+      />
     </div>
   )
 }
-
-export default CommentsFooter

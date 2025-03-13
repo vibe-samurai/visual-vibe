@@ -5,15 +5,11 @@ type PostState = {
   editMode: boolean
   editText: string
   confirmCloseEditing: boolean
-  likesListIsOpen: boolean
-  likesList: LikeItem[] // Указываем явный тип массива
 }
 const initialState: PostState = {
   editMode: false,
   editText: '',
   confirmCloseEditing: false,
-  likesListIsOpen: false,
-  likesList: [],
 }
 
 export const postSlice = createSlice({
@@ -29,24 +25,8 @@ export const postSlice = createSlice({
     setConfirmCloseEditing: (state, action: PayloadAction<boolean>) => {
       state.confirmCloseEditing = action.payload
     },
-    setLikesListOpen: (state, action: PayloadAction<boolean>) => {
-      state.likesListIsOpen = action.payload
-    },
-    setLikesList: (state, action: PayloadAction<LikeItem[]>) => {
-      state.likesList = action.payload
-    },
-    clearLikesList: state => {
-      state.likesList = []
-    },
   },
 })
 
-export const {
-  setEditMode,
-  setEditText,
-  setConfirmCloseEditing,
-  setLikesListOpen,
-  setLikesList,
-  clearLikesList,
-} = postSlice.actions
+export const { setEditMode, setEditText, setConfirmCloseEditing } = postSlice.actions
 export default postSlice.reducer

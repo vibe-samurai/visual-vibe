@@ -1,119 +1,106 @@
-import { Typography } from '@vibe-samurai/visual-ui-kit'
+'use client'
+
+import { Loader, Typography } from '@vibe-samurai/visual-ui-kit'
 import React, { useState } from 'react'
 
-import { useGetAnswersByCommentIdQuery, useGetLikesByCommentIdQuery } from '@/app/services/'
+import {
+  useGetAnswersByCommentIdQuery,
+  useLazyGetLikesByCommentIdQuery,
+  useLazyGetAnswersByCommentIdQuery,
+} from '@/app/services/'
 import { useAppDispatch, useAppSelector } from '@/app/store/store'
 import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components/like-button/LikeButton'
-import ProfilePhoto from '@/shared/components/profile-photo/ProfilePhoto'
+import { ProfilePhoto } from '@/shared/components/profile-photo/ProfilePhoto'
+import { formatDate } from '@/shared/lib/date/formatDate'
 
 import s from './Coment.module.scss'
-import Answer from '../answer/Answer'
-import { setLikesList, setLikesListOpen } from '../posts/model'
-import { Post } from '../posts/types'
-import LikesList from '../posts/ui/likes-list/LikesList'
+import { Answer } from '../answer/Answer'
+import { Post, PostComment } from '../posts/types'
+import { LikesList } from '../posts/ui/likes-list/LikesList'
 type Props = {
-  commenter?: boolean
-  photo: string
-  text: string
-  userName: string
-  isLiked?: boolean
-  date: string
   post: Post
-  id: number
-  answerCount?: number
+  comment: PostComment
 }
 
-const Comment = ({
-  commenter = true,
-  photo,
-  text,
-  userName,
-  isLiked,
-  date,
-  post,
-  id,
-  answerCount,
-}: Props) => {
+export const Comment = ({ post, comment }: Props) => {
   const [isOpenAnswers, setIsOpenAnswers] = useState(false)
-  const isAuthenticated = useAppSelector(selectIsAuthenticated)
-  const dispatch = useAppDispatch()
-  const { data: likesData } = useGetLikesByCommentIdQuery({ postId: post.id, commentId: id })
-  const { data: answersData } = useGetAnswersByCommentIdQuery({ postId: post.id, commentId: id })
+  const isAuth = useAppSelector(selectIsAuthenticated)
+  const [isOpenLikes, setIsOpenLikes] = useState(false)
 
-  if (!likesData) {
-    return
+  const [fetchLikes, { data: likesData, isFetching: likesIsLoading }] =
+    useLazyGetLikesByCommentIdQuery()
+  const [fetchAnswers, { data: answersData, isFetching: answersIsLoading }] =
+    useLazyGetAnswersByCommentIdQuery()
+
+  const likesListHandler = () => {
+    setIsOpenLikes(true)
+    fetchLikes({ postId: post.id, commentId: comment.id })
   }
-
-  const LikesListHandler = () => {
-    dispatch(setLikesList(likesData.items ?? []))
-    dispatch(setLikesListOpen(true))
+  const answersListHandler = () => {
+    setIsOpenAnswers(!isOpenAnswers)
+    if (!isOpenAnswers) {
+      fetchAnswers({ postId: post.id, commentId: comment.id })
+    }
   }
 
   return (
     <div className={s.fullComment}>
       <div className={s.comment}>
-        <ProfilePhoto photo={photo} />
+        <ProfilePhoto
+          avatar={
+            comment.from.avatars?.[1]?.url ||
+            comment.from.avatars?.[0]?.url ||
+            '/default-avatar.png'
+          }
+        />
         <div className={s.commentBody}>
           <div className={s.commentText}>
             <Typography as={'span'} variant={'bold-text-14'}>
-              {userName}
+              {comment.from.username}
             </Typography>
             <Typography as={'span'} variant={'regular-text-14'}>
-              {text}
+              {comment.content}
             </Typography>
           </div>
           <div className={s.commentInfo}>
-            <Typography variant={'small-text'}>{date}</Typography>
-            {commenter && likesData.items.length > 0 && (
-              <Typography as={'button'} onClick={LikesListHandler} variant={'semi-bold-small-text'}>
-                Like: {likesData.items.length}
+            <Typography variant={'small-text'}>{formatDate(comment.createdAt)}</Typography>
+            {isAuth && comment.likeCount > 0 && (
+              <Typography as={'button'} onClick={likesListHandler} variant={'semi-bold-small-text'}>
+                Like: {comment.likeCount}
               </Typography>
             )}
-            {commenter && (
+            {isAuth && (
               <Typography as={'button'} variant={'semi-bold-small-text'}>
                 Answer
               </Typography>
             )}
           </div>
         </div>
-        {commenter && <LikeButton likeStatus={isLiked} updateLike={() => {}} />}
-        <LikesList />
-      </div>
-      {commenter && answerCount !== undefined && answerCount > 0 && (
-        <div className={s.answers}>
-          <button
-            onClick={() => {
-              setIsOpenAnswers(!isOpenAnswers)
+        {isAuth && <LikeButton likeStatus={comment.isLiked} updateLike={() => {}} />}
+        {comment.likeCount > 0 && (
+          <LikesList
+            likesList={likesData?.items || []}
+            onClose={() => {
+              setIsOpenLikes(false)
             }}
-            className={s.answersButton}
-            type={'button'}
-          >
+            open={isOpenLikes}
+          />
+        )}
+      </div>
+      {comment.answerCount !== undefined && comment.answerCount > 0 && (
+        <div className={s.answers}>
+          <button onClick={answersListHandler} className={s.answersButton} type={'button'}>
             <span className={s.answersLine}> </span>
             <Typography as={'span'} variant={'semi-bold-small-text'}>
               {isOpenAnswers ? 'Hide Answers' : `Show Answers`}
-              {` (${answerCount})`}
+              {` (${comment.answerCount})`}
             </Typography>
           </button>
           <div className={`${s.answersList} ${isOpenAnswers ? s.open : ''}`}>
-            {answersData &&
-              answersData.items.map(answer => {
-                return (
-                  <Answer
-                    commentId={answer.commentId}
-                    answerId={answer.id}
-                    postId={post.id}
-                    text={answer.content}
-                    userName={answer.from.username}
-                    date={answer.createdAt}
-                    photo={
-                      answer.from.avatars?.[1]?.url ||
-                      answer.from.avatars?.[0]?.url ||
-                      '/default-avatar.png'
-                    }
-                    key={answer.id}
-                  ></Answer>
-                )
+            {comment.answerCount > 0 &&
+              answersData?.items.map(answer => {
+                return <Answer answer={answer} postId={post.id} key={answer.id}></Answer>
               })}
           </div>
         </div>
@@ -121,5 +108,3 @@ const Comment = ({
     </div>
   )
 }
-
-export default Comment
