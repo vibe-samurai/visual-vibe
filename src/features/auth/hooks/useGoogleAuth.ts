@@ -23,7 +23,9 @@ export const useGoogleAuth = () => {
   const dispatch = useDispatch()
 
   const login = useGoogleLogin({
+    redirect_uri: 'https://visual-vibe.uk',
     flow: 'auth-code',
+    ux_mode: 'redirect',
     onError: error => {
       console.error('Login Failed:', error)
       dispatch(setError('Google login failed. Please try again.'))
@@ -35,7 +37,7 @@ export const useGoogleAuth = () => {
       try {
         const { accessToken } = await authMeGoogle({
           code: credentialResponse.code,
-          redirectUrl: 'https://visual-vibe.uk/home',
+          redirectUrl: 'https://visual-vibe.uk',
         }).unwrap()
 
         if (accessToken) {
