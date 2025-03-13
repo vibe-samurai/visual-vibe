@@ -8,7 +8,7 @@ export type LoginResponse = {
 }
 
 export type GoogleOAuthRequest = {
-  baseUrl?: string
+  redirectUrl?: string
   code: string | string[] | undefined
 }
 

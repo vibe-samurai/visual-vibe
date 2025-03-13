@@ -20,14 +20,14 @@ export const authApi = baseAppApi.injectEndpoints({
     // Регистрация и подтверждение email
     signup: builder.mutation<void, SignUpResponse>({
       query: body => ({
-        url: '/v1/auth/registration',
+        url: 'auth/registration',
         method: 'POST',
         body: { ...body, baseUrl: PROJECT_HOST },
       }),
     }),
     confirmEmail: builder.query<void, EmailConfirmResponse>({
       query: body => ({
-        url: '/v1/auth/registration-confirmation',
+        url: 'auth/registration-confirmation',
         method: 'POST',
         body: { ...body },
       }),
@@ -35,7 +35,7 @@ export const authApi = baseAppApi.injectEndpoints({
     }),
     resendVerificationEmail: builder.mutation<void, string>({
       query: email => ({
-        url: '/v1/auth/registration-email-resending',
+        url: 'auth/registration-email-resending',
         method: 'POST',
         body: { email, baseUrl: 'http://localhost:3000/' },
       }),
@@ -44,7 +44,7 @@ export const authApi = baseAppApi.injectEndpoints({
     // Восстановление пароля
     recoveryPassword: builder.mutation<void, RecoveryPasswordData>({
       query: body => ({
-        url: 'v1/auth/password-recovery',
+        url: 'auth/password-recovery',
         method: 'POST',
         body,
       }),
@@ -52,13 +52,13 @@ export const authApi = baseAppApi.injectEndpoints({
     checkRecoveryCode: builder.mutation<{ email: string }, { recoveryCode: string }>({
       query: ({ recoveryCode }) => ({
         method: 'POST',
-        url: 'v1/auth/check-recovery-code',
+        url: 'auth/check-recovery-code',
         body: { recoveryCode },
       }),
     }),
     recoveryPasswordResending: builder.mutation<void, RecoveryPasswordResending>({
       query: body => ({
-        url: 'v1/auth/password-recovery-resending',
+        url: 'auth/password-recovery-resending',
         method: 'POST',
         body,
       }),
@@ -66,7 +66,7 @@ export const authApi = baseAppApi.injectEndpoints({
     createNewPassword: builder.mutation<void, NewPasswordData>({
       query: body => ({
         method: 'POST',
-        url: 'v1/auth/new-password',
+        url: 'auth/new-password',
         body,
       }),
     }),
@@ -79,7 +79,7 @@ export const authApi = baseAppApi.injectEndpoints({
         if (data) setCookie('accessToken', data.accessToken.trim(), 7)
       },
       query: body => ({
-        url: 'v1/auth/login',
+        url: 'auth/login',
         method: 'POST',
         body,
       }),
@@ -94,7 +94,7 @@ export const authApi = baseAppApi.injectEndpoints({
       query: args => ({
         body: args,
         method: 'POST',
-        url: 'v1/auth/google/login',
+        url: 'auth/google/login',
       }),
     }),
     logout: builder.mutation<void, void>({
@@ -106,7 +106,7 @@ export const authApi = baseAppApi.injectEndpoints({
       },
       query: () => ({
         method: 'POST',
-        url: 'v1/auth/logout',
+        url: 'auth/logout',
       }),
     }),
 
@@ -114,7 +114,7 @@ export const authApi = baseAppApi.injectEndpoints({
     me: builder.query<MeResponse, void>({
       providesTags: ['Me'],
       query: () => ({
-        url: 'v1/auth/me',
+        url: 'auth/me',
       }),
     }),
 
@@ -122,7 +122,7 @@ export const authApi = baseAppApi.injectEndpoints({
     updateTokens: builder.mutation<void, void>({
       query: () => ({
         method: 'POST',
-        url: 'v1/auth/update-tokens',
+        url: 'auth/update-tokens',
       }),
     }),
   }),
