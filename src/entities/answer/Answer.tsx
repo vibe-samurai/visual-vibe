@@ -1,7 +1,7 @@
 import { Typography } from '@vibe-samurai/visual-ui-kit'
 import React, { useState } from 'react'
 
-import { useGetAnswersLikesByIdQuery, useLazyGetAnswersLikesByIdQuery } from '@/app/services'
+import { useLazyGetAnswersLikesByIdQuery } from '@/app/services'
 import { useAppSelector } from '@/app/store/store'
 import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
 import { LikeButton } from '@/shared/components'
@@ -60,9 +60,9 @@ export const Answer = ({ answer, postId }: Props) => {
       {isAuth && (
         <>
           <LikeButton likeStatus={answer.isLiked} updateLike={() => {}} />
-          {answer.likeCount > 0 && (
+          {answer.likeCount > 0 && data && (
             <LikesList
-              likesList={data?.items || []}
+              likesList={data?.items}
               onClose={() => setIsOpenLikes(false)}
               open={isOpenLikes}
             />

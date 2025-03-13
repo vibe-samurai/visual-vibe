@@ -2,7 +2,6 @@ import { Card, Input, Typography } from '@vibe-samurai/visual-ui-kit'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import { useAppDispatch } from '@/app/store/store'
 import { CloseButton } from '@/shared/components/close-button/CloseButton'
 import { TransparentBackground } from '@/shared/components/transparent-background/TransparentBackground'
 
@@ -12,7 +11,7 @@ import { LikeOwner } from '../like-owner/LikeOwner'
 type Props = {
   open: boolean
   onClose: () => void
-  likesList: LikeItem[] | []
+  likesList: LikeItem[]
 }
 export const LikesList = ({ open, onClose, likesList }: Props) => {
   return createPortal(

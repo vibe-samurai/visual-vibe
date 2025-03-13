@@ -78,9 +78,9 @@ export const Comment = ({ post, comment }: Props) => {
           </div>
         </div>
         {isAuth && <LikeButton likeStatus={comment.isLiked} updateLike={() => {}} />}
-        {comment.likeCount > 0 && (
+        {comment.likeCount > 0 && likesData && (
           <LikesList
-            likesList={likesData?.items || []}
+            likesList={likesData.items}
             onClose={() => {
               setIsOpenLikes(false)
             }}
@@ -88,7 +88,7 @@ export const Comment = ({ post, comment }: Props) => {
           />
         )}
       </div>
-      {comment.answerCount !== undefined && comment.answerCount > 0 && (
+      {comment.answerCount > 0 && (
         <div className={s.answers}>
           <button onClick={answersListHandler} className={s.answersButton} type={'button'}>
             <span className={s.answersLine}> </span>

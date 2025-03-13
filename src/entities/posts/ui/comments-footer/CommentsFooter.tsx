@@ -1,9 +1,9 @@
-import { Button, Input, Typography } from '@vibe-samurai/visual-ui-kit'
+import { Button, Input, Typography, Loader } from '@vibe-samurai/visual-ui-kit'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
 import { useGetLikesByPostIdQuery } from '@/app/services'
-import { useAppDispatch, useAppSelector } from '@/app/store/store'
+import { useAppSelector } from '@/app/store/store'
 import { Post } from '@/entities/posts/types'
 import { SaveButton } from '@/entities/posts/ui/save-button/SaveButton'
 import { selectIsAuthenticated } from '@/features/auth/model/selectors/selectors'
@@ -18,14 +18,15 @@ type Props = {
   post: Post
 }
 export const CommentsFooter = ({ post }: Props) => {
-  const dispatch = useAppDispatch()
   const [isOpenLikes, setIsOpenLikes] = useState(false)
   const isAuth = useAppSelector(selectIsAuthenticated)
-  const { data } = useGetLikesByPostIdQuery({ postId: post.id })
+  const { data, isFetching } = useGetLikesByPostIdQuery({ postId: post.id })
 
   if (!data) {
     return
   }
+
+  if (isFetching) return <Loader />
 
   const LikesListHandler = () => {
     setIsOpenLikes(true)

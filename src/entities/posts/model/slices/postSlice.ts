@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-import { LikeItem } from '../../types'
 type PostState = {
   editMode: boolean
   editText: string
