@@ -35,6 +35,7 @@ export const useGoogleAuth = () => {
       try {
         const { accessToken } = await authMeGoogle({
           code: credentialResponse.code,
+          redirectUrl: 'https://visual-vibe.uk/home',
         }).unwrap()
 
         if (accessToken) {
